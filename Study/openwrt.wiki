@@ -1,0 +1,4 @@
+install svn:
+	aptitude install subversion
+svn co svn://svn.openwrt.org/openwrt/trunk/
+

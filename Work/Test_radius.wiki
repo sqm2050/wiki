@@ -1,0 +1,289 @@
+1.经常卡在下面位置:
+PP0:~CONSOLE-> Warning: Enabling IPD when IPD already enabled.
+PP0:~CONSOLE-> Warning: Enabling PKO when PKO already enabled.
+2.waiting sync signal...
+3.
+Core 6: Unhandled Exception. Cause register decodes to:
+[[tlb]] store
+******************************************************************
+ r0 ($00): 0x0000000000000000     s0 ($16): 0x0000000006f800b0
+ at ($01): 0x0000000000000063     s1 ($17): 0x0000000006f80080
+ v0 ($02): 0x0000000000000000     s2 ($18): 0x0000000006f800b0
+ v1 ($03): 0x0000000000000000     s3 ($19): 0x0000000004371790
+ a0 ($04): 0x000000369b5b290a     s4 ($20): 0x0000000006f80080
+ a1 ($05): 0x0000000000000000     s5 ($21): 0x0000000006f800e8
+ a2 ($06): 0x0000000006f80090     s6 ($22): 0x80011800280000b0
+ a3 ($07): 0x0000000006f800e8     s7 ($23): 0x0000000014000000
+ t0 ($08): 0x00000000160ffd28     t8 ($24): 0x0000000000000715
+ t1 ($09): 0x0000000000600000     t9 ($25): 0x0000000010002250
+ t2 ($10): 0x0000000000000008     k0 ($26): 0x000000001004ba10
+ t3 ($11): 0x0000000014000000     k1 ($27): 0xffffffff80001190
+ t4 ($12): 0x00000000767c581c     gp ($28): 0x00000000120090e0
+ t5 ($13): 0x0000000000000001     sp ($29): 0x00000000160ffd30
+ t6 ($14): 0x73a8016473a840f1     s8 ($30): 0x0000000014000000
+ t7 ($15): 0x0000000073a80164     ra ($31): 0x0000000010003824
+      COP0_CAUSE: 0x00000000c000800c
+     COP0_STATUS: 0x0000000050100ce3
+   COP0_BADVADDR: 0x0000000000000000
+        COP0_EPC: 0x0000000010003848
+
+      COP0_CAUSE: 0x0000000040008008
+     COP0_STATUS: 0x0000000050100ce3
+   COP0_BADVADDR: 0x0000000000000054
+        COP0_EPC: 0x0000000010006b0c
+******************************************************************
+Backtrace:
+
+  #0  0x1004b71c
+  #1  0x1004b8c8
+  #2  0x1004bad8
+  #3  0x10003848
+  #4  0x1000682c
+  #5  0x100074e4
+  #6  0x100084e8
+  #7  0x10001b58
+  #8  0x10002320
+  #9  0x100002f8
+******************************************************************
+
+PP11:~CONSOLE-> account add flag 1
+PP2:~CONSOLE-> account get flag 3
+PP10:~CONSOLE-> account get flag 1
+PP2:~CONSOLE-> hash.name.user-ip:       a085949
+PP7:~CONSOLE-> account add flag 1
+PP8:~CONSOLE-> hash.ip-user-ip: a085949
+PP10:~CONSOLE-> hash.name.user-ip:      a085949
+PP5:~CONSOLE-> hash.name.user-ip:       a085949
+PP7:~CONSOLE-> ------user-ip:   a08a4d5
+PP10:~CONSOLE-> hash.name.user-name:    ctwap@mycdma.cn
+PP2:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP5:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP8:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP11:~CONSOLE-> ------user-ip:  a08392e
+PP5:~CONSOLE-> hash.ip-user-ip: a085949
+PP7:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP9:~CONSOLE-> account add flag 1
+PP10:~CONSOLE-> hash.ip-user-ip:        a08a4d5
+PP11:~CONSOLE-> ------user-name:        ctwap@mycdma.cn
+PP5:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP7:~CONSOLE-> account get flag 1
+PP10:~CONSOLE-> hash.ip-user-name:      ctwap@mycdma.cn
+PP7:~CONSOLE-> hash.name.user-ip:       a079ba5
+PP9:~CONSOLE-> ------user-ip:   a079ba5
+PP11:~CONSOLE-> account get flag 3
+PP2:~CONSOLE-> hash.ip-user-ip: a085949
+PP7:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP9:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP11:~CONSOLE-> hash.name.user-ip:      a079ba5
+PP9:~CONSOLE-> account get flag 1
+PP10:~CONSOLE-> account add flag -1
+PP11:~CONSOLE-> hash.name.user-name:    ctwap@mycdma.cn
+PP5:~CONSOLE-> account add flag 1
+PP9:~CONSOLE-> hash.name.user-ip:       a085949
+PP2:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP5:~CONSOLE-> ------user-ip:   a07ab2c
+PP9:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP10:~CONSOLE-> ------user-ip:  a085949
+PP5:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP10:~CONSOLE-> ------user-name:        ctwap@mycdma.cn
+PP10:~CONSOLE-> account get flag -1
+PP6:~CONSOLE-> account add flag 1
+PP5:~CONSOLE-> account get flag 2
+PP10:~CONSOLE-> hash.name.user-ip:      a07ab2c
+PP3:~CONSOLE-> account add flag 1
+PP5:~CONSOLE-> hash.name.user-ip:       a07ab2c
+PP10:~CONSOLE-> hash.name.user-name:    ctwap@mycdma.cn
+PP6:~CONSOLE-> ------user-ip:   a063582
+PP5:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP3:~CONSOLE-> ------user-ip:   a0727b8
+PP6:~CONSOLE-> account get flag 1
+PP3:~CONSOLE-> ------user-name: ctnet@mycdma.cn
+PP3:~CONSOLE-> account get flag 1
+PP6:~CONSOLE-> hash.name.user-ip:       a09e0e4
+PP2:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP1:~CONSOLE-> account add flag 1
+PP2:~CONSOLE-> ------user-ip:   a0727b8
+PP2:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP2:~CONSOLE-> account get flag 1
+PP6:~CONSOLE-> hash.ip-user-ip: a0727b8
+PP1:~CONSOLE-> ------user-ip:   a090e28
+PP1:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP8:~CONSOLE-> account add flag 1
+PP2:~CONSOLE-> hash.name.user-ip:       a09e0e4
+PP8:~CONSOLE-> ------user-ip:   a073848
+PP6:~CONSOLE-> account add flag -1
+PP1:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> ------user-ip:   a073848
+PP2:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP1:~CONSOLE-> hash.name.user-ip:       a073848
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP1:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP8:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag -1
+PP8:~CONSOLE-> account get flag 5
+PP1:~CONSOLE-> hash.ip-user-ip: a073848
+PP6:~CONSOLE-> hash.name.user-ip:       a073848
+PP8:~CONSOLE-> hash.name.user-ip:       a073848
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP1:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP8:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP8:~CONSOLE-> hash.ip-user-ip: a073848
+PP6:~CONSOLE-> hash.ip-user-ip: a073848
+PP1:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP8:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP1:~CONSOLE-> ------user-ip:   a0727b8
+PP1:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP1:~CONSOLE-> account get flag 2
+PP8:~CONSOLE-> account add flag 1
+PP1:~CONSOLE-> hash.name.user-ip:       a0727b8
+PP1:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP8:~CONSOLE-> ------user-ip:   a0748ef
+PP1:~CONSOLE-> hash.ip-user-ip: a0727b8
+PP8:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP1:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP8:~CONSOLE-> account get flag 2
+PP8:~CONSOLE-> hash.name.user-ip:       a0748ef
+PP8:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP8:~CONSOLE-> hash.ip-user-ip: a0748ef
+PP8:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP1:~CONSOLE-> account add flag 1
+PP1:~CONSOLE-> ------user-ip:   a07dcab
+PP1:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP1:~CONSOLE-> account get flag 0
+PP1:~CONSOLE-> hash.name.user-ip:       a0727b8
+PP1:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP8:~CONSOLE-> account add flag 1
+PP8:~CONSOLE-> ------user-ip:   a0992e8
+PP8:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP8:~CONSOLE-> account get flag 0
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a085dad
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a085dad
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a085dad
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a08292d
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a08292d
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a08292d
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a085dad
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a085dad
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a085dad
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a085dad
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a085dad
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a085dad
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a09855e
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a09855e
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a09855e
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a096f7e
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a096f7e
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a096f7e
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a08292d
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a08292d
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a08292d
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a08292d
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a08292d
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a08292d
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a07f4f5
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a07f4f5
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a07f4f5
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a061e6a
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a061e6a
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a061e6a
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a085abb
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a085abb
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a085abb
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a06018b
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a06018b
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a06018b
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a07653e
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a07653e
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a07653e
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a07653e
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a07653e
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a07653e
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag -1
+PP6:~CONSOLE-> ------user-ip:   a07653e
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag -1
+PP6:~CONSOLE-> hash.name.user-ip:       a07653e
+PP6:~CONSOLE-> hash.name.user-name:     ctwap@mycdma.cn
+PP6:~CONSOLE-> hash.ip-user-ip: a07653e
+PP6:~CONSOLE-> hash.ip-user-name:       ctwap@mycdma.cn
+PP6:~CONSOLE-> account add flag 1
+PP6:~CONSOLE-> ------user-ip:   a064b19
+PP6:~CONSOLE-> ------user-name: ctwap@mycdma.cn
+PP6:~CONSOLE-> account get flag 2
+PP6:~CONSOLE-> hash.name.user-ip:       a064b19
+PP6:~CONSOLE-> hash.name.user-name:
+

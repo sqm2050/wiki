@@ -1,0 +1,2 @@
+1. octeon 手册179-bootmem。
+2. lock, write_lock, spin_lock

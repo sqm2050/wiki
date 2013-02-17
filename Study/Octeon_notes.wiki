@@ -1,0 +1,6 @@
+1.If 1:1 mapping is not used,memory is not mapped into the user segment.Instead 
+it is accessed either via xkphys(for 64-bit applications),or via inline assembly
+code.Virtual address "0"(the first 1 MByte)is usually unmapped.
+If virtual address "0" is unmapped, a NULL pointer access will cause the core to
+crash because there is no TLB exception handler.
+

@@ -1,0 +1,150 @@
+zxmx_dpim.h会被多个c文件包含，是不是应该不在这里和他包含的文件声明全局面量。
+
+1. radius.h
+添加：
+	#include "zxmx_common.h"
+	#include "zxmx_fpa.h"
+替换:
+	#define CVMX_FPA_USER_POOL_SIZE       384 ---->#define CVMX_FPA_USER_POOL_SIZE       3*128
+添加:
+	#define FPA_USER_POOL_NUM     10000
+移动:
+	把下面两项放到libexec/zxmx_common.h unused(wqe)：
+	 #define TIM_OF_NAS            1
+	 #define TIM_OF_RADIUS         2
+替换：
+	GRP_OF_TIM grp(wqe)--->GROUP_TO_DATA_PLANE_TIM  同时删除sseconfig.h我加的错误的.
+替换：
+	u = alloc_user_in_nas(pkb->sip, pkb->dip, pkb->sport,
+	|                      pkb->dport, r->id);
+	u = alloc_user_in_nas(pkb->pkthdr.sip, pkb->pkthdr.dip,
+	                pkb->pkthdr.sp, pkb->pkthdr.dp, r->id);
+2.zxmx_main.c
+添加:
+	+#ifdef CONFIG_RADIUS_ANALY
+	+#include "zxmx_radius.h"
+	+#endif
+	
+	+#ifdef CONFIG_RADIUS_ANALY
+	+       case TIM_OF_NAS:
+	+               return radius_user_timeout_nas((radius_user_t *)work);
+	+       case TIM_OF_RADIUS:
+	+               return radius_user_timeout((radius_user_t *)work);
+	+               return;
+	+#endif
+3.zxmx_utils.h
+添加:
+	libexec/zxmx_utils.h
+	#define pkb_app...  dpp_app...
+添加:
+	(偏移函数)
+	zxmx_utils.h:#define pkb_app_h_len(p) dpp_app_h_len(p)
+	zxmx_utils.h:#define pkb_app_h(p) dpp_app_h(p) 而不是dpp_net_h(p)
+添加
+	硬件哈希:
+	static inline int32_t __crc_hash(uint8_t *buf, uint32_t len)
+	{
+	       int32_t idx;
+	
+	       CVMX_MT_CRC_POLYNOMIAL(0x1edc6f41);
+	       CVMX_MT_CRC_IV(0);
+	
+	       while (len > 7) {
+	               CVMX_MT_CRC_DWORD(*(uint64_t *)buf);
+	               buf += 8;
+	               len -= 8;
+	       }
+	       if (len > 3) {
+	               CVMX_MT_CRC_WORD(*(uint32_t *)buf);
+	               buf += 4;
+	               len -= 4;
+	       }
+	       if (len > 1) {
+	               CVMX_MT_CRC_HALF(*(uint16_t *)buf);
+	               buf += 2;
+	               len -= 2;
+	       }
+	       if (len)
+	               CVMX_MT_CRC_BYTE(*buf);
+	
+	       CVMX_MF_CRC_IV(idx);
+	       return idx;
+	}
+4.zxmd_dpim.h
+添加:
+	        if(pgsreg->ctrl_sw.flag_insp_3g_app == 0){
+	                dpp_set_app_h(dpp, UDP_HLEN);
+	+#ifdef CONFIG_RADIUS_ANALY
+	+               if((dpp->pkthdr.sp == UDP_RADIUS_ACCESS_PORT)
+	+                               || (dpp->pkthdr.sp == UDP_RADIUS_ACCOUNT_PORT)
+	+                               || (dpp->pkthdr.dp == UDP_RADIUS_ACCOUNT_PORT)
+	+                               || (dpp->pkthdr.dp == UDP_RADIUS_ACCESS_PORT)){
+	+                       process_radius((pkb_t *)dpp);
+	+               }
+	+#endif
+5.sse/zxmd_init.c
+添加：	在这里初始化
+	+#ifdef CONFIG_RADIUS_ANALY
+	+       if(radius_init() < 0){
+	+               cvmx_dprintf("Init radius fail.\n");
+	+               return -1;
+	+       }
+=============Make====================
+touch include/config/auto.conf auto.conf.cmd
+====================================
+main - zxmd_main_init_in_one_core(等到同步信号-初始化)
+zxmd_application_main_loop---while(1) -->cvmx_pow_work_request_async(cpu的get_work)
+  zxmd_main_process(cvmx_wqe_get_grp(work))
+    |GROUP_FROM_PCIE:
+    |GROUP_FROM_INPUT_PORT:zxmd_net_process(work-->dpp),DPP_ETH(dpp) = (uint8_t *)cvmx_phys_to_ptr(dpp->wk->packet_ptr.s.addr);
+      dpim_decode_pre(&dpp)
+      zxmd_pkt_process(&dpp-->&dpp),
+        dpim_decode(dpp);
+	 \dpim_decode_eth(dpp),switch(eth->vproto)
+	   |ETH_P_8021Q: return dpim_decode_vlan(dpp)
+	   |ETH_P_IP:	 return dpim_decode_ip(dpp);
+		dpp->net0_h = dpp->net_h;dpp->pkt_type = DPIM_PKT_TYPE_ETH_IP;set_ip_proto(dpp, iph);
+		处理分片(可配置)
+		switch(iph->protocol)
+		|IP_P_UDP: dpim_decode_udp(dpp);
+		 \set_udp_port_proto(dpp, udp)
+		  根据端口判断上层协议，做进一步处理。
+	   |ETH_P_PPP_DISC: dpp->pkb_type = DPIM_PKT_TYPE_PPPOE_DISC; return;
+	   |ETH_P_PPP_SES: return dpim_decode_pppoe(dpp);
+	   |ETH_P_ARP:	  dpp->pkt_type = DPIM_PKT_TYPE_ARP; return;
+	   |default: dpp->pkt_type = DPIM_PKT_TYPE_UNKNOW; return;
+	switch(dpp->pkt_type);
+	|DPIM_PKT_TYPE_ETH_IP_TCP:\
+	|DPIM_PKT_TYPE_ETH_IP_UDP:-zxmd_calc_idx_balance
+	|DPIM_PKT_TYPE_ARP:
+	|DPIM_PKT_TYPE_ICMP:
+	csps_procs_with_ipif(dpp) 
+	 \switch(csps_info.act)
+	   |CSPS_ACT_FWD:  eprm_procs_act_fwd(dpp, csps_info.elif_grp, csps_info.fmt); 
+	    \eprm_xmit_pkt(dpp)
+	      \xmit_pkt(dpp),
+		cvmx_pko_send_packet_prepare
+		cvmx_pko_send_packet_finish
+	   |CSPS_ACT_DROP: zxmd_free_wqe_packet_data(dpp);
+	  
+    |GROUP_TO_DATA_PLANE_TIM:zxmd_tim_process(cvmx_wqe_get_unused8)
+				\(TIM_OF_NAS)radius_user_timeout_nas
+					超时,加锁 free了指针指向的区域,解锁
+    |GROUP_FMT_AGED:
+    |GROUP_ACL_HFA:
+    |GROUP_FOR_SPEC_FERTURES:
+
+	
+	
+	
+==== init ===
+zxmx_init_one_fpa_pool(pool编号,"name",一个block的大小(一般是line_pool-128的倍数),block的数量)
+{ block_size = ALIGN 算出相对与block_size,CVMX_CACHE_LINE_SIZE的最小倍数}
+SE-S __cvmx_app_init()--main()--cvmx_user_app_init
+SE-UM main()--appmain()[main is aliased to appmain]--cvmx_user_app_init
+在cvmx-app-init-linux.c中的main函数会fork()一个SE-UM程序为每一个额外的core。
+
+if (!cvmx_coremask_first_core(cvmx_sysinfo_get()->core_mask)) return 0;
+这里导致，每个不是在第一个核心运行的程序不做任何事情返回。
+
+如果运行SE-UM程序不用oncpu，它将会运行在所有linux控制的核心上。

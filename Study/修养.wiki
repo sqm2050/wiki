@@ -1,0 +1,38 @@
+read(system call)
+Cpu supplys two instructions called "in" and "out" to read and write hard port registers.
+While at X86 platform,there are 65536(2^16) hard port registers.
+segmentation--->paging
+paging: PP-Physical Page,VP-Virtual Page,Page Fault,MMU(memory management unit)
+CPU---Virtual Address--->MMU--->Physical Address--->Physical Memocy
+
+Time Slice
+
+Preemption(抢占)
+Copy on Write,CoW: When "fork" produces  a new task,the new task share CoW memory with old task.
+
+lock:
+	Acquire, Release
+Binary Semaphore(二元信号量), Is the simplest lock.
+Mutex(互斥量) is similar to Binary Semaphore.
+Critical Section(临界区), Other processes can't see one process's critical section.While Mutex and Semaphore is seeable.
+Read-Write Lock:shared,Exclusive(独占)
+Condition Variable(条件变量)
+
+Reentrant(可重入): Since some reasons,a function didn't complete,needed reentrant.
+
+Volatile:
+	1)阻止编译器为了提高速度将一个变量缓存到寄存器不写回
+	2)阻止编译器调整volatile变量的指令顺序
+volatile可以阻止编译器调整顺序,但是无法阻止CPU动态调整线程内无关指令的顺序
+
+CPU乱序、编译乱序
+
+User Thread,Kernel Thread
+
+Linking:
+	Address and Storage Allocation,Symbol Resolution,Relocation.
+
+目标文件:
+	目标文件中的内容除了机器指令、数据,还有链接需要的信息:符号表、调试信息、字符串等.目标文件把这些信息按照不同的属性以"节"(Section)的形式存储,有时候也叫"段"(Segment).
+
+全局和局部静态变量数据放在数据段

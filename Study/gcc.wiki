@@ -1,0 +1,2 @@
+	-f后面跟一些编译选项，PIC是其中一种，表示生成位置无关代码（Position Independent Code）
+

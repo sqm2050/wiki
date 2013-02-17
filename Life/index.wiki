@@ -1,0 +1,11 @@
+= My Books 	  =
+    * [[Ind]]
+    * [[Schedule]]
+     
+= Life =
+	== My Diary 	==
+	* [[Plan]]
+	* [[2012]]
+	* [[再次分手日]]
+	== humanity	==
+	* [[多核MIPS、Cavium Networks研究]]

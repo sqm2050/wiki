@@ -1,0 +1,15 @@
+07:00 - 08:00	English Voa
+08:00 - 09:30	Mathematics
+
+09:30 - 11:00	MIPS
+11:00 - 12:30	Octeon
+
+13:00 - 14:00	Calligraphy
+
+14:00 - 16:00	MIPS
+16:00 - 20:00	Octeon
+
+20:30 - 22:00	Math
+22:00 - 22:30	Summary
+
+23:00 - --:--	sleep

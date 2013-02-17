@@ -1,0 +1,10 @@
+ip name交叉判断:
+  ip:判断
+    相同：判断name，相同，更新旧的，删除新的。完成——return
+                    不同，删除旧的unlink_ip，link_ip。就是ip重新分配给新的name，删掉旧的。
+  
+    不同：判断name，rs_ip，相同删除旧的unlink_name，link_name. name用了新的ip，删掉旧的。
+			   不同直接link_name.
+
+通过ip索引处理完之后，肯定把全表中ip相等处理(数据处理，ip链表处理)，
+然后处理name索引到数据，就不用考虑ip是否相等来，直接1/2删旧链新，都不等直接链新的。
