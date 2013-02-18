@@ -554,3 +554,272 @@ WQE buffer 和 Packet Data Buffer 都在L2/DRAM上，这些缓冲都是系统初
 
 两个elf文件,产生两个load sets,不会共享‘sysinfo’数据结构。
 
+/*
+ * Readed in 2012 Holiday
+ */
+Pages 155 - 159
+physical address space:		 _______________
+	0x1 6400 0000 03ff	| I/O space.	|
+				|		|
+				|		|
+	0x1 0700 0000 0000	|_______________|
+							bit 48 is used to select either the IO space or
+							system memory.If bit 48-1,IO space is selected.
+						 	If bit 48=0,system memory is(DRAM) is selected.
+				 _______________
+	0x0 0004 1fff ffff	|DRAM Region 1(s|
+				|ystem Memory)Th|	only 36 bits are needed to address all of syst-
+				|e second 256 MB|	em memory(16GB)The current mexium system memory
+	0x0 0004 1fff ffff	|__if__present__|	address is 0x4 1FFF FFFF.
+				
+				256MB alignment gap
+				before the next me-
+				mory block.
+				 _______________
+	0x0 0003 ffff ffff	|DRAM region 2(S|	DRAM Region 2 starts at the low address 0x0 0000
+				|ystem Memory)Th|	2000 0000 and goes toward 0x0 0003 ffff ffff.The
+				|e upper 15.5 GB|	exact high address depends on the amount of DRAM
+				| as much as is	|	installed in the target system.
+	0x0 0000 2000 0000	|____present____|
+	0x0 0000 1fff ffff
+				256MB reserved for	Internally,once the boot bus addresses have been
+				   Boot Bus.		handled, the high address bits<35:34>are ignored
+							when talking to the DRAM controller,so DRAM Reg-
+							ion 1 addressed appear to the DRAM controller to
+	0x0 0000 1000 0000	 _______________	be in the address range 0x1000 0000 to 0x1fff ff
+	0x0 0000 0fff ffff	|DRAM Region 0(S|	ff . The DRAM controller thus sees system memory
+				|stem Memory)The|	as contiguous address:Region 0,Region 1,Region 2
+				|first 256MB(if |
+	0x0 0000 0000 0000	|____present____|
+Virtual Memory:
+	The goal of virtual memory is to make accessing physical memory and I/O
+	space safer and more convenient.
+
+	Mapping:
+	Mapping requires,at a minimum,entries into a Translation Look-aside Buf-	P162,P171
+	fer (TLB). Simple Executive Standalone applications use only the TLB for
+	mapping; Linux users a more complex memory management system(page tables
+	and TLB miss handler).
+	
+	Generic MIPS Virtual Memory Map:
+	xkphys segment to accesses physical memory and I/O space without mapping
+	the virtual addresses.
+	virtual address translation depends on:
+	1. The number of address bits in the address space:64-bit or 32-bit add-
+	   ress space
+	2. The segment addressed
+	3. The privilege level(model):kernel,supervisor,or user.
+
+	xkphys:
+	The xkphys addresses provide a "window" into the physical address space.
+	The high bits are stripped off the virtual address,and the low PABITS(P-
+	hysical Address BITS)are used as a physical address.On the OCTEON proce-
+	ssor,PABITS is 49:bits<48:0>,matching the number of SEGBITS(49).
+	The I/O space is selected if bit 48 of the physical address is "1".Phys-
+	ical memory is selected if bit 48 of the physcial address is "0".
+
+p168	xkphys window
+	0xbfff ffff ffff ffff	--------------	0x1 ffff ffff ffff
+						unmapped and uncached I/O
+						Space used to access CSRs
+						and PCI Space
+				--------------	0x1 0000 0000 0000
+
+				--------------	0x0 ffff ffff ffff		The system memory address space is architected
+						unmapped and cached system	to 36 bits.Only 35 bits are currently used.
+						memory				
+										Boot Bus 256MB(1fc0 0000)
+	0x8000 0000 0000 0000	--------------	0x0 0000 0000 0000
+
+P171	64-Bits	Virtual address translation on MIPS
+
+	SE-S applications run in kernel mode,but are mapped into the xuseg or u-
+	seg virtual address space,depending on whether they are 64-bit or 32-bit
+	applications.
+
+	SE-UM applications run in user mode and  are mapped into the xuseg or u-
+	seg virtual address space,depending on whether they are 64-bit or 32-bit
+	applications.
+
+	The Linux Kernel runs in kernel mode and is mapped into xkseg.It is alw-
+	ays 64-bit.
+Summary of Virtual Address Space on cnMIPS
+	The MIPS virtual address space is divided into segments.The 64-bit virt-
+	ual address space contains a 32-bit compatibility mode address space.
+	The MIPS memory management unit is simplified,and consists only of a TLB
+	Page tables are optionally implemented in software.
+	Mapped:A virtual address is 'mapped' when access is through a TLB entry.
+	Cached:When a virtual address accesses system memory,the system memory 
+	is cached if it is stored in the L1 and/or L2 cache for fast access. On
+	the OCTEON processor,all system memory access are cached.
+
+		Mapped Segments			Mapped Segments
+	xuseg	The xuseg segment is the user	SE-S 64-bit application run in
+		address space(mapped).		kernel-mode,but are mapped into 
+						xuseg.
+	xsseg	The xsseg segment is the sup-	The xsseg segment is usually not
+		ervisor address space(usually	used in OCTEON cnMIPS.
+		not used)(mapped)
+	xkseg	The xkseg segment is in the	The xkseg segment contains the
+		kernel address space(mapped)	OCTEON-specific cvmseg segment.
+						User-Mode access is allowed to
+						cvmseg.
+		Unmapped Segments			Unmapped Segments
+	xkphys	The xkphys segment is in the	SE-UM 64-bit applications may be
+		kernel address space.It is an	allowed access to xkphys address.
+		unmapped address space:a win-	SE-S 64-bit applications always
+		dow into the physical address	have access to xkphys addresses(
+		space:system memory and I/O	they run in kernel-mode).Accesses
+		space.				to system memory are always cached
+						Accesses to I/O space are never cached.
+	SE-S 64-bit applications run in kernel mode and are mapped to xuseg.
+	SE-S 32-bit applications run in kernel mode and are mapped into useg.
+	SE-UM 64-bit applications run in user mode and are mapped into xuseg.
+	SE-UM 32-bit applications run in user mode and are mapped into useg.
+	The Linux kernel is always 64-bit,runs in kernel mode,and is mapped into xkseg.
+
+	SE-S applications run in kernel-mode but are loaded into useg.
+BootMem:
+	At boot time,the bootloader creates a pool of all free memory,bootmem.This mem-
+	ory is managed by the bootmem allocator functions.These functios provide the n-
+	eeded locking so that two applications will not get the same memory,and return
+	the appropriate virtual address of the allocated memory region.
+	Note that memory allocted via these functions is uninitialized:it is not guara-
+	teed to be all zeroes.
+	If CVMX_USE_1_TO_1_TLB_MAPPINGS is 1,then all of system memory is mapped into 
+	the process address space(xuseg) by cvmx_user_app_init().
+SE-S Memory Model:
+	Simple Executive Standalone(SE-S) applications run in kernel mode.All of
+	the system memory is mapped,allowing SE full access to memory, including
+	memory they do not own.64-bit SE-S applications may also freely access
+	the I/O space by using xkphys addresses.There are no context switches,a-
+	nd context switches,and no TLB misses.
+	On startup the bootloader and SE function cvmx_user_app_init() create a
+	kernel-mode address space where all address mapping is complete by the		TLB --- stack area.
+	time the application initialization routine completes.There are no expe-
+	cted TLB misses when running under SE-S:there is no exception handler.A
+	TLB miss will cause the system to crash,because there is no TLB miss ha-
+	ndler for the hardware exception.The system would need to be reset or p-
+	ower cycled to recover.
+
+	Applications are loaded into xuseg or useg at virtual address 0x10000000
+	There is some stack overflow protection.When the bootloader allocates m-
+	emory for the stack,it leaves the page below the stack unmapped, so that
+	any access to this region will generate a TLB exception.
+
+	Mapping of System Memory:
+	System memory may optionally be mapped 1:1 to the user's address space,
+	so that physcical address 0 is virtual address 0.
+	The reason the inmemory image size is limited to 256MB is because the SE
+	application will be loaded into the virtual memory map,squeezed between
+	two blocks of system memory.If 1:1 mapping is not used,SE load at 0x1000
+	0000,but memory can be mapped anywhere instead of immediately above and
+	below the applicatoin,so the application can be larger than 256MB.
+
+P196	SE size Limitation if 1:1 Mapping is Used
+	1:1 mapping limited table
+	Not mapped, creating a window in the virtual memory map.
+	SE applications are linked to load at virtual address 0x10000000(useg)
+	When 1:1 Mapping is used,SE is surrounded by mapped memory, and cannot
+	be larger than the 256MB Boot Bus Window.
+	The application will only have access to the part of this space mapped 
+	in by the bootloader.This space is mapped and cached.These address are
+	the same in both 32-bit and 64-bit APIs.
+	I/O address is unmapped,uncached.
+
+P197	SE-S 64-Bit Virtual Memory Map
+	Note that fewer TLB entries are needed if 1:1 mapping is not used,each
+	double TLB entry will map 512MB of memory.
+
+P201	SE-S 32-Bit Virtual Memory Map
+	Downloading to the Reserved Download Block:
+	After storing the ELF file in the Reserved Download Block(at system m-
+	emory),the bootloader reads the ELF file,parses it,allocates system m-
+	emory for the in-memory image,and creates the in-memory image(s) in d-
+	ifferent system memory location(s).All of this processing is part of
+	the boot command.
+	The bootloader creates the needed TLB entries to map the virtual to p-
+	hysical addresses for the in-memory image.Note that the in-memory ima-
+	ge is larger than the ELF file:memory is allocated for the stack and
+	heap.
+
+	If the ELF file is in flash,then the reserved downloading memory loca-
+	tion is not used.The bootloader will read the file from flash instead
+	of the Reserved Download Block.
+
+P221 The Power of One Load Set
+	uboot_minicom# namedprint
+	Name:__tmp_load, address:0x0000000020000000, size:0x0000000006000000
+	index: 0
+	means-- Reserved Download Block:"__tmp_load":
+	the start address is 0x2000 0000,and the length is 96MB(0x6000000).
+
+About Downloading the Application:
+	When running a hybrid system(more than one load set),be sure to start to
+	the application running on core 0 last.Once the application runs on core
+	0,the other cores come out of reset and begin to run their applications.
+	Core 0 may be one of many cores in the load set,there is no need to sta-
+	rt an application only on core 0.
+
+	As discussed above,this download requires temporary memory to store the
+	image.At the next step,the ELF file boot step,the bootloader reads the
+	ELF image from the Reserved Download Block,parse it,and loads the appl-
+	ication into memory(creating the in-memory image).After the core 0 ima-
+	ge starts to run,the memory used for the image download is freed and a-
+	dded to the pool of free memory.
+
+	Download ELF to Reserved Download Block:	download to: 0x2000 0000
+	1. PCI :oct-pci-load
+	2. Flash card :fatload
+	3. TFTP :tftpboot
+	4. Serial Port
+
+	Load ELF from the Reserved Download Block to into memory(creating the in
+	memory image):					load to: 0x1000 0000
+	For SE processes,the ELF loader is bootoct.
+	For linux,the ELF loader is bootoctlinux.
+	For SE-UM instances,the kernel handles ELF file loading automatically.
+	The oncpu utility may be used to start SE-UM applications on a subset
+	of cores.
+
+The Boot Command:
+	The arguments to the boot command are used to specify the stack and h-
+	eap sizes,and the coremask.In example programs such as hello,the defa-
+	ult stack and heap size are adequate,so they are not specified on the
+	command line.
+	Note that the boot command will load the applications onto the cores,
+	but all cores except core 0 are held in reset(the applications do not
+	run)until the application running on core 0 is booted.For this reason,
+	core 0 should be booted last.
+
+Virtual memory map summary:
+	0x1000 0000 to 0x2000 0000:This range is used to map the application's
+	code,data,stack,and heap.This address range coresponds to the physical
+	address for Octeon boot bus,so this does not conflict with any potential
+	1-1 DRAM mappings.The stack and heap are placed at the top of this range
+	These addresses are the same for boteh 64 bit and 32 bit ABIs.
+	1-1 mappings as configured by the application(Typically done in cvmx_use
+	r_app_init()) These mappings are done to avoid having to set and clear
+	the XKPHYS bit(bit 63)in the address.With these mappings in place,the a-
+	pplication can use 'physcial' address directly.
+	为了让核去直接访问一个特定的物理内存，必须使用XKPHYS地址空间，这需要设置
+	地址的63位(Unmapped，XKPHYS把最高位掩掉，就是对应的物理地址).为了避免重
+	复设置和清楚bit 63位，SE使用1-1虚拟--物理地址映射。这样就不用设置63就可
+	以使用“物理”地址了。(虚拟地址仍被使用，但是对被硬件共享的内存区域来说，物
+	理地址和虚拟地址是一样的。）这些由应用程序使能映射来决定，应用程序可以通
+	过函数cvmx_user_app_init()调用来实现，这个函数目的在于简化典型的应用程序
+	配置。
+cvmx_bootmem_alloc():
+	它返回一个有效的全局物理内存池的物理地址。这个内存
+	池由bootloader建立，在应用程序开始运行时它包含全部的未被程序的stack/heap
+	/code/data或者bootloader分配的名字空间所占用的内存(未使用的内存).要注意
+	它返回的是物理地址，因此要么建立1-1TLB映射，要么设置地址的XKPHYS位，二者
+	选一。通常采用建立1-1TLB映射的方法。为保证多核的安全，cvmx_bootmem_alloc
+	需要加锁。
+Bootloader:
+	The bootloader is reponsible for loading the Octeon application ELF file
+	into DRAM from the boot bus(flash memory) and setting up the TLB mappin-
+	gs required for running the application.The bootloader passes a list of
+	the avaliable memory to the application,and this is available to the ap-
+	plication in the cvmx_sysinfo_t structure.可以去查看Octeon Bootloader d-
+	ocumentation.
