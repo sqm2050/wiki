@@ -246,4 +246,3 @@ if(cvmx_likely(pgsreg->ctrl_sw.flag_insp_3g_cdma))
                 cdma_user_put(u);                                
         }
 }       
-

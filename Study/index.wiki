@@ -40,6 +40,7 @@
 	
 		=== MIPS	===
 		* [[mips notes]]
+		* [[MMU PA]]
 		* [[See MIPS Run Linux(2nd edition]]
 		* [[MIPS64 Architecture]]
 		* [[Mips assembly]]

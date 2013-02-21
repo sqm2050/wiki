@@ -59,3 +59,39 @@ cpu0:
 	add outgroup 0 23
 	set crosspass 0 forward 0 0
 	set crosspass 0 forward 0 0 fmt_add=disable,reverse=disable
+
+
+xfg:
+	set xfg front xge_lan
+	set xfg 24-25 up
+
+acl:
+	add ruleset test aclmask 0 action=forward,slotgroup=0,outgroup=0
+	delete outgroup 0 0
+	add ruleset test aclmask 0 pri=0,aging=0,sip=0.0.0.0/0,dip=0.0.0.0/0,sport=0-65535,dport=0-65535,protocol=any,action=forward
+
+	
+interface:	add copy ge ingress 0 2-9	#vlan add member 0 4032 2 0
+						#vlan add member 0 4032 3 0
+						.
+						#vlan add member 0 4032 9 0
+switch:
+	# 1 taged	保持报文的tag,并且27口接收此tag的报文。
+
+	vlan add member 0 0xfc6 27 1	
+	vlan add member 0 0xfc7 27 1
+	vlan add member 0 0xfc8 27 1
+	vlan add member 0 0xfc9 27 1
+	
+	vlan remove member 0 0xfc6 25
+	vlan remove member 0 0xfc7 25
+	vlan remove member 0 0xfc8 25
+	vlan remove member 0 0xfc9 25
+crosspass:
+	add outgroup 0 24
+	delete outgroup 0 0
+
+	set crosspass 0 forward 0 0 
+	set crosspass 2 forward 0 0 
+	.
+	set crosspass 9 forward 0 0 
