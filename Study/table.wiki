@@ -1,0 +1,15 @@
+1. Computer:
+	x86	BIOS	C	Server	Pyhton
+	mips64	UBoot	Linux	Net	Ruby
+	arm	EFI	C++	Java	Go
+
+	git	Make 	svn
+2. English
+	Voa	The power of less.
+
+3. Math Algorithm
+	matrix67
+	slyar
+
+4. Heart
+	素日锦年
