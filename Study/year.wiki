@@ -1,0 +1,20 @@
+2013.02.24 农历正月十五(元宵节)
+	年度规划：
+tasks:
+1. Computer---18
+	x86	BIOS	C	Server	Pyhton
+	mips64	UBoot	Linux	Net	Ruby
+	arm	EFI	C++	Java	Go
+
+	git	Make 	svn
+2. English---2
+	Voa	The power of less.
+
+3. Math Algorithm---2
+	matrix67
+	slyar
+
+4. Heart---1
+	素日锦年
+
+1.mips64

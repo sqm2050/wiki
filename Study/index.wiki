@@ -1,6 +1,9 @@
 = My Urgent Tasks =
     * [[temp]]
-    * [[table]]
+    * [[task]]
+    * [[year]]
+    * [[month]]
+    * [[day]]
 
 = My Study =
 	== English	==

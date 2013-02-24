@@ -1,0 +1,24 @@
+
+			   Code listings from
+		      "Advanced Linux Programming"
+			  by CodeSourcery LLC
+
+These are code samples from the book "Advanced Linux Programming," by
+Mark Mitchell, Jeffrey Oldham, and Alex Samuel of CodeSourcery LLC.  For
+more information about this book, please visit this Web site:
+
+		http://www.advancedlinuxprogramming.com/
+
+To compile and build the programs on most standard GNU/Linux systems,
+simply invoke "make" from the top directory.  To clean up build
+products, invoke "make clean".  Some program listings do not contain
+complete, standalone programs; instead, they contain one or more
+functions.  Such files are compiled to object files only.
+
+See "Advanced Linux Programming" for information about the programs,
+what they do, how they work, and how to use them.
+
+The programs in "Advanced Linux Programming," and this entire
+distribution, are Copyright (C) 2001 by New Riders Publishing and
+distributed under the GNU General Public License.  The file COPYRIGHT
+contains the text of this license.
