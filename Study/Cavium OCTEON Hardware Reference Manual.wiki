@@ -70,4 +70,20 @@ SEGBITS = 49, as per the MIPS specifications
 KSEG3的范围0xFFFF FFFF FFFF 8000到0xFFFF FFFF FFFF BFFF称作CVMSEG段，两部分：
 CVMSEG LM = 0xFFFF FFFF FFFF 8000 到 0xFFFF FFFF FFFF 9FFF
 CVMSEG IO = 0xFFFF FFFF FFFF A000 到 0xFFFF FFFF FFFF BFFF
+Chapter 3	Coherent Memory Interconnect and Level-2 Cache Controller
+CMI Buses:
+	The CMI is comprised of six buses:
+		1.the address/command bus - ADD	
+		2.the store data bus	- STORE
+		3.the commit/response control bus - COMMIT
+		4.the fill data bus	- FILL
+		5.the I/O command/data bus - IOC
+		6.the I/O response/data bus - IOR
+	The CMI interface is 640bits wide,the LMC DRAM interface is 256 bits wi-
+	de,and the internal L2 cache data interfaces are 256 bits in each quad,
+	a total of 1024 bits including all quads.
+	
+	All data transfers between the L2C and the LMC move full 128-byte cache
+	blocks.
 
+Chapter 26	Boot Bus
