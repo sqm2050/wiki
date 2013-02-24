@@ -3,6 +3,7 @@
     * [[task]]
     * [[year]]
     * [[month]]
+    * [[week]]
     * [[day]]
 
 = My Study =
