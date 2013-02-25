@@ -76,4 +76,4 @@ Starting cores 0x3
 [   31.169414] i2c i2c-1: Added multiplexed i2c bus 30
 [   31.174577] i2c i2c-1: Added multiplexed i2c bus 31
 [   31us mode
-[[[]]   46.023723] br-lan: port 1(eth1) entering disabled
+[   46.023723] br-lan: port 1(eth1) entering disabled

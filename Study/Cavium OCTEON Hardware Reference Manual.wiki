@@ -63,6 +63,51 @@ CMI:coherent memory interconnect	interconnect:使互相连接.
 CPU Visible State Resident in each cnMIPS II Core:
 	CRCIV<31:0> IV:interrupt vector
 
+CSRs:Configuration and Status Registers
+	CN63XX has many CSRs to control and configure the on-chip hardware.Each
+	configuration register can be accessed by one or more of the following
+	mechaisms:
+	1. cores using MFC0/MTC0 instructions
+	2. cores using MFC2/MTC2 instructions
+	3. cores using ordinary load/store instructons to I/O physical addresses
+	4. cores using indirect windowed accesses to PCIe configuration registe-
+	   rs via the PEM*_CFG_WR and PEM*_CFG_RD CSRs.
+	5. cores using indirect windowed accesses to SRIO maintenance registers
+	   via the SRIO*_MAINT_OP and SRIO*_MAINT_RD_DATA CSRs.
+	6. remote EJTAG/JTAG device using the EJTAG/JTAG TAP interface.
+	7. remote PCIe/SRIO host using direct PCIe configuration accesses/SRIO 
+	   maintenance accesses.
+	8. remote host using direct PCIe/SRIO memory space BAR0 accesses.
+	9. remote PCIe/SRIO host using indirect windowed accesses to I/O physic-
+	   al addresses via the SLI_WIN_RD_ADDR,SLI_WIN_RD_DATA,SLI_WIN_WR_ADDR,
+	   SLI_WIN_WR_DATA, and SLI_WIN_WR_MASK_CSRs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 P88:instruction set summary
 
 SEGBITS = 49, as per the MIPS specifications
