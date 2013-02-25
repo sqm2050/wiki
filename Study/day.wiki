@@ -15,7 +15,10 @@
 	————————————————————————————————————————————————————————————————————————
 	English		:	-1	breakfast:05
 	see mips run	:	-1.5	lunch	 :00
-	CN63 hard manual:95	3	dinner	 :
-	crosspass code	:
+	CN63 hard manual:	3	dinner	 :12
+	crosspass code	:	-4
+	see mips run	:	3.5
 	————————————————————————————————————————————————————————————————————————
+	see mips run	:65	3.5	money	:17
+	cn63 hard manual:95	3
 	————————————————————————————————————————————————————————————————————————
