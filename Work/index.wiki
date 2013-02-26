@@ -8,3 +8,4 @@
 	* [[Version]]
 	== net		==
 	* [[net_all]]
+	* [[ethernet]]

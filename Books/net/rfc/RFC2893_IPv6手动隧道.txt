@@ -1,0 +1,806 @@
+组织：中国互动出版网（http://www.china-pub.com/）
+RFC文档中文翻译计划（http://www.china-pub.com/compters/emook/aboutemook.htm）
+E-mail：ouyang@china-pub.com
+译者：stan001（stan001       ）
+译文发布时间：2001-11-08
+版权：本中文翻译文档版权归中国互动出版网所有。可以用于非商业用途自由转载，但必须
+保留本文档的翻译及版权信息。stan001
+
+Network Working Group                                        R. Gilligan
+Request for Comments: 2893                                FreeGate Corp.
+Obsoletes: 1933                                              E. Nordmark
+Category: Standards Track                         Sun Microsystems, Inc.
+                                                             August 2000
+
+
+IPv6 主机和软件路由器转换机制
+（RFC2893——Transition Mechanisms for IPv6 Hosts and Routers）
+
+本备忘录状态
+	本文详细说明了因特网间交流的因特网标准的路径协议，和改进的要求讨论和建议。请
+参考当前版本的“官方网络协议标准（Internet Official Protocol Standards）”一书，
+此书标准化了这一协议的规定和地位。此备忘录的贡献是有限的。
+
+版权申明
+Copyright (C) The Internet Society (2000).  All Rights Reserved.
+
+摘要
+
+   This document specifies IPv4 compatibility mechanisms that can be
+   implemented by IPv6 hosts and routers.  These mechanisms include
+   providing complete implementations of both versions of the Internet
+   Protocol (IPv4 and IPv6), and tunneling IPv6 packets over IPv4
+   routing infrastructures.  They are designed to allow IPv6 nodes to
+   maintain complete compatibility with IPv4, which should greatly
+   simplify the deployment of IPv6 in the Internet, and facilitate the
+   eventual transition of the entire Internet to IPv6.  This document
+   obsoletes RFC 1933.
+
+
+目录
+1.简介	3
+1.1.术语	3
+1.2.本文的结构	4
+2.双重IP层的管理	5
+2.1.地址配置	5
+2.2.DNS	5
+2.3.在DNS里广告地址	6
+3.一般的通道机制	6
+3.1.封装	7
+3.2.MTU传输和分片	8
+3.3.跳线限制	9
+3.4.处理IPv4 ICMP错误	9
+3.5.IPv4报头组成	10
+3.6.解压缩	10
+3.7.连接本地	11
+3.8.在通道上的邻居发现	12
+4.配置的通道	12
+4.1.缺省配置的通道	12
+4.2. 使用IPv4"任意点传送地址"的缺省配置的通道	12
+4.3.入口过滤	13
+5.自动传输	13
+5.1.IPv4兼容地址格式	13
+5.2.IPv4兼容地址的配置	13
+5.3.自动传输管理	14
+5.4.使用缺省配置的通道	14
+5.5.源地址选择	14
+5.6.入口过滤	15
+6.谢意表达	15
+7.安全方面的考虑	15
+9.参考书	16
+10.从1933年起的RFC变化	17
+11.版权申明	19
+Acknowledgement	19
+
+
+1.简介
+	IPv6转换成功的关键是与大型IPv4主机和路由器的基本安装的兼容性。当配置IPv6保
+持与IPv4的兼容性将使IPv6网间的转换任务富有流线型。这种规范定义了IPv6的主机和
+路由器实现和IPv4的主机和路由器的兼容的机制设置。
+	在本文中的机制设计被IPv6的主机和路由器所使用需要用IPv4的主机的面对面操作和
+利用IPv4的路由器的下部构造组织。我们期望在网间的大多数节点将长时间可能甚至是无
+限期的需要这种兼容。
+	然而，IPv6可以在某些环境下使用而不需要跟IPv4协同工作。IPv6节点的设计成可以
+被在不需要IPv4甚至是它的组件的环境下被使用。
+
+以下包括转换机制的详细说明：
+	—双重IP层：一种完全为两个网络协议提供支持的技术——IPv4和IPv6——在主机和
+路由器中。
+	—配置基于IPv4的IPv6的通道：点对点通道由在IPv4数据包头里压缩IPv6的包来通
+过IPv4路由的下部组织运输组成。
+	—IPv6地址与IPv4的兼容性：一个IPv6的地址格式的使用包含了IPv4的地址。
+	—基于IPv4的IPv6的自动的通道：一个转换机制用IPv4的兼容地址在IPv4的网络上
+自动的传输IPv6的信息包。
+
+	转换机在本文中被定义为一个“转换工具箱”的一部分——技术的逐渐积累使得执行者
+和使用者轻松地使用转换。工具在需要的时候被用。工具和场所决定了什么技术适合他们的
+特殊需要。本文定义了转换机制的最初核心装置，但是这些并非期望仅仅是可用的工具。附
+加的转换和兼容机期望在将来能被开发出来，到时会写一篇文章重新定义他们。
+
+1.1.术语
+下面的术语将在本文中被使用：
+节点类型
+IPv4的专有节点：
+	一台主机或是路由器仅仅实现IPv4。IPv4的专有节点并不能理解IPv6。在转换开始前
+安装基本的现有IPv4主机和路由器是IPv4的专有节点。
+IPv6/IPv4节点：
+	主机和路由器实现IPv4和IPv6。
+IPv6的专有节点：
+	一台主机或路由器仅仅实现IPv6，并不实现IPv4。IPv6专有节点在此的运行并不标明
+地址。
+IPv6的节点：
+	任意的主机和路由器实现IPv6。IPv6/IPv4和IPv6的专有节点都是IPv6的节点。
+IPv4的节点：
+	任意的主机和路由器实现IPv4。IPv6/IPv4和IPv6的专有节点都是IPv4的节点。
+
+IPv6的地址类型
+与IPv4兼容的IPv6地址：
+	一个IPv6地址的高序96位的前缀是0:0:0:0:0:0，一个IPv4地址在低序32位。
+IPv4的兼容地址被执行自动通道的IPv6/IPv4节点所使用。
+IPv6的自带地址：
+	剩余的IPv6的地址空间。一个IPv6的地址具有一个不是0:0:0:0:0:0的前缀。
+
+转换中使用的技术
+基于IPv4的IPv6的通道：
+	由于有在IPv4包里压缩IP6的技术以至于他们可以通过IPv4路由部件来传送信息包。
+配置通道：
+	在IPv4通道的终端地址那儿的基于IPv4的IPv6通道由在压缩节点上的配置信息决定。
+通道既可以是单向性的也可以是双向性的。双向性配置的通道是作为虚拟的点对点连接来运
+转。
+自动化的通道：
+	在IPv4通道的终端地址那儿的基于IPv4的IPv6通道是由来自包含在被传输的IPv6包
+的IPv4兼容的终端地址决定。
+IPv4多点传送通道：
+	在IPv4通道的终端地址那儿的基于IPv4的IPv6通道是利用网络邻居来决定的。不像
+配置的通道不需要任何的地址配置，也不像自动的通道不需要使用IPv4兼容的地址。然而，
+机制采用IPv4的下部组织机构来支持IPv4的多点传送。在[3]中已经详细说明这里就不进一
+步讨论了。
+其它的转换机制包括其它的通道机制不在本文的讨论之列，在此就不详细说明了。
+
+IPv6/IPv4的节点管理方式
+IPv6专有的管理：
+	一个IPv6/IPv4的节点有它的IPv6的可用堆栈和IPv4的禁用堆栈。
+IPv4专有的管理：
+	一个IPv6/IPv4的节点有它的IPv4的可用堆栈和IPv6的禁用堆栈。
+IPv4/IPv6管理：
+	一个两者都有可用堆栈的IPv6/IPv4的节点。
+出现在本文中的关键字：MUST,MUST NOT,REQUIRED,SHALL,SHALL 
+NOT,SHOULD,SHOUKD NOT,RECOMMENDED,MAY,OPTIONAL在[16]中已经说明了。
+
+1.2.本文的结构
+	本文下面的部分是按以下形式组织的：
+——第二部分讨论IPv6/IPv4节点的双重IP层的节点管理。
+——第三部分讨论在基于IPv4的IPv6通道技术的一般机制的使用。
+——第四部分讨论配置的通道。
+——第五部分讨论自动通道和跟IPv4兼容的IPv6的地址格式。
+
+2.双重IP层的管理
+	对IPv6节点的最直接方式是通过提供一个完全的IPv4工具保持与专有的IPv4的兼容。
+提供一个完全的IPv4和IPv6工具的IPv6节点叫做IPv6/IPv4节点。IPv6/IPv4节点有发送和
+接收IPv4和IPv6的包的能力。他们能直接的利用IPv4包的IPv4节点来操作，也可以直接
+的利用IPv6的包的IPv6节点来操作。
+	即使一个节点可能被准备用于支持两者的协议，但其中一个的堆栈可能由于管理的原因
+而无效。因此IPv6/IPv4的节点可能在下面三种模式中的一种中操作：
+——他们的IPv4堆栈可用而IPv6堆栈禁用。
+——他们的IPv6堆栈可用而IPv4堆栈禁用。
+——两者堆栈都可用。
+IPv6堆栈禁用的IPv6/IPv4节点就像IPv4专有节点地操作一样。类似的，IPv4堆栈禁用的
+IPv6/IPv4节点就像IPv6专有节点地操作一样。IPv6/IPv4节点的MAY操作提供了IPv4或
+IPv6堆栈从可用转换成禁用的功能。
+	双重IP层技术可用在与在第3、4、5部分中说明的基于IPv4的IPv6通道技术的连接
+也可不用。支持通道的一个IPv6/IPv4节点的MAY操作可以仅仅支持配置通道，或是支持
+配置的和自动的通道。因此以下是三种可能的通道支持方式：
+——IPv6/IPv4节点不执行通道。
+——IPv6/IPv4节点仅仅执行配置通道。
+——IPv6/IPv4节点执行配置通道和自动通道。
+
+2.1.地址配置
+	因为IPv6/IPv4支持两者协议，所以他们的节点应该用IPv4和IPv6的地址来配置。
+IPv6/IPv4的节点用IPv4的机制来满足他们IPv4的地址，而IPv6的协议机制来满足他们IPv6
+自带地址。在5.2部分描述了一个使用IPv4协议机制来满足他们的IPv6与IPv4兼容的地址
+的机制，此机制IPv6/IPv4节点支持自动通道的MAY关键字。
+2.2.DNS
+	DNS是一种主机名和IP地址之间相互转换的机制。一个名为"A6"的新的资源记录类型
+已经为用来支持一个名为"AAAA"的更早记录的IPv6地址所定义。由于IPv6/IPv4节点必须
+能够用IPv6和IPv4的节点直接操作，所以他们必须提供和用IPv6"A6"和"AAAA"记录一样
+的IPv4"A"记录的库处理能力的解决办法。
+	DNS在IPv6/IPv4节点上库解决方法上的MUST关键字能够处理A6/AAAA和A记录。
+然而，当一个查询定位支持IPv6地址的一个A6/AAAA记录和一个支持IPv4地址的纪录时，
+库解决方法中的MAY关键字为了改变用来和那个节点连接的IP包副本过滤或按序结果返
+回请求。在过滤术语中，库解决方法有三种可供选择：
+——仅仅返回IPv6地址到请求。
+——仅仅返回IPv4地址到请求。
+——把两者都返回。
+如果它仅返回IPv6地址，请求将用IPv6和节点连接。如果仅返回IPv4地址，请求将用IPv4
+和节点连接。如果两者都返回，请求将选择用哪个地址，因此也就要选择用哪个IP协议。
+	如果他两者都返回，解决方法选择MAY关键字来安排地址——是IPv6优先，或是IPv4
+优先。由于大多数的请求尽量使他们被解决者能按照顺序返回，这就能影响IP副本请求的
+优先选择。
+	过滤结果或DNS结果按序是明确执行的。IPv6/IPv4节点的MAY关键字提供了配置方
+针用来控制被解决者过滤或是按序返回的地址，或是都留给请求来解决。一个MUST的执
+行允许请求来控制是否发生过滤。
+
+2.3.在DNS里广告地址
+	在传输时使用DNS会发生一些限制。大多数是明显的但为了完全在此被规定。
+值得注意的是对一个节点的A6/AAAA记录不应该被加到DNS除非以下的条件都满足：
+	1）地址在节点上被赋给了接口。
+	2）地址在接口上被配置。
+	3）连向IPv6基础部件的接口在一个连接上。
+如果一个IPv6的节点被从IPv6的视图中隔开约束#3将意味着在DNS里不应该有一个地址。
+	这种操作主要是在当其它的双重堆栈节点试图去连接被隔开的双重堆栈节点。在DNS
+里没有IPv6地址因此前面的情况就不会试图用IPv6连接而是直接转向了IPv4。
+	
+
+	然而，这并不能很好的运行当被隔离的节点试图去确立连接时。即使在NDS里没有IPv6
+的地址但它为前面的记录找到A6/AAAA记录。由于被隔离的节点有IPv6地址至少被赋给
+一个接口它将会试着用IPv6去连接。如果它没有到6bone的路径那这样的连接将会失败。
+很典型的，这就意味着当TCP超时时会耽搁一些时间。TCP规范里说明了ICMP不能到达
+的信息可能是由于路由的暂时性因此他们不应该立即终止TCP的连接。这就意味着一般TCP
+超时的应用。一旦TCP超时应用将有希望试图使在DNS里的IPv4地址基于一个记录，但
+是这将是非常慢的。
+	上面的建议中暗含了一种可能性，如果一个是IPv6在一个没有IPv6基础部件的连接的
+节点上，并且选择了为那个节点加A6/AAAA记录到DNS，那外部的IPv6节点可能看到这
+些A6/AAAA记录并且将可能使用IPv6试图到达那个节点，这就因为不可到达性将遭受耽
+搁或连接失败。因此建议不但按照建议而且要谨慎的用将不会受外部通道耽搁或连接失败的
+影响去做。
+	在将来当一个站点或节点去掉IPv4的支持时上面的建议应用到当一个节点从DNS删
+除。
+
+3.一般的通道机制
+	在大多数配置的关中，随着时间的推移IPv6路由下部基础组织将被建立。当IPv6下部
+基础组织被配置，现有的IPv4下部基础组织能保持运行，并且可用作执行IPv6的传输。通
+道提供了一种利用现有的IPv4路由下部基础组织来执行IPv6的传输的方法。
+	IPv6/IPv4主机和路由器能通过在IPv4包里压缩IPv6数据包在IPv4路由的拓扑区域上
+传输IPv6数据包。传输能被用在各种各样的方式中：
+
+——路由器到路由器。IPv6/IPv4路由器通过IPv4的下部基础组织连接能够在两者之间传输
+IPv6的数据包。在这种情况下，通道横跨IPv6包走的端到端路径的一部分。
+
+——主机到路由器。IPv6/IPv4主机能传输IPv6包到一个中介的IPv6/IPv4路由器，者通过
+一个IPv4的下部基础组织是可是实现的。这种类型的传输跨越包的端到端传输路径的第一
+部分。
+
+——主机到主机。IPv6/IPv4主机通过一个IPv4的下部基础组织相互连接能在他们间传输
+IPv6的数据包。在这种情况下，传输跨越了数据包走的端到端路径的全部。
+
+——路由器到主机。IPv6/IPv4路由器能传输IPv6包到他们的IPv6/IPv4主机的目的地。这
+种传输仅仅跨越了端到端路径的最后部分。
+	通道技术通常根据由压缩节点决定在通道末端的节点地址的机制分类。在上面列举的路
+由器到路由器和主机到路由器两种通道技术中IPv6数据包被传输到一个路由器。这种类型
+通道的终点是一个中介路由器，这个路由器负责解压缩IPv6包和传输它到它的最后目的地。
+当传输到一个路由器，通道终端和被传输包的终点是不同的。因此在被传输的IPv6包的地
+址不能提供传输端点的IPv4地址。反而，通道的端点地址必须由在执行传输的节点上的配
+置信息来决定。我们使用"配置通道"这一术语来描述端点被明确配置的通道类型。
+	在后面的主机对主机和路由器对主机两种传输方法中IPv6包被直接传输到最后的终
+点。在这种情况下，IPv6包和压缩的IPv4包头的终端地址确定同样的节点！这种事实能被
+在IPv6最后地址的编码信息被开发允许压缩节点来自动决定传输终点的IPv4地址。自动通
+道使用这种技术，利用一个有IPv4地址嵌入的特殊的IPv6地址格式来允许传输节点自动的
+得到IPv4的端点地址。这就排除了对配置通道端点地址的明确需要，大大简化了配置。
+	自动的和配置的两种通道技术在他们怎样决定同到端点地址上是根本不同的。大多数基
+本的机制是一样的：
+——通道的入口节点创建一个压缩的IPv4包头和传输压缩包。
+——通道的出口节点接收压缩包，根据需要重新组合，去掉包头信息，更新IPv6包头信息，
+并且处理接收到的IPv6包。
+
+
+——为了处理传输到通道里的IPv6包，压缩节点的MAY关键字需要为每个参数为通道的
+MTU的通道记录维持软件状态信息。由于传输数量可能变得非常大每台主机和路由器都可
+能被使用，当不用时这种状态信息将被缓存和抛弃。
+	接下来的这部分讨论用于两种通道类型的一般的机制。后面部分讨论怎样为自动的和配
+置的通道决定传输端点地址。
+
+3.1.封装
+一个在IPv4里的IPv6数据图的封装如下图所示：
+                                  			 |-------------|
+                                             |    IPv4     |
+                                             |   Header    |
+             +-------------+                 +-------------+
+             |    IPv6     |                 |    IPv6     |
+             |   Header    |                 |   Header    |
+             +-------------+                 +-------------+
+             |  Transport  |                 |  Transport  |
+             |   Layer     |      ===>       |   Layer     |
+             |   Header    |                 |   Header    |
+             +-------------+                 +-------------+
+             |             |                 |             |
+             ~    Data     ~                 ~    Data     ~
+             |             |                 |             |
+             +-------------+                 +-------------+
+						在IPv4里封装的IPv6
+
+另外增加一个IPv4报头，压缩节点不得不处理一些更加复杂的事情：
+——决定何时分成片断何时返回一个ICMP"包太大"的出错信息给资源。
+——怎样从路由器沿着传输路径作为IPv6ICMP错误映射IPv4ICMP错误到资源。
+那些问题将在下面部分讨论。
+
+3.2.MTU传输和分片
+	压缩节点可以看作是IPv6利用一个非常大的MTU的IPv4作为连接层的压缩。压缩节
+点将仅仅用来由于包超过了MTU向资源汇报IPv6ICMP"包太大"的错误信息。然而，由于
+两点理由使得这种方案的效率是低的：
+1）它将导致需要更多的分片。IPv4层的分片关键字SHOULD由于丢失单元比转发单元更
+小而导致的性能问题所以应该尽量避免。
+2）在传输里发生的任何IPv4的分片将不得不在通道的端点重新组合。因为传输在一个路由
+器结束，这就将需要附加的寄存器来重新把IPv4片断组合成完整的IPv6包在包能被传输到
+前面前。
+	在通道里的分片能通过压缩节点通过通道路由IPv4路径的MTU来减少到最小，利用
+IPv4路径MTU发现协议[8]和记录的结果路径MTU。在压缩节点里的IPv6层能把有一个与
+IPv4路径MTU同等的MTU的连接层看作一个通道，减去压缩的IPv4包头的大小。
+	注意这并不能完全排除在当IPv4路径MTU将导致一个IPv6MTU比1280bytes少的情
+况下IPv4分片。在这样的情况下IPv6层不得不用一个1280bytesMTU来处理一个连接层并
+且压缩节点为了传输1280bytes的IPv6包而不得不用IPv4分片。
+	压缩节点能用以下的运算法则来决定何时传输一个比用IPv4分片的传输路径MTU大
+的IPv6包，何时返回一个IPv6IMCP"包太大"的信息：
+
+If (IPv4 path MTU - 20) is less than or equal to 1280
+                If packet is larger than 1280 bytes
+                        Send IPv6 ICMP "packet too big" with MTU = 1280.
+                        Drop packet.
+                Else
+                        Encapsulate but do not set the Don't Fragment
+                        flag in the IPv4 header.  The resulting IPv4
+                        packet might be fragmented by the IPv4 layer on
+                        the encapsulating node or by some router along
+                        the IPv4 path.
+                End if
+        Else
+                If packet is larger than (IPv4 path MTU - 20)
+                        Send IPv6 ICMP "packet too big" with
+                        MTU = (IPv4 path MTU - 20).
+                        Drop packet.
+Else
+ 						 Encapsulate and set the Don't Fragment flag
+                        in the IPv4 header.
+                End if
+        End if
+压缩节点由大量的传输时就不可能为所有的传输储存IPv4路径MTU。像这样的节点就要在
+网络上花费附加的分片，避免通过传输使用IPv4路径MTU运算法则并用在运算法则上的
+连接层MTU来代替IPv4路径MTU。
+	在这样的情况下不分片位的关键字MUST　NOT将在封装的IPv4包头里设置。
+3.3.跳线限制
+	作为单一跳线模型的基于IPv4的IPv6通道。这就是说，当一个IPv6包经过通道时IPv6
+条线限制就被减少一。单一跳线模型为隐藏一个存在的通道服务。通道对网络用户来说是不
+透明的，并且对跟踪路由这样的网络诊断工具来说多是不可发觉的。
+	单一跳线模型通过有压缩和解压缩的用来处理当他们将传输一个包到其它的数据连接
+的IPv6跳线限制的节点被执行。那就是说，当传输一个IPv6包时他们就减少一个跳线限制。
+	封装的IPv4包头的TTL在一个依靠方式的执行中被选择。MAY的执行提供了一个允
+许管理员配置IPv4 TLL的机制，这在IP Tunnel MIB[17]中详细说明了。
+
+3.4.处理IPv4 ICMP错误
+	在对封装包的响应被送到通道里，压缩节点可能从在通道内部的IPv4路由器收到IPv4 
+ICMP错误信息。这些包被标明指向压缩节点的地址因为这是压缩包的IPv4资源。
+	ICMP"包太大"的出错信息通过IPv4路径MTU Discovery[8]来处理并且在IPv4层里记
+录着导致的路径MTU。被记录的路径MTU被IPv6用来决定是否一个IPv6 ICMP"包太大"
+出错已经在3.2中说明的那样产生。
+	其它类型的ICMP错误信息处理依靠在"错误包"里包含了多少信息，那块区域阻止了封
+装的包因此导致错误。
+	许多老的IPv4路由器仅仅返回数据的8bytes这就超出了出错的IPv4包的报头，这对包
+含IPv6报头的地址域来说是不够的。更先进的IPv4路由器返回足够的数据，这数据超过包
+含整个IPv6报头的IPv4报头并且甚至能超出数据。
+	如果可恶的包包含了足够的数据，封装节点MAY吸取了封装的IPv6包并用它来产生
+一个IPv6 ICMP信息直接返回到先前的IPv6节点，就像下面所示的：
+
+
+
+
+
+
+
+
++--------------+
+                  | IPv4 Header  |
+                  | dst = encaps |
+                  |       node   |
+                  +--------------+
+                  |     ICMP     |
+                  |    Header    |
+           - -    +--------------+
+                  | IPv4 Header  |
+                  | src = encaps |
+          IPv4    |       node   |
+                  +--------------+   - -
+          Packet  |    IPv6      |
+                  |    Header    |   Original IPv6
+           in     +--------------+   Packet -
+                  |  Transport   |   Can be used to
+          Error   |    Header    |   generate an
+                  +--------------+   IPv6 ICMP
+                  |              |   error message
+                  ~     Data     ~   back to the source.
+                  |              |
+           - -    +--------------+   - -
+
+3.5.IPv4报头组成
+当在一个IPv4数据图里正封装一个IPv6包时，IPv4包头区域是按如下所设置：
+
+	版本： 
+	 4
+	32位的IP包头长：
+		5
+	服务类型：
+		0.
+	总长度：
+		有效负载长度是IPv6和IPv4报头的长度加上IPv6报头。
+	鉴定：
+		独一无二的作为被系统产生的为任何IPv4包传输的。
+	标志：
+		DF标志的设置在3.2中将详细说明。
+		MF标志的设置根据分段需要来设置。
+	分段设置：
+		根据分段的需要来设置。
+	周期：
+		在执行说明方式中设置。
+	协议：
+		41
+	校验报头总数：
+		计算IPv4报头的校验总数。
+	地址资源：
+		流出的IPv4地址的封装节点的接口。
+	目的地地址：
+		传输终点的IPv4地址。
+任一IPv6的选择权被保留在数据包中。
+
+3.6.解压缩
+	当一个IPv6/IPv4主机或路由器接收一个IPv4被定址到它自己的IPv4地址之一的数据
+图时，并且协议域的值是41，如果它是按照IPv4标准分段的哪它将重新组合，然后它去掉
+IPv4的报并提交IPv6数据图到它的IPv6层代码。
+	解压缩解点的关键字MUST有能力重新组合一个1300bytes的IPv4包。
+下面所示的是解压缩图：
++-------------+
+           |    IPv4     |
+           |   Header    |
+           +-------------+                 +-------------+
+           |    IPv6     |                 |    IPv6     |
+           |   Header    |                 |   Header    |
+           +-------------+                 +-------------+
+           |  Transport  |                 |  Transport  |
+           |   Layer     |      ===>       |   Layer     |
+           |   Header    |                 |   Header    |
+           +-------------+                 +-------------+
+           |             |                 |             |
+           ~    Data     ~                 ~    Data     ~
+           |             |                 |             |
+           +-------------+                 +-------------+
+
+	当解压缩包时，IPv6的报头没有被修改。如果包是被随后传到的，它的跳线限制减少
+一个。
+	作为解压缩的一部分节点关键字SHOULD默认抛弃一个有像一个多点传送地址的无效
+IPv4源地址包，一个广播地址，0.0.0.0，和127.0.0.1。在一般情况下SHOULD在IPv4源地
+址上为火星的过滤器在[18]里和入口过滤器[13]应用规则。
+	解压缩的IPv4报头是被丢弃的。
+	解压缩以后节点SHOULD默认丢弃一个有无效IPv6源地址的包。这包括IPv6多点传
+送地址，未定义地址，和返回地址但是是IPv6与IPv4兼容的源地址在此源地址里由一部分
+IPv4地址是多点传送的，广播地址，0.0.0.0，或127.0.0.1。在一般情况下SHOULD在IPv4
+兼容源地址上为火星的过滤器在[18]里和入口过滤器[13]应用规则。
+	解压缩节点在解压缩IPv6包前执行IPv4重组。所有的IPv6选择权被保留即使是压缩
+的IPv4包是被分段的也一样。
+	在IPv6包被解压缩以后，它几乎被处理像任一接收的IPv6包一样。唯一的不同是一个
+解压缩包关键字MUST NOT被传输除非节点已经被明确配置保护给定的IPv4源地址的包。
+这种配置在有一个与IPv4源地址配对的配置的通道的例子里能被暗含。这种约束在阻止通
+道被用作用来包围入口过滤器[13]的工具是被需要的。
+
+3.7.连接本地
+	配置的和自动的通道两者都是IPv6的接口因此MUST关键字有本地连接地址。本地连
+接地址被在通道上执行的路由器协议使用。
+	接口标记符为像一个接口关键字SHOULD是那种接口的32位IPv4地址，有同样命令
+的字节在他们将要出现在一个IPv4包的报头中，用零填补一个64位的剩下部分。注
+意"universal/local"字节是零，指出接口标记符不是全世界唯一的。当主机有不止一个IPv4
+地址在物理接口时，一个这些IPv4地址的管理选择被确定。
+	为一个IPv4虚拟接口的IPv6本地连接地址被添加接口标记符而形成，就像上面定义的
+那样，FE80::/64的前缀。
+
++-------+-------+-------+-------+-------+-------+------+------+
+   |  FE      80      00      00      00      00      00     00  |
+   +-------+-------+-------+-------+-------+-------+------+------+
+   |  00      00   |  00   |  00   |   IPv4 Address              |
+   +-------+-------+-------+-------+-------+-------+------+------+
+3.8.在通道上的邻居发现
+	自动的和单向配置的通道被认为是单向的。因此ND和自动配置地址状态的唯一方面应
+用于这些通道是本地连接地址的构成。
+	如果一个执行提供了双向的配置通道它的关键字MUST至少使用NUD对查明的包接收
+和回应。像这样的执行关键字SHOULD也发送NUD查明的包来探测当配置的通道失败在
+能用一个备用的路径到达目的地的执行点上。注意ND允许NUD的发送路由器到路由器的
+连接探测可能被漏掉如果路由器协议有双向可到达能力。
+	为了ND的目的自动的和配置的通道在本文中明确说明作为对NOT的假设有一个连接
+层地址，即使连接层没有地址。这就是说ND包的一个发送者。
+——SHOULD NOT包括在通道连接上的源连接层地址对象或目标连接层地址对象。
+——MUST默认的不处理在通道上的任一接收的SLLA或TLLA对象。
+
+4.配置的通道
+	在配置的通道里，传输端点地址通过在压缩节点里的配置信息被决定。压缩节点必须为
+每个通道保存传输的端点地址。当一个IPv6的包通过一个通道传送时，为通道配置了通道
+端点地址被作为压缩的IPv4报头的目的地地址。
+	哪个包到通道通常由在压缩解点上的路由信息来决定。这通常经过一个路由平台来实
+现，路由平台是通过使用前缀和匹配技术指引包到达基于他们的目的地址。
+4.1.缺省配置的通道
+	IPv6/IPv4主机不是用IPv6路由器来连接数据的，关键字MAY使用一个配置的通道来
+到达一个IPv6路由器。这种通道允许主机和剩下的IPv6网间交流。如果一个IPv6/IPv4的
+IPv4地址被知道接近IPv6的中枢，这能过被当作通道的端地址使用。这样的通道可以被作
+为一个IPv6"错误路由"配置在路由器平台里。那也就是说，所有的IPv6目的地地址将匹配
+路径并能通过通道。由于像"mask length"这类的缺生路径是零，它将仅仅被用于由一个更长
+的mask和它匹配的目的地而没有其它路径的情况。缺省配置的通道能被用于与自动通道的
+连接，这将在5.4.中说明。
+4.2. 使用IPv4"任意点传送地址"的缺省配置的通道
+	像一个缺省通道的通道端点地址可能是一个在IPv6中枢边缘的IPv6/IPv4路由器的IPv4
+地址。另一种可能是通道的端点地址是一个IPv4"任一点传送的地址"。用这种方法，多重的
+IPv6/IPv4路由器在边缘广播的IPv4可能到达同一IPv4地址。所有的路由器都接收作为他
+们自己地址的包，并且将解压缩IPv6包传输到这个地址。当一个IPv6/IPv4节点发送一个压
+缩包到这个地址时，它将被递交到一个边缘路由器的其中之一，但是发送的节点将不知道是
+哪一个。IPv4路由系统将通常传送包到最近的路由器。
+	对一个IPv4"任意传送地址"使用缺省通道提供了一个高效率的方法因为多重的边缘路
+由器能够被提供，并且使用普通的IPv4路由可退机制当一个路由器不能工作时传输将自动
+的转向另一个路由器。然而，当使用这样的却省通道来阻止来自不同路由器的不同IPv4片
+断是必须小心。这也能被其它的压缩包的避免片断所阻止或经常被阻止转向IPv4路由。
+4.3.入口过滤
+	解压缩节点MUST用来在传输解压缩包前验证通道源地址时可接收的以次来避免包围
+入口过滤。注意被传递到传输协议的包在解压缩节点SHOULD NOT连接到这些校验。对双
+向的配置通道这被验证终端通道的源地址是IPv4地址。对单向的配置通道解压缩节点MUST
+用一系列加前缀的IPv4源地址配置的是可接收的。像这一系列的MUST缺省没有任何的i.e.
+入口，节点不得不明确的配置传输解压缩的包在单向配置的通道上接收时。
+
+
+
+5.自动传输
+	在自动的传输里，通道端点地址是被传输的IPv6包的IPv4兼容目的地地址所决定。自
+动传输允许IPv6/IPv4节点在没有优先配置通道的IPv4基础下部组织上交流。
+5.1.IPv4兼容地址格式
+	执行自动传输的IPv6/IPv4节点被赋予IPv4兼容地址。一个IPv4兼容地址被一个前缀
+都为零的96位数定义，并且在低32位保存一个IPv4地址。IPv4兼容地址的结构如下图所
+示：
+|              96-bits                 |   32-bits    |
+          +--------------------------------------+--------------+
+          |            0:0:0:0:0:0               | IPv4 Address |
+          +--------------------------------------+--------------+
+IPv4地址被赋给用来支持自动传输的专有的节点。一个节点SHOULD只有在他被准备用来
+接收IPv6包时被配置一个IPv4兼容地址从在IPv4里压缩的地址到IPv4的内含地址。
+	一个兼容的IPv4地址是全球独一无二的只要IPv4地址不是来自私有的IPv4地址空间。
+一个执行SHOULD的动作就好像是把IPv4兼容地址赋给节点的自动通道接口，即使执行没
+有用接口的一个概念来执行自动传输。因此IPv4兼容地址SHOULD NOT被看作是连向一
+个以太网接口的i.e.的工具不应该在一太网上用像NUD的ND机制。不管怎样的接口应该
+用在自动通道接口的压缩包i.e.来完成。
+5.2.IPv4兼容地址的配置
+	有一个IPv4兼容地址的一个IPv6/IPv4节点用像它的一个IPv6地址一样的地址，当IPv4
+地址包含在低32位作为为另一个接口的IPv4地址。
+	一个IPv6/IPv4节点MAY需要它的通过IPv4地址配置协议的IPv6与IPv4兼容的地址。
+MAY用IPv4地址配置机制来配置任意它的所需的IPv4地址，然后"map"这些地址到一个
+IPv6与IPv4兼容的地址里。这种配置模式允许IPv6/IPv4节点"leverage"安装基本的IPv4地
+址配置服务。
+	特殊的运算法则被一个使用基本的IPv4地址配置协议的IPv4兼容的址所需，如下所示：
+1）IPv6/IPv4节点使用标准的IPv4机制或协议来满足IPv4地址之一的接口。它包括：
+——动态的主机配置协议（DHCP）
+——BOOTP(The Bootstrap Protocol)
+——RARP(The Reverse Address Resolution Protocol)
+——手动配置
+——其它能正确产生节点自身IPv4地址的机制
+2）节点作为IPv4地址来为接口使用这些地址。
+3）节点预先设计了96位前缀0:0:0:0:0:0给32位的IPv4地址这在下一步中需要。结果是节
+点的IPv4地址之一的IPv6/IPv4兼容的地址包含在低32位中。节点把它们作为IPv6地址之
+一来使用这些地址。
+5.3.自动传输管理
+	在自动传输中，通道端点地址通过被传输包来决定。如果IPv6的目的地地址与IPv4兼
+容，那包能通过自动传输被发送。如果目的地地址是IPv6自身地址，那包就不能通过自动
+通道被发送。
+	一个路由平台入口被直接用来自动传输。一个执行对96位前缀0:0:0:0:0:0由一个特殊
+不动的路由平台入口。和这个前缀配对的包被一个假冒的接口发送这个接口执行自动传输。
+由于所有的IPv6/IPv4兼容地址将和这个前缀配对，所有的包将自动传输到目的地。
+	一旦它被传送到自动通道的模式，IPv6包根据在3部分里描述的那样不用一个IPv4报
+头来压缩。压缩的IPv4报头的源和目的地址被赋予成如下：
+	目的地IPv4地址：
+		IPv6目的地地址的低32位
+	源IPv4地址
+		IPv4地址的接口的包总是在压缩形式通过自动通道模式被发送，即使目的地是在
+一个数据连接上。
+	
+	自动传输模式MUST NOT发送IPv4广播或多点传送目的地。MUST丢弃所有的IPv6
+包到IPv4兼容目的地当内含的IPv4地址被广播时，多路径传送时，没定义的地址（0.0.0.0）
+或是循环地址（127.0.0.1）。注意发送者能告诉是否一个地址是主网的或是子网的地址。
+5.4.使用缺省配置的通道
+	自动传输经常使用在和缺省配置的通道技术的连接上。隔离的IPv6/IPv4主机——那些
+主机没有IPv6路由器连接——使用自动传输和IPv6/IPv4兼容地址来配置，并且至少有一个
+缺省通道对一个路由器。IPv6路由器像执行自动传输一样被配置。这些隔离的主机通过自
+动传输发送包到IPv4兼容目的地和通过缺省配置的通道发送包到IPv6自身目的地。IPv4兼
+容目的地将与96为所有零的前缀配对这已在前面讨论，而IPv6自身目的地通过配置的通道
+将与缺省的路径匹配。从IPv6自身目的地回复包时通过一个IPv6/IPv4路由器。更多的例子
+在[12]中讨论。
+5.5.源地址选择
+	当一个IPv6/IPv4节点发出一个IPv6包时，它必须选择源IPv6地址来使用。IPv6/IPv4
+节点被配置用来执行自动传输可能用全球IPv6自身地址和IPv4兼容地址来配置。选择用哪
+种源地址由返回交通量来决定。如果IPv4兼容地址被选用，返回交通量将不得不通过自动
+通道来传输，当时如果IPv6自身地址被选用，返回交通量将不必使用自动通道。为了使交
+通量尽可能的平衡，建议参考下面的源地址选择：
+	目的地是IPv4兼容：
+		用IPv4兼容源地址和流出接口的IPv4地址结合
+	目的地是IPv6自身：
+		用流出接口的IPv6自身地址
+如果一个IPv6/IPv4节点没有全球的IPv6自身地址，但是产生的一个包是到IPv6自身的目
+的地，MAY用来将其IPv4兼容地址当作源地址用。
+5.6.入口过滤
+	解压缩节点MUST在传输解压缩包前校验压缩包时可接收的以次来避免包围入口过滤。
+注意包传输选择哪一传输协议在解压缩节点SHOULD NOT上将服从这些校验。由于自动传
+输总是压缩到目的地在一个自动通道上接收的包SHOULD NOT被传输。
+6.谢意表达
+	我们将感谢IPng 工作组的成员和Next Generation Transition (ngtrans)工作组成员
+对本文的巨大贡献。特别感谢Jim Bound, Ross Callon和Bob Hinden给予的许多帮助和建
+议和John Moy对IPv4“anycast address"缺身通道的技术建议。
+7.安全方面的考虑
+	传输没有引进任何的安全漏洞除了在包围入口过滤里可能外。这能被阻止通过解压缩路
+由器仅传送有配置的包，从在接受包里的IPv4源地址接收压缩包。另外，在自动传输情况
+下，节点被不传送的解压缩包需要由于自动传输终止了通道和目的地。
+8.作者地址
+	Robert E. Gilligan
+   FreeGate Corp
+   1208 E. Arques Ave
+   Sunnyvale, CA 94086
+   USA
+
+   Phone:  +1-408-617-1004
+   Fax:    +1-408-617-1010
+   EMail:  gilligan@freegate.com
+
+
+	Erik Nordmark
+   Sun Microsystems, Inc.
+   901 San Antonio Rd.
+   Palo Alto, CA 94303
+   USA
+
+   Phone:  +1-650-786-5166
+   Fax:    +1-650-786-5896
+   EMail:  nordmark@eng.sun.com
+
+9.参考书
+	[1]  Croft, W. and J. Gilmore, "Bootstrap Protocol", RFC 951,
+        September 1985.
+
+   [2]  Droms, R., "Dynamic Host Configuration Protocol", RFC 1541,
+        October 1993.
+
+   [3]  Carpenter, B. and C. Jung, "Transmission of IPv6 over IPv4
+        Domains without Explicit Tunnels", RFC 2529, March 1999.
+
+   [4]  Deering, S. and R. Hinden, "Internet Protocol, Version 6 (IPv6)
+        Specification", RFC 2460, December 1998.
+
+   [5]  Thomson, S. and T. Narten, "IPv6 Stateless Address
+        Autoconfiguration," RFC 2462, December 1998.
+
+   [6]  Crawford, M., Thomson, S., and C. Huitema. "DNS Extensions to
+        Support IPv6 Address Allocation and Renumbering", RFC 2874, July
+        2000.
+
+   [7]  Narten, T., Nordmark, E. and W. Simpson, "Neighbor Discovery for
+        IP Version 6 (IPv6)", RFC 2461, December 1998.
+
+   [8]  Mogul, J. and S. Deering, "Path MTU Discovery", RFC 1191,
+        November 1990.
+
+   [9]  Finlayson, R., Mann, T., Mogul, J. and M. Theimer, "Reverse
+        Address Resolution Protocol", STD 38, RFC 903, June 1984.
+
+   [10] Braden, R., "Requirements for Internet Hosts - Communication
+        Layers", STD 3, RFC 1122, October 1989.
+
+   [11] Kent, C. and J. Mogul, "Fragmentation Considered Harmful".  In
+        Proc.  SIGCOMM '87 Workshop on Frontiers in Computer
+        Communications Technology.  August 1987.
+
+   [12] Callon, R. and D. Haskin, "Routing Aspects of IPv6 Transition",
+        RFC 2185, September 1997.
+
+   [13] Ferguson, P. and D. Senie, "Network Ingress Filtering: Defeating
+        Denial of Service Attacks which employ IP Source Address
+        Spoofing", RFC 2267, January 1998.
+
+   [14] Hinden, R. and S. Deering, "IP Version 6 Addressing
+        Architecture", RFC 2373, July 1998.
+	15] Rechter, Y., Moskowitz, B., Karrenberg, D., de Groot, G.J. and
+        E. Lear, "Address Allocation for Private Internets", BCP 5, RFC
+        1918, February 1996.
+
+   [16] Bradner, S., "Key words for use in RFCs to Indicate Requirement
+        Levels", BCP 14, RFC 2119, March 1997.
+
+   [17] Thaler, D., "IP Tunnel MIB", RFC 2667, August 1999.
+
+   [18] Baker, F., "Requirements for IP Version 4 Routers", RFC 1812,
+        June 1995.
+
+10.从1933年起的RFC变化
+Deleted section 3.1.1 (IPv4 loopback address) in order to prevent
+      it from being mis-construed as requiring routers to filter the
+      address ::127.0.0.1, which would put another test in the
+      forwarding path for IPv6 routers.
+
+   -  Deleted section 4.4 (Default Sending Algorithm).  This section
+      allowed nodes to send packets in "raw form" to IPv4-compatible
+      destinations on the same datalink.  Implementation experience has
+      shown that this adds complexity which is not justified by the
+      minimal savings in header overhead.
+
+   -  Added definitions for operating modes for IPv6/IPv4 nodes.
+
+   -  Revised DNS section to clarify resolver filtering and ordering
+      options.
+
+   -  Re-wrote the discussion of IPv4-compatible addresses to clarify
+      that they are used exclusively in conjunction with the automatic
+      tunneling mechanism.  Re-organized document to place definition of
+      IPv4-compatible address format with description of automatic
+      tunneling.
+
+   -  Changed the term "IPv6-only address" to "IPv6-native address" per
+      current usage.
+
+   -  Updated to algorithm for determining tunnel MTU to reflect the
+      change in the IPv6 minimum MTU from 576 to 1280 bytes [4].
+
+   -  Deleted the definition for the term "IPv6-in-IPv4 encapsulation."
+      It has not been widely used.
+
+   -  Revised IPv4-compatible address configuration section (5.2) to
+      recognize multiple interfaces.
+Added discussion of source address selection when using IPv4-
+      compatible addresses.
+
+   -  Added section on the combination of the default configured
+      tunneling technique with hosts using automatic tunneling.
+
+   -  Added prohibition against automatic tunneling to IPv4 broadcast or
+      multicast destinations.
+
+   -  Clarified that configured tunnels can be unidirectional or
+      bidirectional.
+
+   -  Added description of bidirectional virtual links as another type
+      of tunnels.  Nodes MUST respond to NUD probes on such links and
+      SHOULD send NUD probes.
+
+   -  Added reference to [16] specification as an alternative for
+      tunneling over a multicast capable IPv4 cloud.
+
+   -  Clarified that IPv4-compatible addresses are assigned exclusively
+      to nodes that support automatic tunnels i.e. nodes that can
+      receive such packets.
+
+   -  Added text about formation of link-local addresses and use of
+      Neighbor Discovery on tunnels.
+
+   -  Added restriction that decapsulated packets not be forwarded
+      unless the source address is acceptable to the decapsulating
+      router.
+
+   -  Clarified that decapsulating nodes MUST be capable of reassembling
+      an IPv4 packet that is 1300 bytes (1280 bytes plus IPv4 header).
+
+   -  Clarified that when using a default tunnel to an IPv4 "anycast
+      address" the network must either have an IPv4 MTU of least 1300
+      bytes (to avoid fragmentation of minimum size IPv6 packets) or be
+      configured to avoid frequent changes to IPv4 routing to the
+      "anycast address" (to avoid different IPv4 fragments arriving at
+      different tunnel endpoints).
+
+   -  Using A6/AAAA instead of AAAA to reference IPv6 address records in
+      the DNS.
+
+   -  Specified when to put IPv6 addresses in the DNS.
+
+   -  Added reference to the tunnel mib for TTL specification for the
+      tunnels.
+
+11.版权申明
+	Copyright (C) The Internet Society (2000).  All Rights Reserved.
+
+   This document and translations of it may be copied and furnished to
+   others, and derivative works that comment on or otherwise explain it
+   or assist in its implementation may be prepared, copied, published
+   and distributed, in whole or in part, without restriction of any
+   kind, provided that the above copyright notice and this paragraph are
+   included on all such copies and derivative works.  However, this
+   document itself may not be modified in any way, such as by removing
+   the copyright notice or references to the Internet Society or other
+   Internet organizations, except as needed for the purpose of
+   developing Internet standards in which case the procedures for
+   copyrights defined in the Internet Standards process must be
+   followed, or as required to translate it into languages other than
+   English.
+
+   The limited permissions granted above are perpetual and will not be
+   revoked by the Internet Society or its successors or assigns.
+
+   This document and the information contained herein is provided on an
+   "AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+   TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+   HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+   MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+Acknowledgement
+
+   Funding for the RFC Editor function is currently provided by the
+   Internet Society.
+
+
+RFC2893——Transition Mechanisms for IPv6 Hosts and Routers        IPv6 主机和软件路由器转换机制
+
+
+1
+RFC文档中文翻译计划
