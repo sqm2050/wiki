@@ -28,8 +28,8 @@
 	cn63 hard manual:	1	0
 	pos packet analy:	2	0	lunch	 :21
 	crosspass code	:	3		haircut	 :20
-	see mips run	:	2		dinner	 :
-	see mips run	:	1.5
+	see mips run	:	2		dinner	 :0
+	see mips run	:	1.5		tea	 :3
 	账号：玉面小飞龙LXM
 	密码：LUmeng900921
 	支付密码：LUXmenG961006
