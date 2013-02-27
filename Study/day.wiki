@@ -27,11 +27,20 @@
 	see mips run	:5	1.5	1
 	cn63 hard manual:	1	0
 	pos packet analy:	2	0	lunch	 :21
-	crosspass code	:	3		haircut	 :20
-	see mips run	:	2		dinner	 :0
-	see mips run	:	1.5		tea	 :3
+	crosspass code	:	3	3	haircut	 :20
+	see mips run	:	2	1	dinner	 :0
+	see mips run	:	1.5	1	tea	 :3
 	账号：玉面小飞龙LXM
 	密码：LUmeng900921
 	支付密码：LUXmenG961006
+	————————————————————————————————————————————————————————————————————————
+	time		:	8	money	:48
+	————————————————————————————————————————————————————————————————————————
+2013.02.27 周三	/ Wendesay February 27,2013
+	————————————————————————————————————————————————————————————————————————
+	voa		:	1	0	breakfast:04
+	see mips run	:	1.5	1
+	pos packet	:	7
+	see mips run	:	3.5
 	————————————————————————————————————————————————————————————————————————
 	————————————————————————————————————————————————————————————————————————
