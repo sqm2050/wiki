@@ -22,19 +22,12 @@ tasks:
 	素日锦年
 ===============================================================================
 1.mips64
-	2013.02.25 --- 2013.03.03 = 7 days
+	2013.02.25 --- 2013.03.17 = 7 * 3 days
 	See.MIPS.Run.2nd.CN.pdf
 
-	2013.03.04 --- 2013.03.10 = 7 days
 	MIPS64® Architecture for Programmers Volume I: Introduction to the MIPS64™ Architecture.pdf
-
-	2013.03.11 --- 2013.03.17 = 7 days
 	MIPS64® Architecture for Programmers Volume I-B: Introduction to the microMIPS64™ Architecture.pdf
-
-	2013.03.18 --- 2013.04.14 = 7 * 4 days
 	MIPS64® Architecture for Programmers Volume II: The MIPS64® Instruction Set.pdf
-
-	2013.05.27 --- 2013.06.23 = 7 * 4 days
 	MIPS® Architecture For Programmers Volume III: The MIPS64® and microMIPS64™ Privileged Resource Architecture.pdf
 	MIPS-cpu体系构架概述.pdf
 
@@ -44,8 +37,12 @@ tasks:
 3.C
 	c和指针
 	c专家编程
-	网络编程123
+
+	2013.03.18 --- 2013.04.14 = 7 * 4 days
+	网络编程1
+	2013.05.27 --- 2013.06.23 = 7 * 4 days
 	网络编程2
+
 	网络编程3
 
 	2013.05.13 --- 2013.05.26 = 7 * 2 days

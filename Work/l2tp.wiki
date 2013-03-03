@@ -1,0 +1,88 @@
+	L2TP支持包括IP、ATM、帧中继、X.25 在内的多种网络。在IP网络中，L2TP协议
+	使用注册端口 UDP 1701。[1]因此，在某种意义上，尽管L2TP协议的确是一个数
+	据链路层协议，但在IP网络中，它又的确是一个会话层协议。
+rfc3931:
+	l2tp:layer two tunneling protocol.
+
+	L2TP Control Connection Endpoint(LCCE)
+	An L2TP node that exists at either end of an L2TP control connection.
+	May also be referred to as an LAC or LNS,depending on whether tunnele-
+	d frames are processed at the data link(LAC) or network layer(LNS).
+
+	Data messages are used to encapsulate the L2 traffic being carried ov-
+	er the L2TP session.Unlike control messages,data messages are not ret-
+	ransmitted when packet loss occurs.
+
+	L2TPv3 structure
+	Tunneled Frame		L2TP Control Message
+	L2TP Data Header	L2TP Control Header
+	L2TP Data Channel	L2TP Control Channel
+	   (unreliable)			(reliable)
+	Packet-Switch Network(IP,FR,MPLS,etc.)
+
+	Data memssages are passed over an unreliable data channel,encapsulated
+	by an L2TP header,and sent over a Packet-Switched Network(PSN 分组交换
+	网络)such as IP,UDP,Frame Relay,ATM,MPLS,etc.Control messages are sent
+	over a reliable L2TP control channel,which operates over the same PSN.
+
+	The necessary setup for tunneling a session with L2TP consists of  two
+	steps:(1) Establishing the control connection,and (2)establishing a s-
+	ession as triggered by an incoming call or outgoing call.An L2TP sess-	trigger:触发器
+	ion MUST be established before L2TP can begin to forward session fram-
+	es.Multiple sessions may be bound to a single control connection , and
+	multiple control connections may exist between the same two LCCEs.
+
+L2TP Control Message Header
+	The T bit MUST be set to 1, indicating that this is a control message.	T位必须置1，表示是一个控制消息。
+
+	The L and S bits MUST be set to 1,indicating that the Length field and
+	sequence numbers are present.
+
+	The x bits are reserved for future extensions.All reserved bits MUST 
+	be set to 0 on outgoing messages and ignored on incoming messages.
+
+	The Ver field indicates the version of the L2TP control message header
+	described in this document.On sending, this field MUST be set to 3 for
+	all messages(unless operating in an environment that includes L2TPv2[R
+	FC2661] and/or L2F[RFC2341] as well,see Section 4.1 for details).
+
+	The length field indicates the total length of the message in  octets,
+	always calculated from the start of the control message header  itself
+	(beginning with the T bit).
+
+	Non-zero Control Connection IDs are selected and exchanged as Assigned
+	Control Connection ID AVPs durin the creation of a control connection.
+
+	The Session Header MUST provide a method of distinguishing traffic am-
+	ong multiple L2TP data sessions and a method of distinguishing data m-
+	essages from control messages.
+	会话头必须提供一个能从多个L2TP数据会话中区分通信的方法，和一个区分是数
+	据消息还是控制消息的方法。
+	Each type of encapsulating PSN MUST define its own session header cle-
+	arly identifying the format of the header and parameters necessary  to
+	setup the session.Section 4.1 defines two session headers,one for tra-
+	nsport over UDP and one for transport over IP.
+
+	The L2-Specific Sublayer is an intermediary layer between the L2TP se-	intermediary:adj.中间人的,调解的.n:中间人
+	ssion header and the start of the tunneled frame.It  contains  control
+	fields that are used to facilitate the tunneling of each frame.The de-	facilitate:vt.促进，帮助
+	fault L2-Specific Sublayer for L2TPv3 is defined in Section 4.6.
+
+Control Conection Teardown:
+	Control connection teardown may be initiated by either LCCE and is ac-
+	complished by sending a single StopCCN control message.As part of  the
+	reliable control message delivery mechanism,the recipient of a StopCCN	mechanism:n.机械，机构，结构，机理，技巧
+	MUST send an ACK message to acknowledge recepit of the message and ma-
+	intain enough control connection state to properly accept StopCCN ret-	properly:ad.适当地
+	ransmissions over at least a full retransmission cycle(in case the ACK	retransmission:重发，重传，转发
+	message is lost).The recommended time for a full retransmission  cycle
+	is at least 31 seconds
+
+	通过StopCCN 可以关闭控制连接，和所有与控制连接有关的会话。所以没有必要
+	在关闭控制连接的时候，独立地关闭每个会话。				detect:vt.发觉，察觉，探测
+
+Session Teardown:
+	Session teardown may be initiated by either the LAC or LNS and is acc-
+	omplished by sending a CDN control message.After the last  session  is 
+	cleared,the control connection MAY be torn down as well (and typically
+	is).

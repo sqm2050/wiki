@@ -1,6 +1,9 @@
 = My Urgent Tasks =
     * [[temp]]
+    == task ==
+    * [[task]]
     * [[books index]]
+    == time money ==
     * [[year]]
     * [[month]]
     * [[week]]

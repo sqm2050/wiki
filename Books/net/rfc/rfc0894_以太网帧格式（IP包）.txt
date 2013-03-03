@@ -1,0 +1,171 @@
+
+
+Network Working Group                                     Charles Hornig
+Request for Comments: 894            Symbolics Cambridge Research Center
+                                                              April 1984
+
+ A Standard for the Transmission of IP Datagrams over Ethernet Networks
+
+
+Status of this Memo
+
+   This RFC specifies a standard method of encapsulating Internet
+   Protocol (IP) [1] datagrams on an Ethernet [2].  This RFC specifies a
+   standard protocol for the ARPA-Internet community.
+
+Introduction
+
+   This memo applies to the Ethernet (10-megabit/second, 48-bit
+   addresses).  The procedure for transmission of IP datagrams on the
+   Experimental Ethernet (3-megabit/second, 8-bit addresses) is
+   described in [3].
+
+Frame Format
+
+   IP datagrams are transmitted in standard Ethernet frames.  The type
+   field of the Ethernet frame must contain the value hexadecimal 0800.
+   The data field contains the IP header followed immediately by the IP
+   data.
+
+   The minimum length of the data field of a packet sent over an
+   Ethernet is 46 octets.  If necessary, the data field should be padded
+   (with octets of zero) to meet the Ethernet minimum frame size.  This
+   padding is not part of the IP packet and is not included in the total
+   length field of the IP header.
+
+   The minimum length of the data field of a packet sent over an
+   Ethernet is 1500 octets, thus the maximum length of an IP datagram
+   sent over an Ethernet is 1500 octets.  Implementations are encouraged
+   to support full-length packets.  Gateway implementations MUST be
+   prepared to accept full-length packets and fragment them if
+   necessary.  If a system cannot receive full-length packets, it should
+   take steps to discourage others from sending them, such as using the
+   TCP Maximum Segment Size option [4].
+
+   Note:  Datagrams on the Ethernet may be longer than the general
+   Internet default maximum packet size of 576 octets.  Hosts connected
+   to an Ethernet should keep this in mind when sending datagrams to
+   hosts not on the same Ethernet.  It may be appropriate to send
+   smaller datagrams to avoid unnecessary fragmentation at intermediate
+   gateways.  Please see [4] for further information on this point.
+
+
+
+
+
+Hornig                                                          [Page 1]
+
+
+
+RFC 894                                                       April 1984
+
+
+Address Mappings
+
+   The mapping of 32-bit Internet addresses to 48-bit Ethernet addresses
+   can be done several ways.  A static table could be used, or a dynamic
+   discovery procedure could be used.
+
+   Static Table
+
+      Each host could be provided with a table of all other hosts on the
+      local network with both their Ethernet and Internet addresses.
+
+   Dynamic Discovery
+
+      Mappings between 32-bit Internet addresses and 48-bit Ethernet
+      addresses could be accomplished through the Address Resolution
+      Protocol (ARP) [5].  Internet addresses are assigned arbitrarily
+      on some Internet network.  Each host's implementation must know
+      its own Internet address and respond to Ethernet Address
+      Resolution packets appropriately.  It should also use ARP to
+      translate Internet addresses to Ethernet addresses when needed.
+
+   Broadcast Address
+
+      The broadcast Internet address (the address on that network with a
+      host part of all binary ones) should be mapped to the broadcast
+      Ethernet address (of all binary ones, FF-FF-FF-FF-FF-FF hex).
+
+   The use of the ARP dynamic discovery procedure is strongly
+   recommended.
+
+Trailer Formats
+
+   Some versions of Unix 4.2bsd use a different encapsulation method in
+   order to get better network performance with the VAX virtual memory
+   architecture.  Consenting systems on the same Ethernet may use this
+   format between themselves.
+
+   No host is required to implement it, and no datagrams in this format
+   should be sent to any host unless the sender has positive knowledge
+   that the recipient will be able to interpret them.  Details of the
+   trailer encapsulation may be found in [6].
+
+   (Note:  At the present time Unix 4.2bsd will either always use
+   trailers or never use them (per interface), depending on a boot-time
+   option.  This is expected to be changed in the future.  Unix 4.2bsd
+   also uses a non-standard Internet broadcast address with a host part
+   of all zeroes, this may also be changed in the future.)
+
+
+
+Hornig                                                          [Page 2]
+
+
+
+RFC 894                                                       April 1984
+
+
+Byte Order
+
+   As described in Appendix B of the Internet Protocol
+   specification [1], the IP datagram is transmitted over the Ethernet
+   as a series of 8-bit bytes.
+
+References
+
+   [1]  Postel, J., "Internet Protocol", RFC-791, USC/Information
+   Sciences Institute, September 1981.
+
+   [2]  "The Ethernet - A Local Area Network", Version 1.0, Digital
+   Equipment Corporation, Intel Corporation, Xerox Corporation,
+   September 1980.
+
+   [3]  Postel, J., "A Standard for the Transmission of IP Datagrams
+   over Experimental Ethernet Networks", RFC-895, USC/Information
+   Sciences Institute, April 1984.
+
+   [4]  Postel, J., "The TCP Maximum Segment Size Option and Related
+   Topics", RFC-879, USC/Information Sciences Institute, November 1983.
+
+   [5]  Plummer, D., "An Ethernet Address Resolution Protocol", RFC-826,
+   Symbolics Cambridge Research Center, November 1982.
+
+   [6]  Leffler, S., and M. Karels, "Trailer Encapsulations", RFC-893,
+   University of California at Berkeley, April 1984.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hornig                                                          [Page 3]
+

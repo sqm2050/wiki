@@ -1,8 +1,8 @@
 7 .报文识别功能要求(基本要求)
-	97.1 POS报文识别
+	97.1 POS报文识别	POS使用的链路层协议主要有PPP和HDLC。 POS is defined by RFC 2615 as PPP over SONET/SDH.
 	97.2 链路层报文识别
 	97.3 VLAN报文识别
-	97.4 MPLS报文识别
+	97.4 MPLS报文识别	MPLS和以太网WAN赶走了帧中继和ATM
 	97.5 IP层报文识别
 	107.6 IPv4报文识别
 	107.7 IPv6报文识别
