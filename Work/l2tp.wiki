@@ -35,7 +35,7 @@ rfc3931:
 L2TP Control Message Header
 	The T bit MUST be set to 1, indicating that this is a control message.	T位必须置1，表示是一个控制消息。
 
-	The L and S bits MUST be set to 1,indicating that the Length field and
+	The L and S bits MUST be set to 1,indicating that the Length field and	控制消息必须有长度和序号，所以两位必须置位
 	sequence numbers are present.
 
 	The x bits are reserved for future extensions.All reserved bits MUST 
@@ -86,3 +86,177 @@ Session Teardown:
 	omplished by sending a CDN control message.After the last  session  is 
 	cleared,the control connection MAY be torn down as well (and typically
 	is).
+
+Protocol Operation:
+	L2TP may operate over a variety of PSNs. There are two modes described 	L2TPv2 over other PSNs:RFC3070,RFC3355.
+	for operation over IP(4.1.1) and L2TP over UDP(4.1.2).L2TPv3 implemen-
+	tations MUST support L2TP over IP and SHOULD support L2TP over UDP for
+	better NAT and firewall traversal,and for easier migration from L2TPv2	migration:n.移民，移动，【计】迁移。
+
+Session ID
+	A 32-bit field containing a non-zero identifier for a session.L2TP se-
+	ssions are name by identifiers that have local significance only. That
+	is ,the same logical will be given different Session IDs by  each  end 
+	of the control connectoin is used for session establishment,Session I-
+	Ds are selected and exchanged as Local Session ID AVPs during the cre-
+	ation of a session.The session id alone provides the necesary  context 
+	for all further processing,including the presence,size,and value of t-
+	he Cookie,the type of L2-Specific Sublayer,and the type of payload be-
+	ing tunneled.
+
+L2TPv3 Control Message Header Over IP
+	Note that the length field is still calculated from the  beginning  of 	L2TPv2 RFC2661;L2F RFC2341
+	the control message header,beginning with the T bit.
+
+	When operating directly over IP,L2TP packets lose the ability to  take
+	advantage of the UDP checksum as a simple packet integrity.		intergrity:n.完整性
+
+UDP Port Selection
+	control connection:UDP:1701(destination address)
+	The initiator of an L2TP control connection pick an  available source 
+	UDP port(which may or may not be 1701) and sends to the desired dest-
+	ination addres at port 1701.The recipent picks a free port on its own
+	system(which may or may not be 1701)and sends its replay to the init-
+	iator's UDP port and address,setting its own source port to the  free
+	port it found.
+	控制连接的发起者发起的把报文目的端口是1701，源端口任意选一个可获得端口
+	（可能是也可能不是1701）。接收端在自己的系统上选择一个空闲的端口（可以
+	是或者不是1701）发送响应到发起者的端口和地址，选择空闲端口作为自己的源
+	端口。
+
+	Either L2TP over UDP or L2TP over IP may be secured with IPsec RFC2401
+	defines the recommended method for securing L2TPv2.L2TPv3 possesses i-
+	dentical characteristics to IPsec as L2TPv2 when running over UDP  and
+	implementations MUST follow the same recommendation.When operating ov-
+	er IP directly,[RFC3193] still applies,though references to UDP source
+	and destination ports.
+
+	Note that IPv6 does not support "in-flight" fragmentation of data pac-
+	kets.
+
+4.1.4 IP Fragmentation Issues
+	In summary,attempting to control the source MTU by communicating  with
+	the originating host,forcing that an MTU be sufficently large  on  the	sufficently:ad.足够，充分。
+	path between LCCE peers to tunnel a frame from any other interface wi-
+	thout fragmentation,fragmenting IP packets before  encapsulation  with
+	L2TP/IP,or fragmentation the resultant L2TP/IP packet between the tun-
+	nel endpoints,are all valid methods for managing MTU mismatches.
+
+4.2 Reliable Delivery of Control Messages
+	The sequence number in the header of a received message is  considered 
+	less than or equal to the last received number if its  value  lies  in 
+	the range of the last received number and the preceding 32767  values,
+	inclusive.For example,if the last received sequence number was 15,then
+	messages with sequence number 0 through 15, as well  as 32784  through 
+	65535,would be considered less than or equal.Such a message  woule  be	这里看不懂啊！！！！
+	considered a duplicate of a message already received and ignored  from
+	processing.
+
+L2TPv2 L2TPv3
+	L2TP消息可以分为控制消息和数据消息两种类型，控制消息用于隧道连接和会话
+	连接的建立和维护，数据消息则用来承载用户的PPP 会话数据包。控制消息中的
+	参数用AVP属性值对（Attribute Value Pair）来表示， 使得协议具有很好的扩
+	展。在控制消息的传输中还应用了滑动窗口机制，以实现控制消息的重传和拥塞
+	控制。L2TP数据消息的传输不采用重传机制，所以它无法保证传输的可靠性，但
+	这一点可以通过上层协议如TCP等得到保证。
+	L2TP协议的安全性依赖于:(1)PPP提供的认证，比如CHAP或者PAP认证(2)L2TPv2
+	本身提供的隧道验证和AVP隐藏。
+	在使用中，L2TPv2 存在很多安全问题：（1）隧道验证仅仅定义了对隧道终端实
+	体的身份认证，而不是认证隧道中流过的每个报文，这样的隧道无法防止插入攻
+	击和地址欺骗（2） 由于没有针对每个报文进行完整性校验，就有可能进行拒绝
+	服务攻击（DOS），即发送一些假冒的控制信息，导致L2TPv2隧道或底层PPP连接
+	的关闭。（3）虽然PPP报文的数据可以加密，但PPP 协议不支持密钥的自动生成
+	和自动刷新，这样进行监听的攻击者就可能最终攻破密钥，从而得到所传的数据
+	为了实现L2TP的安全性，现在多使用L2TPv2+IPSEC解决方案，但是由于IPSEC 在
+	穿越NAT时有一定局限性，使得L2TP性能得到减弱。所以L2TP最好能独立于IPSEC
+	实现隧道的自身保护机制。
+L2TPV3的安全性：
+	1. 将和PPP相关的AVP、以及包含在L2TP数据消息头部中的一些和PPP相关的域剥
+	   离掉
+	2. 将Session ID和Tunnel ID从以前的16bit变为了32bit；
+	3. 认证整个控制消息，而不是以前的只认证消息的一部分
+	另外L2TPv3可在隧道中转发PPP、HDLC、帧中继和以太网等第二层帧，而 L2TPv2
+	只能通过隧道转发PPP帧。
+================================= l2tp v2 ====================================
+L2TP Header Format:
+	l2tp packets for the control channel and data channedl share a  common	控制隧道和数据隧道使用同一个头格式
+	header format.In each case where a field is optional, its  space  does	如果一个域是可选的
+	not exist in the message if the field is marked not present. Note that	当它被标记是不存在的，她的空间也不存在
+	while optional on data messages,the length,ns,and nr fields marked  as 	控制消息中len,ns,nr域是肯定存在的。
+	optional below,are required to be present on all control messages.
+
+	0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+	T L x x S x O P x x x x|  Ver  |	Length(opt)		|
+		Tunnel ID	       |	Session ID		|
+		Ns (opt)	       |	Nr (opt)		|
+		Offset Size(opt)       |	Offset pad... (opt)	|
+
+	T: indicates the type of message.It is set to 0 for a data message and
+	   1 for a control message.
+	L: if the Length bit is 1,the length field is present.This bit MUST be
+	   set to 1 for control messages.
+	S: If the Sequence bit is set to 1 the Ns and Nr fields are present.T-
+	   he S bit MUST be set to 1 for control messages.
+	O: if the offset bit is 1,the offset size field is  present. the O bit
+   	   MUST be set to 0 (zero) for control messages.
+	P: if the Priority bit is 1,this data message should receive preferen-
+	   tial treatment in its local queuing and transmission. This  feature
+	   is only for use with data messages.The P bit MUST be set to  0  for 
+	   all control messages.
+	Ver: MUST be 2.								L2F RFC2341
+	Length: The length field indicates the total length of the message  in
+		octets.								长度单位八位元
+	Tunnel ID: indicates the identifier for the control connection.L2TP t-
+		   unnels are named by identifiers that have local significan-	像GTP的teid一样，本端给对端分配相应的tunnel id。
+		   ce only.That is,the same logical will  be  given  different 	Session ID,在ICRQ报文中，于此类似。
+		   Session IDs by each end of the tunnel.Tunnel ID in each me-
+		   ssage is that of the intended recipient,not the sender.Tun-
+		   nel IDs are selected and exchanged as Assigned Tunnel ID A-
+		   VPs during the creation of a tunnel.
+
+AVP Format:
+	0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+	M H| rsvd  | Length	       |	Vendor ID		|
+	Atrribute Type		       |	Atrribute Value...	[[|]]
+		until Length is reached....
+
+	Mandatory(M) bit:如果置位的话，在Session出现的没有识别的消息，这个会话
+	就要终止，如果是在Tunnel中出现的话，真个隧道就要终止。如果M bit 没有置
+	位，不能识别的报文就要被忽略。
+
+	Hidden(H)bit:隐藏信息。
+
+	Length:AVP的整个长度 = 6 + Atrribute Value, 6 - 1023.
+
+	Vendor ID:
+
+H bit:
+	If the H bit is set in any AVP(s) in a given control message, a Random
+	Vector AVP must also be present in the message and MUST precede the f-	precede:vt.vi.在...之前，在前面
+	irst AVP having an H bit of 1.
+	如果Hbit在一个AVP中置位了，那么一个Randon Vector AVP也必须出现在消息中
+	而且在第一个H置位的AVP前面。
+
+	隐藏要经过几步，首先除去原始AVP的长度和值域，然后转码成如下：
+	Length of Original Value	| Original Atrribute Value
+						Padding...
+	新的AVP：
+		6 + 	4 + 				2 + 		12 = 24
+		head	Attribute Value length		size of length  padding
+	计算MD5 hash值：
+	1. AVP的属性号 2 octet		AV
+	2. 共享密钥			S
+	3. 任意一个随机数		RV
+	随机数在Random Vector AVP中传递，必须在第一个hidden AVP 的前面，如果想
+	使用多个随机数，那么在第一次使用那个那随机数的hidden AVP前面要放置一个
+	randon vector AVP.
+
+	然后MD5值和子格式的前16octet的段进行异或。如果小于16octet在异或前会进行
+	转码, 但是只有子格式中的octets被修改，AVP的长度不做调整。
+
+	如果子格式长于16octets，则生成第二个MD5值，使用共享密钥，和第一个异或值
+	把值域拆开成16-octet长度的块p1,p2,...
+		b1 = MD5(AV + S + RV)	c(1) = p1 xor b1
+		b2 = MD5(S + c(1))	c(2) = p2 xor b2
+		.
+		bi = MD5(S + c(i-1))	c(i) = pi xor bi

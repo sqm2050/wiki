@@ -688,4 +688,44 @@ MIPS指令格式和寻址方式
 	OP 直接地址
 	无条件跳转指令，内存地址=26位直接地址+PC高四位+最后添两个‘0’
 
-p288 mips gcc asm
+	在整数乘除的机器码中，由单独分开的指令分别发起运算和提取结果。但是除法
+	的汇编宏指令的名字div，和基本的机器码指令的名字相同。
+
+MIPS汇编指令（按字母次序排列)
+	abs	d, s => d = s < 0 ? -s : s
+		sra	$at, s, 31	# -9 -> 1111 1111 1111 0111>> 31=1111 1111 1111 1111  = -1(补码)
+		xor	d, s, $at	# 1111 1111 1111 0111 ^ 1111 1111 1111 1111 = 0000 0000 0000 1000 = 8
+		subu	d, d, $at	# 0000 0000 0000 1000 - (-1) = 0000 0000 0000 1001 = 9
+
+	add	d, s, j => d = s + (signed)j 溢出时自陷，很少用 
+		addi	d, s, j
+
+	add	d, s, t => d = s + t 溢出时自陷，很少用
+
+	addu	d, s, j => d = s + (signed)j j可以超过-32768<= j < 32768的范围，但是生成的代码会复杂
+		addiu	d, s, j
+
+	addu	d, s, t => d = s + t
+
+	and 	d, s, j => d & (unsigned)j 仅用于0<= j < 65535对于更大的数，要生成额外的指令
+		andi	d, s, j
+
+	and	d, s, t => d = s & t
+
+	b 	lable => goto label
+		beq	$zero, $zero, offs
+
+	beq	s, t, label => if (s == t) goto label
+
+	beqz	s, label => if (s == 0) goto label
+		beq	s, $zero, offs
+
+	bge	s, t, label => if ((signed)s >= (signed) t) goto label
+		slt at, s, t => if (s < t) at = 1; else at = 0
+		beq at, $zero, offs
+
+	bgeu	s, t, label => if((unsigned)s >= (unsigned)t) goto label;
+
+	bgez	s, label => if (s >= 0) goto label
+
+	bgezal	s, label 如果(s >= 0)调用label(),但是返回地址无条件地保存在寄存器ra($31)中
