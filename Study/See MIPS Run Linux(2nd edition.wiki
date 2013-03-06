@@ -729,3 +729,66 @@ MIPS汇编指令（按字母次序排列)
 	bgez	s, label => if (s >= 0) goto label
 
 	bgezal	s, label 如果(s >= 0)调用label(),但是返回地址无条件地保存在寄存器ra($31)中
+
+整数乘法、除法和求余数								# 补码的运算，运算器的设计
+	结果寄存器是互锁的；如果试图在结果出来之前读取，CPU 就会停下来等待数据
+	到达。
+	MIPS公司的汇编器会把乘以一个常数或除以2 的常数次幂的计算转换成为适当的
+	移位、掩码。
+
+	strcmp(char* a0, char* a1)
+	{
+		char t0, t1;
+		while(1) {
+			t0 = a0[0];		// 两个加载延迟:对应于两次数组下标操作
+			a0++;
+			t1 = a1[0];
+			a1++;
+						// 两个if条件分支延迟
+			if (t0 == 0)
+				break;		// 每次分支和加载都引入了一个延迟槽，而循环体
+			if (t0 != t1)		// 中没有足够的工作来填满它们。
+				break;
+		}				// 在每对字节的比较(对应while语句结束的大括号)
+		return (t0 - t1);		// 时都有一个强制的循环结尾分支。
+	}
+汇编之前的改进：
+	1. 每次循环作两次比较
+	2. 把其中一次加载移到循环的结尾
+	这样加载和分支的延迟槽都可以填上有用的工作.
+
+	int strcmp(char *a0, char *a1)
+	{
+		char t0, t1, t2;
+
+		/* first load moved to loop end,
+		   so load for first iteration here */
+		t0 = a0[0];
+
+		while (1) {
+			/* first byte */
+			t1 = a1[0];
+
+			if (t0 == 0)
+				break;
+			a0 += 2;
+
+			if (t0 != t1)
+				break;
+
+			/* second byte */
+			t2 = a0[-1];	/* We already incremented a0 */
+			t1 = a1[1];	/* didn't increment a1 yet */
+
+			if (t2 == 0)
+				/* label t21 in assembler */
+				return t2 - t1;
+			a1 += 2;
+			if (t1 != t2)
+				/* label t21 in assembler */
+				return t0 = a0[0];
+			t0 = a0[0];
+		}
+		/* label t01 in assembler */
+		return t0 - t1;
+	}
