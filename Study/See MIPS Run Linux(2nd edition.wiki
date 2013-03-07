@@ -762,33 +762,41 @@ MIPS汇编指令（按字母次序排列)
 		char t0, t1, t2;
 
 		/* first load moved to loop end,
-		   so load for first iteration here */
-		t0 = a0[0];
+		   so load for first iteration here */				.set noreorder
+		t0 = a0[0];							lbu 	t0, 0(a0)
 
-		while (1) {
+		while (1) {							1:
 			/* first byte */
-			t1 = a1[0];
+			t1 = a1[0];						lbu	t1, 0(a1)
 
-			if (t0 == 0)
+			if (t0 == 0)						beq	t0, zero, .t01
 				break;
-			a0 += 2;
+			a0 += 2;						addu	a0, a0, 2
 
-			if (t0 != t1)
+			if (t0 != t1)						bne	t0, t1, .t01
 				break;
 
 			/* second byte */
-			t2 = a0[-1];	/* We already incremented a0 */
-			t1 = a1[1];	/* didn't increment a1 yet */
+			t2 = a0[-1];	/* We already incremented a0 */		lbu	t2, -1(a0)
+			t1 = a1[1];	/* didn't increment a1 yet */		lbu	t1, 1(a0)
 
-			if (t2 == 0)
+			if (t2 == 0)						beq	t2, zero, .t21
 				/* label t21 in assembler */
 				return t2 - t1;
-			a1 += 2;
-			if (t1 != t2)
+			a1 += 2;						addu	a1, a1, 2 /* :w
+			if (t1 != t2)						beq	t2, t1, 1b
 				/* label t21 in assembler */
-				return t0 = a0[0];
-			t0 = a0[0];
-		}
-		/* label t01 in assembler */
-		return t0 - t1;
-	}
+				return t2 - t1; /* 原书错误 */
+			t0 = a0[0];						lbu	t0, 0(a0)
+		}								.t21:j	ra
+		/* label t01 in assembler */					subu	v0, t2, t1
+		return t0 - t1;							.t01:j	ra
+										subu	v0, t0, t1
+	}									.set reorder
+										END(strcmp)
+	move d, s汇编器汇编成为：or d, zero, s
+
+	如果立即数的值太大无法放进机器指令的16位操作数域，那么汇编器将再度出面
+	帮忙。她自动将常数装进临时寄存器at/$1然后用它来进行操作：
+	addu	$4, 0x12345 	=> 	li at, 0x12345
+					addu	$4, $4, at
