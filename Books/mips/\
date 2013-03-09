@@ -851,11 +851,6 @@ MIPS汇编指令（按字母次序排列)
 	}
 
 硬件和尾端：
-	当你通过总线传输多字节的数据时，该数据的每个字节都有自己独立的地址。如
-	果数据中最低地址的字节沿着最低位号的八根总线（字节通路）传播该总线是小
-	尾端的。
-	在CPU的“内在“尾端及其作为总线的系统接口的尾端之间没有必然联系。
-
 	尾端不一致的总线布线连线
 	尾端可配置的接线
 	-----------------------------------------------------------------------------
@@ -867,57 +862,19 @@ MIPS汇编指令（按字母次序排列)
 	的其余位都填0。这个描述是尾端无关的，但是在大尾端模式下，装进寄存器的数据将取
 	自CPU数据总线的16-23位；在小尾端模式，字节从CPU总线的8-16为加载。
 
-mips-asm gcc c:/* 更多内容可以看gcc手册 */
+mips-asm gcc c:
 inline:
 	与__ __ 包裹它的描述一致，告诉寄存器对这个函数的调用应当用其函数体来替
 	换。加上static表示该函数不需要公开给其他模块使用，所以并不生成函数自身
 	的二进制代码。
-	static int inline mymul(int a, int b)
-	{
-		int p;
-	
-		asm("mul %0, %1, %2"
-		    :"=r"(p)			/* 一个输出;"="只写;ｒ代表任何一个通用寄存器 p 对应于%0 */
-		    :"r"(a), "r"(b)		/* 两个输出a 对应%1, b对应于%2 */
-		);
+static int inline mymul(int a, int b)
+{
+	int p;
 
-		return p;
-	}
+	asm("mul %0, %1, %2"
+	    :"=r"(p)			/* 一个输出;"="只写;ｒ任何一个通用寄存器 p 对应于　%0 */
+	    :"r"(a), "r"(b)		/* 两个输出 */
+	);
 
-存储器映射的I/O寄存器和"volatile"
-	大多数读者会用C写访问I/O寄存器的代码——你当然不应该用汇编代码，除非有什
-	么极为迫切的要求，而且因为MIPS I/O寄存器都是存储器映射的，从C 语言访问	存储器映射寄存器：MMR
-	并不难。
-
-	如果写一个检测串口的状态寄存器，如果状态是就绪就发送一个字符：
-	unsigned char *usart_sr = (unsigned char *)0xBFF00 0000;
-	unsigned char *usart_data = (unsigned char *)0xBFF20 0000;
-	#define TX_RDY 0x40
-
-	void putc(char sh)
-	{
-		while ((*usart_sr & TX_RDY) == 0)
-			;
-		*usart_data = ch;
-	}
-	编译器看到*usart_sr对应的存储器映射的I/O的引用是一个循环不变量；在while
-	循环中没有修改它的操作，所以看上去似乎把加载操作提到循环外面是安全的。
-	编译器会解释成：
-	void putc(char sh)
-	{
-		tmp = (*usart_sr & TX_RDY);
-		while (tmp)
-			;
-		*usart_data = ch;
-	}
-	这个具体问题，可以通过下面的方式定义寄存器来防止：
-	volatile unsigned char *usart_sr = (unsigned char *) 0xBFF00000;
-	volatile unsigned char *usart_data = (unsigned char *) 0xBFF20000;
-	注意：
-	typedef char *devptr;
-	volatile devptr mypointer; 	这里是告诉寄存器必须坚持从变量devptr加
-					载指针值，就是把这个类型取出来。但是对
-					于该指针指向的寄存器的行为没有说。
-	应该写成这样：
-	typedef volatile char *devptr;
-	devptr mypointer;
+	return p;
+}
