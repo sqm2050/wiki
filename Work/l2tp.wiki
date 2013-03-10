@@ -1,3 +1,18 @@
+/**
+ * 	1. 隧道认证 Challenge AVP - Challenge response AVP(v2)  nonce(v3)
+ * 		v2:第二版叫做：Tunnel Authentication
+ * 		v3:第三版叫做：Control message Authentication 不是认证消息的一
+ * 		步部分，而是认证整个认证消息
+ * 	2. avp隐藏,隐藏机制。会不会隐藏到ID？会。
+ * 	3. 基于IPSec的报文加密
+ * 	4. 端口问题
+ * 	5. 第三版把两个id扩展到32位，这样子第二版session id标识在一个tunnel 中
+ * 	   的一个会话，但是第三版中每个session id就唯一标识了这一端上的会话。
+ * 	   但是也能与隧道建立关联，就是ICRQ 等控制消息依旧是控制头，里面使用的
+ * 	   依旧是对端分配的tunnel id。v3-P62说HELLO的session id是零，这个？
+ * 	6. GRE有7e，有碎片。L2TP没有7e，没有碎片。
+ * 
+ */
 	L2TP支持包括IP、ATM、帧中继、X.25 在内的多种网络。在IP网络中，L2TP协议
 	使用注册端口 UDP 1701。[1]因此，在某种意义上，尽管L2TP协议的确是一个数
 	据链路层协议，但在IP网络中，它又的确是一个会话层协议。
@@ -32,7 +47,8 @@ rfc3931:
 	es.Multiple sessions may be bound to a single control connection , and
 	multiple control connections may exist between the same two LCCEs.
 
-L2TPv3 Control Message Header
+Over UDP:
+L2TPv3 Control Message Header:
 
 	0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 	T L x x S x x x x x x x|  Ver  |	Length			|
@@ -87,13 +103,36 @@ Control Conection Teardown:
 	通过StopCCN 可以关闭控制连接，和所有与控制连接有关的会话。所以没有必要
 	在关闭控制连接的时候，独立地关闭每个会话。				detect:vt.发觉，察觉，探测
 
+Data Messge:
+        | L2TP Session Header  |
+        | L2-Specific Sublayer |
+        | Tunnel Payload       |
 
-L2TPv3 Data Message Header
+L2TPv3 Session Header Over UDP:
 	0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 	T x x x x x x x x x x x|  Ver  |	Reserved		|
 			 	Session ID
-		Cookie	optional maxium	64bits	
+		Cookie	(optional maxium 64bits	)
 	——————————————————————————————————————————————————————————————————
+
+Over IP:
+	L2TPv3 over IP (both versions) utilizes the IANA-assigned IP  protocol
+	ID 115.
+	L2TPv3 Session Header Over IP:
+	0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+				Session ID
+		Cookie (optional maxium	64bits)
+	——————————————————————————————————————————————————————————————————
+
+	L2TP Control and Data Traffic over IP
+	L2TPv3 Control Message Header Over IP:
+	0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+				(32 bits of zeros)
+	T L x x S x x x x x x x|  Ver  |	Length			|	Note that Length field is still calculate from the begi-
+			Control Connection ID					nnig of the control message header,beginning with the T
+		Ns		       |	Nr				bit.
+	——————————————————————————————————————————————————————————————————
+	
 
 Session Teardown:
 	Session teardown may be initiated by either the LAC or LNS and is acc-
@@ -205,43 +244,36 @@ Message Digest AVP - 59
 	对于SCCRQ只有一个nonce在消息中，没必要用它去计算Digest的值：
 	Message Digest = HMAC_Hash (shared_key, control_message)
 
+1.General Control Message AVPs:
+	Message Type(All): 0
+		肯定是第一个消息的AVP，紧跟在头后。M 1,H 一定是0，长度是8.
+	Message Digest(ALL): 59
+		 Attribute Value:Digest Type| Message Digest...	H 0, M 1
+	Control Message Authentication Nonce(SCCRQ, SCCRP): 73
+		H 0,M 1
+	Random Vector (AL): 36
+
+2.Control Connection Management AVPs: 
+	Control Connection Tie Breaker(SCCRQ): 5
+	Host Name (SCCRQ,SCCRP): 7
+	Rount ID (SCCRQ,SCCRP): 60
+	Assigned Control Connection ID (SCCRQ, SCCRP, StopCCN)
+		会被隐藏，H bit MAY be 0 or 1.
 
 
+3. Sesssion Manangement AVPs:
+	Local Session ID(ICRQ, ICRP, ICCN, OCRQ, OCRP, OCCN, CDN, WEN, SLI): 63
+	contains the identifier being assigned  to this  session by the sender.
+	Additionally,for all session-oriented control messages sent after this
+	AVP is received, the remote LCCE MUST echo this value in the Remote S-
+	ession ID AVP.
+	会被隐藏，H bit MAY be 0 or 1.
+
+Remote Session ID: 64
+	Contains the identifier that was assigned to this session by the peer.
+	会被隐藏，H bit MAY be 0 or 1.
 
 
-
-
-
-
-
-
-
-
-L2TPv2 L2TPv3
-	L2TP消息可以分为控制消息和数据消息两种类型，控制消息用于隧道连接和会话
-	连接的建立和维护，数据消息则用来承载用户的PPP 会话数据包。控制消息中的
-	参数用AVP属性值对（Attribute Value Pair）来表示， 使得协议具有很好的扩
-	展。在控制消息的传输中还应用了滑动窗口机制，以实现控制消息的重传和拥塞
-	控制。L2TP数据消息的传输不采用重传机制，所以它无法保证传输的可靠性，但
-	这一点可以通过上层协议如TCP等得到保证。
-	L2TP协议的安全性依赖于:(1)PPP提供的认证，比如CHAP或者PAP认证(2)L2TPv2
-	本身提供的隧道验证和AVP隐藏。
-	在使用中，L2TPv2 存在很多安全问题：（1）隧道验证仅仅定义了对隧道终端实
-	体的身份认证，而不是认证隧道中流过的每个报文，这样的隧道无法防止插入攻
-	击和地址欺骗（2） 由于没有针对每个报文进行完整性校验，就有可能进行拒绝
-	服务攻击（DOS），即发送一些假冒的控制信息，导致L2TPv2隧道或底层PPP连接
-	的关闭。（3）虽然PPP报文的数据可以加密，但PPP 协议不支持密钥的自动生成
-	和自动刷新，这样进行监听的攻击者就可能最终攻破密钥，从而得到所传的数据
-	为了实现L2TP的安全性，现在多使用L2TPv2+IPSEC解决方案，但是由于IPSEC 在
-	穿越NAT时有一定局限性，使得L2TP性能得到减弱。所以L2TP最好能独立于IPSEC
-	实现隧道的自身保护机制。
-L2TPV3的安全性：
-	1. 将和PPP相关的AVP、以及包含在L2TP数据消息头部中的一些和PPP相关的域剥
-	   离掉
-	2. 将Session ID和Tunnel ID从以前的16bit变为了32bit；
-	3. 认证整个控制消息，而不是以前的只认证消息的一部分
-	另外L2TPv3可在隧道中转发PPP、HDLC、帧中继和以太网等第二层帧，而 L2TPv2
-	只能通过隧道转发PPP帧。
 ================================= l2tp v2 ====================================
 L2TP Header Format:
 	l2tp packets for the control channel and data channedl share a  common	控制隧道和数据隧道使用同一个头格式
@@ -280,12 +312,12 @@ L2TP Header Format:
 		   VPs during the creation of a tunnel.
 
 AVP Format:
-	0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+	0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1		与l2tpv3
 	M H| rsvd  | Length	       |	Vendor ID		|
 	Atrribute Type		       |	Atrribute Value...	[[|]]
 		until Length is reached....
 
-	Mandatory(M) bit:如果置位的话，在Session出现的没有识别的消息，这个会话
+Mandatory(M) bit:如果置位的话，在Session出现的没有识别的消息，这个会话
 	就要终止，如果是在Tunnel中出现的话，真个隧道就要终止。如果M bit 没有置
 	位，不能识别的报文就要被忽略。
 
@@ -295,6 +327,8 @@ AVP Format:
 
 	Vendor ID:
 
+AVP0: Message Type
+
 H bit:
 	If the H bit is set in any AVP(s) in a given control message, a Random
 	Vector AVP must also be present in the message and MUST precede the f-	precede:vt.vi.在...之前，在前面
@@ -302,7 +336,7 @@ H bit:
 	如果Hbit在一个AVP中置位了，那么一个Randon Vector AVP也必须出现在消息中
 	而且在第一个H置位的AVP前面。
 
-	隐藏要经过几步，首先除去原始AVP的长度和值域，然后转码成如下：
+	隐藏要经过几步，首先拿出原始AVP的长度和值域，然后生成如下的字模式：
 	Length of Original Value	| Original Atrribute Value
 						Padding...
 	新的AVP：
@@ -310,14 +344,15 @@ H bit:
 		head	Attribute Value length		size of length  padding
 	计算MD5 hash值：
 	1. AVP的属性号 2 octet		AV
-	2. 共享密钥			S
+	2. 共享密钥			S					v2是secret，v3是shared_key=HMAC_MD5(shared_secret, 1)
 	3. 任意一个随机数		RV
 	随机数在Random Vector AVP中传递，必须在第一个hidden AVP 的前面，如果想
 	使用多个随机数，那么在第一次使用那个那随机数的hidden AVP前面要放置一个
 	randon vector AVP.
 
-	然后MD5值和子格式的前16octet的段进行异或。如果小于16octet在异或前会进行
-	转码, 但是只有子格式中的octets被修改，AVP的长度不做调整。
+	然后MD5值和子格式的前16octet的段进行异或，而且哈希值放到属性值域。如果
+	小于16octet在异或前会进行转码, 但是只有子格式中的octets被修改，AVP的长
+	度不做调整。
 
 	如果子格式长于16octets，则生成第二个MD5值，使用共享密钥，和第一个异或值
 	把值域拆开成16-octet长度的块p1,p2,...
@@ -365,3 +400,4 @@ Incoming calls:
 	实践表明接收者使用与目的端口不一样的任意源端口会导致l2tp穿过NAT 设备时
 	侯变得困难。
 	1701端口也被L2F使用，但是Version field会不同，L2F值是1，L2TP值是2。
+

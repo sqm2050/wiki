@@ -777,16 +777,17 @@ MIPS汇编指令（按字母次序排列)
 				break;
 
 			/* second byte */
-			t2 = a0[-1];	/* We already incremented a0 */		lbu	t2, -1(a0)
+			t2 = a0[-1];	/* We already incremented a0 */		lbu	t2, -1(a0) # 这里没有使用t0寄存器，而是t2,因为
+													前一个分支延迟槽内，会改写t0
 			t1 = a1[1];	/* didn't increment a1 yet */		lbu	t1, 1(a0)
 
 			if (t2 == 0)						beq	t2, zero, .t21
 				/* label t21 in assembler */
 				return t2 - t1;
-			a1 += 2;						addu	a1, a1, 2 /* :w
-			if (t1 != t2)						beq	t2, t1, 1b
-				/* label t21 in assembler */
-				return t2 - t1; /* 原书错误 */
+			a1 += 2;						addu	a1, a1, 2 
+			if (t1 != t2)						#beq	t2, t1, 1b	/* 原书错误 */
+				/* label t21 in assembler */			bne	t2, t1, .t21
+				return t2 - t1; /* 原书错误 */			
 			t0 = a0[0];						lbu	t0, 0(a0)
 		}								.t21:j	ra
 		/* label t01 in assembler */					subu	v0, t2, t1
@@ -921,3 +922,54 @@ inline:
 	应该写成这样：
 	typedef volatile char *devptr;
 	devptr mypointer;
+=======
+
+
+负指针：
+	当在MIPS CPU上运行不做地址映射的简单代码时，所有指针都位于kseg0和kseg1
+	区域，这样任何32位数据指针值的最高位都是一，看上去是负值。不作地址映射
+	的程序在大多数其他体系结构上都是直接处理物理地址，通常远远小于2G.
+	如果指针被隐式转换成符号整数类型，这样的指针值在作比较的时候会引起麻烦
+	。整数和指针类型之间的隐式转换（在C 语言里很常见）应当修改为显式转换，
+	而且应当转换为无符号的整数类型（这里应该用unsigned long）。
+alloca():
+	内存分配函数,与malloc,calloc,realloc类似.
+	但是注意一个重要的区别,_alloca是在栈(stack)上申请空间,用完马上就释放.
+ABI:
+	数据表示和函数链接属于称为应用程序二进制接口ABI（Application Binary In
+	terface）的正式标准的一些方面。
+
+和我们所知道的现代计算机一样，MIPS用二进制补码形式表示有符号整数——所以不管那个
+	数据宽度，-1的二进制表示都为全一。补码表示的主要好处就是基本的算术运算
+	对于有符号和无符号数据类型的实现是一样的。
+
+long和指针类型的宽度：
+	他们的宽度再不同的ABI中不同，但是它们二者宽度总是相同的。
+	o32、n32 long的实现和int完一样；对于64位n64的ABI，long的实现和long long
+	一样。
+	在所有情形，指针的存储总是和unsigned long一样.
+结构体中的位域：
+	IEEE浮点值
+	大尾端版本：
+	struct ieee754sp_konst {
+		unsigned sign: 1;
+		unsigned bexp: 8;
+		unsigned mant: 23;
+	};
+	C的位域总是紧缩的。
+	小尾端时候：
+	struct ieee754sp_konst {
+		unsigned	mant:23;
+		unsigned	bexp:8;
+		unsigned	sign:1;
+	};
+	在小端模式里，编译器从低编号开始把每个二进制打包到结构体里面。
+位域对齐的完整规则：
+	1. 位域必须完全位于适合于其声明类型的单个存储单元之中。 因而位域不能跨
+	   越其单元的边界。
+	2. 位域可以和其它结构体/联合体成员，包括非位域的成员，共享一个存储单元
+	3. 结构体通常继承其成员中对齐要求最严格的成员类型的对齐要求。
+	4. 如果想强制随后结构体成员占用一个新的存储单元。在某些编译器中， 可以
+	   使用一个无名零宽度的位域实现这一点。其他地方零宽度的域是非法的(至少
+	   是没有意义的).
+
