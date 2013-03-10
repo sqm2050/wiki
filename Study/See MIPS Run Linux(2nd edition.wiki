@@ -777,16 +777,17 @@ MIPS汇编指令（按字母次序排列)
 				break;
 
 			/* second byte */
-			t2 = a0[-1];	/* We already incremented a0 */		lbu	t2, -1(a0)
+			t2 = a0[-1];	/* We already incremented a0 */		lbu	t2, -1(a0) # 这里没有使用t0寄存器，而是t2,因为
+													前一个分支延迟槽内，会改写t0
 			t1 = a1[1];	/* didn't increment a1 yet */		lbu	t1, 1(a0)
 
 			if (t2 == 0)						beq	t2, zero, .t21
 				/* label t21 in assembler */
 				return t2 - t1;
-			a1 += 2;						addu	a1, a1, 2 /* :w
-			if (t1 != t2)						beq	t2, t1, 1b
-				/* label t21 in assembler */
-				return t2 - t1; /* 原书错误 */
+			a1 += 2;						addu	a1, a1, 2 
+			if (t1 != t2)						#beq	t2, t1, 1b	/* 原书错误 */
+				/* label t21 in assembler */			bne	t2, t1, .t21
+				return t2 - t1; /* 原书错误 */			
 			t0 = a0[0];						lbu	t0, 0(a0)
 		}								.t21:j	ra
 		/* label t01 in assembler */					subu	v0, t2, t1
@@ -800,3 +801,28 @@ MIPS汇编指令（按字母次序排列)
 	帮忙。她自动将常数装进临时寄存器at/$1然后用它来进行操作：
 	addu	$4, 0x12345 	=> 	li at, 0x12345
 					addu	$4, $4, at
+
+栈：
+	栈是通过设置sp寄存器到可用内存的顶部（对齐到八字节的边界）来定义的。
+堆：
+	堆是用象malloc()等函数使用的一个全局变量指针来定义的。
+
+
+
+负指针：
+	当在MIPS CPU上运行不做地址映射的简单代码时，所有指针都位于kseg0和kseg1
+	区域，这样任何32位数据指针值的最高位都是一，看上去是负值。不作地址映射
+	的程序在大多数其他体系结构上都是直接处理物理地址，通常远远小于2G.
+	如果指针被隐式转换成符号整数类型，这样的指针值在作比较的时候会引起麻烦
+	。整数和指针类型之间的隐式转换（在C 语言里很常见）应当修改为显式转换，
+	而且应当转换为无符号的整数类型（这里应该用unsigned long）。
+alloca():
+	内存分配函数,与malloc,calloc,realloc类似.
+	但是注意一个重要的区别,_alloca是在栈(stack)上申请空间,用完马上就释放.
+ABI:
+	数据表示和函数链接属于称为应用程序二进制接口ABI（Application Binary In
+	terface）的正式标准的一些方面。
+
+和我们所知道的现代计算机一样，MIPS用二进制补码形式表示有符号整数——所以不管那个
+	数据宽度，-1的二进制表示都为全一。补码表示的主要好处就是基本的算术运算
+	对于有符号和无符号数据类型的实现是一样的。
