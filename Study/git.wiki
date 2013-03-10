@@ -8,6 +8,13 @@ sqm:
 	git remote add origin https://github.com/sqm2050/-juson.git
 
 
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = bran
+
+
 git:从sqm clone 然后更改远程仓库连接，更内容、提交、push。
 	git clone sqm@localhost:repositories/github.git		/*这里一定是用户home目录的相对路径*/
 
