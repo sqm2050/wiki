@@ -1026,7 +1026,7 @@ o32中的堆栈参数结构：
 	44	reserved for d/a3
 	40	reserved for c/a2
 	36	reserved for b/a1
-	32	reserved for a/a0 <= sp on entry
+	32	reserved for a/a0 <= sp on entry	在这个位置为nested准备栈空间，同时保存，noleaf调用的返回地址。
 	28	pad to 8 bytes
 	24	saved ra
 	20	pad to 8 bytes
@@ -1035,4 +1035,44 @@ o32中的堆栈参数结构：
 	8	reserved for c/a2
 	4	reserved for b/a1
 	0	reserved for d/a0 <= sp running
+汇编：
+	.file 1 "nonleaf.c"
+	.section .mdebug .abi32
+	.previous
+	.text
+	.align 2
+	.globl nonleaf
+	.set nomips16
+	.ent nonleaf
+	nonleaf:
+	.frame	$sp,32,$31 # vars= 0, regs= 1/0, args= 24, gp= 0
+	.mask 0x80000000, -8
+	.fmask 0x00000000, 0
+	.set noreorder
+	.set nomacro
+	addiu $sp, $sp, -32	 在这个位置为nested准备栈空间，同时保存，noleaf调用的返回地址。
+	sw $31, 24($sp)		保存，返回地址
+	move $2, $4
+	addiu $3, $sp, 48	取e的地址到，$3寄存器
+	sw $3, 16($sp)		把&e保存到栈16的偏移。
+	move $4, $7
+	jal nested		执行nested()
+	move $7, $2
+	lw $31, 24($sp)		把noleadf返回地址，保存到$31(在偏移为24的地方)
+	j $31			跳转到noleaf，返回的地址。
+	addiu $sp, $sp, 32
+	.set macro
+	.set reorder
+	.end noleaf
+	.ident "GCC: (GNU) 3.4.4 mipssde-6.03.01-20051114"
+复杂的栈需要的帧指针：								帧指针用法，与x86的bp，sp的相似度。
+	在上面描述的栈帧中，编译器只用一个保留寄存器sp就能管理整个栈。别的体系
+	结构维护堆栈常常需要用两个寄存器：栈指针sp标识栈的底部，帧指针指向由函
+	数首部创建的数据结构。然而，只要编译器能够在函数首部代码中分配函数需要
+	的全部栈空间，就能在首部代码中降低sp让它在函数整个执行过程中指向栈中一
+	个固定的偏移位置。如果这样，局部栈帧上的一切和sp之间的偏移量都是在编译
+	时已知的，既不需要桢指针了。但是有时候需要在运行时操作栈指针（就是一个
+	无法预测的栈指针）.
+个数不固定的参数和stdargs：							不固定参数不要用汇编实现，引入移植问题
+	va_start()、va_end()、va_arg()
 

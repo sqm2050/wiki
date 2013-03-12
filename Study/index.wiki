@@ -1,39 +1,40 @@
 = My Urgent Tasks =
     * [[temp]]
-    == task ==
+    * [[table]]
+== task ==
     * [[task]]
     * [[books index]]
-    == time money ==
+== time money ==
     * [[year]]
     * [[month]]
     * [[week]]
     * [[day]]
 
 = My Study =
-	== English	==
+== English	==
 	* 
-	== Mathematics	==
+== Mathematics	==
 	* [[级数]]
 	* [[自然对数]]
-	== humanity  	==
+= humanity  	=
 	* [[陈怀临]] 
 	* [[grace]]
-	== Computer 	==
-		=== Architecture===
+== Computer 	==
+=== Architecture===
 		* [[TLB]]
-		=== Project 	===
+=== Project 	===
 		* [[Makefile]]
 		* [[git]]
 		* [[修养]]
-		=== C Lang 	===
+=== C Lang 	===
 		* [[周期、指令、原子操作]]
 		* [[C_note]]
 		* [[交叉判断]]
 		* [[scanf]]
-		=== Network 	===
+=== Network 	===
 		* [[协议]]
 		* [[CRC]]
-		=== linux 	===
+=== linux 	===
 		* [[ubuntu]]
 		* [[gcc]]
 		* [[linux kernel]]
@@ -42,17 +43,17 @@
 		* [[openwrt]]
 		* [[flash-plugin]]
 		* [[flash-ic]]
-		=== X86		===
+=== X86		===
 		* [[X86 Architecture]]
 		* [[段页内存管理]]
 	
-		=== MIPS	===
+=== MIPS	===
 		* [[mips notes]]
 		* [[MMU PA]]
 		* [[See MIPS Run Linux(2nd edition]]
 		* [[MIPS64 Architecture]]
 		* [[Mips assembly]]
-		=== Octeon 	===
+=== Octeon 	===
 		* [[框架结构]]
 		* [[frame_test]]
 		* [[OCTEON-Programmer's_Guide-The_Fundamentals]]
