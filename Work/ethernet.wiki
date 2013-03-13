@@ -9,7 +9,7 @@ ethernet:
 	
 	802.3以太网帧结构：
 	前导码		帧开始符	mac目标	mac源地址 802.1q(可选) 以太类型或长度 负载	冗余校验 帧间距
-	10101010 7octet 10101011 1octet 6octets	6octets	  4octets	2octets       46-1500 4 octets 12 octets
+	10101010 7octs  10101011 1ocets 6octets	6octets	  4octets	2octets       46-1500 4 octets 12 octets
 		72-1530 octets									 12
 		84-1542 octets
 

@@ -39,6 +39,9 @@ tasks:
 	c专家编程
 
 	2013.03.18 --- 2013.04.14 = 7 * 4 days
+	Unix环境高级编程
+
+	2013.06.24 --- 2013.07.28 = 7 * 5 days
 	网络编程1
 	2013.05.27 --- 2013.06.23 = 7 * 4 days
 	网络编程2
@@ -52,8 +55,6 @@ tasks:
 	2013.08.26 --- 2013.09.01 = 7 * 2 days
 	the c programming langauge
 
-	2013.06.24 --- 2013.07.28 = 7 * 5 days
-	Unix环境高级编程
 
 4.linux
 	advanced-linux-programming

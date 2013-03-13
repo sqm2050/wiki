@@ -122,3 +122,5 @@ L2TP：第二层隧道协议 （L2TP: Layer 2 Tunneling Protocol）
 36.x86 rsp rbp，栈操作，栈字节对齐的实现。packed, align（1）等等,还有MIPS中一个a0寄存器上放两个参数，一个char，一个short中间是x。难道配合寄存器的局部操作指令使用?
 
 37.位域定义和大小段的关系。
+
+38.load/store指令详解
