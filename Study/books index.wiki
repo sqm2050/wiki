@@ -25,6 +25,8 @@
 25、《交互设计之路》英文名：《The Inmates Are Running The Asylum: Why High Tech
      Products Drive Us Crazy and How to Restore the Sanity》该书作者:Alan Cooper
      人称Visual Basic之父，交互设计之父。
+26.  The art of computer programming
+     本书是算法分析的经典名作（用经典不太恰当，应该是圣经或史诗），被科学美国人列为20世纪12大科学名著之一（和Dirac的量子力学，Einstein 的广义相对论，von Neumann 的博弈论的著作等齐名）。其亮点在于其超乎寻常的数学技巧，要求读者拥有极高的数学修养，只要你坚持忍耐，一旦读懂了，你的算法和程序设计水平也会达到更高的档次，你会对程序设计有一种截然不同的体会和领悟，就是“道”(Tao)。书的排版很漂亮（得益于作者的Tex系统），看起来很舒.
 ===============================================================================
 1. the power of less
 2. 16型人格的自我修炼

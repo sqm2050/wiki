@@ -2,11 +2,14 @@ reset
 在OCTEON-SDK里的目录host/remote-utils/编译出工具oct-remote-reset
 然后拷贝到52 
 设置环境变量export OCTEON_REMOTE_PROTOCOL=pci,然后执行一下reset 
-默认DEVICE_ID是0，也就是重启56A 
+默认DEVICE_ID是0，也就是重启56A
 
 export OCTEON_REMOTE_PROTOCOL=pci
 export OCTEON_PCI_DEVICE=0
 ./oct-remote-reset
+
+
+oct-remote-csr POW_PP_GRP_MSK0 0 关闭零核
 
 时间设置:
 1、设置网络
@@ -95,3 +98,5 @@ crosspass:
 	set crosspass 2 forward 0 0 
 	.
 	set crosspass 9 forward 0 0 
+
+[sqm@sqm-juson:~/Documents/flow_md/cli/netgate/netgate_mdu]$ vi include/mdu.h

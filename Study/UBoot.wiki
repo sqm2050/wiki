@@ -115,3 +115,7 @@ Virtual Memory Example:
 	means:
 	0xC000 0000 -> 0x20F8 0000
 	0xC040 0000 -> 0x20FC 0000
+---------------------------
+大体流程：
+	nand 偏上执行指令，把Uboot自身拷入内存执行，download ELF，load ELF映射ELF到
+	内存(octeon-linux-boot命令等执行此操作)
