@@ -124,3 +124,12 @@ L2TP：第二层隧道协议 （L2TP: Layer 2 Tunneling Protocol）
 37.位域定义和大小段的关系。
 
 38.load/store指令详解
+
+39.awk 'NR==FNR{a[$1]=$2}NR>FNR{if(a[$1]!=$3) print $1"\t" $3"\t"a[$1]}' CARD.report imp1.res
+[sqm@sqm-juson:~/tmp]$ cat CARD.report 
+table1          1000
+table2          1234
+[sqm@sqm-juson:~/tmp]$ cat imp1.res 
+table1          tmp1    1000
+table2          tmp2    1001
+[sqm@sqm-juson:~/tmp]$ 

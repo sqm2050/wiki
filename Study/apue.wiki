@@ -1,0 +1,3 @@
+标准I/O
+opendir	getc	putc 	read	write	ferrorr	getpid	execlp	fprintf	strerror
+perror

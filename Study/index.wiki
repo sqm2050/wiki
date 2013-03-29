@@ -2,6 +2,7 @@
     * [[temp]]
     * [[table]]
     * [[temp1]]
+    * [[note]]
 == task ==
     * [[task]]
     * [[books index]]
@@ -29,10 +30,13 @@
 		* [[修养]]
 === C Lang 	===
 		* [[周期、指令、原子操作]]
+		* [[apue]]
 		* [[C_note]]
 		* [[交叉判断]]
 		* [[scanf]]
 		* [[lock]]
+=== multi Pro 	===
+		* [[the art of mutiprocessor programming]]
 === Network 	===
 		* [[协议]]
 		* [[CRC]]
