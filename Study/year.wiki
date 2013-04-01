@@ -21,6 +21,12 @@ tasks:
 4. Heart---1
 	素日锦年
 ===============================================================================
+1.See.MIPS.Run.2nd.CN.pdf 2.MIPS Assembly Language Programming.pdf 3.c和指针
+4.c专家编程 5.Unix环境高级编程 6.网络编程1 7.网络编程2 8.网络编程3 9.c陷阱与缺陷
+10.the c programming langauge 11.advanced-linux-programming
+12.linux内核完全注解.pdf 13.30天自制操作系统.pdf 14.linux0.11.pdf 15.c++ primer
+16.slayer 17.matrix67 18.算法导论 19.代码大全 20.power of less
+
 1.mips64
 	2013.02.25 --- 2013.03.17 = 7 * 3 days
 	See.MIPS.Run.2nd.CN.pdf
