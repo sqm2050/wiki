@@ -75,13 +75,20 @@ POSIX.1允许实现将进程间通信(IPC)对象（例如，消息队列，信�
 	保存的设置用户ID	由exec函数保存
 	保存的设置组ID
 	--------------------------------------
+
 	通常有效ID等于实际用户ID，有效组ID等于实际组ID。
 
 	每个文件都有一个所有者和组所有者，所有者由stat结构中st_uid成员表示，组所
 	有者则由st_gid成员表示。
 
 	当用户执行一个具有超级权限的进程文件时候，将获得额外的超级权限，这时候要
-	设置用户ID特征，限制。
+	设置用户ID特征。
+
+相对与文件来说的：
+	set-user-ID,设置用户ID。设置了set-user-ID 位的可执行程序，执行时，进程的
+	effective user ID与saved set-user-ID都为程序文件所属用户的ID，这是read-
+	user-ID与effective-user-ID就不一定相等了。这类程序称之为SUID。例如，pas-
+	swd ping等。
 
 	对于目录的读权限和执行权限的意义是不相同的。读权限允许我们读目录，获得在
 	该目录中所有文件名的列表。当一个目录是我们要访问文件的路径名的一个组成部
@@ -111,3 +118,30 @@ access函数
 	就可能会有这种需要。即使一个进程可能已经因设置用户ID以超级用户权限运行，
 	他仍可能想验证其实际用户能否访问一个给定的文件。access函数是按实际用户ID
 	和实际组ID进行访问权限测试。
+
+umask:
+	先设置umask位，在create函数时，会掩掉，mode_t参数的设置。
+
+int chown(const char *pathname, uit_t owner, git_t group);
+int fchown(int files, uit_t owner, git_t group);
+int lchown(const char *pathname, uit_t owner, git_t group);
+	_POSIX_CHOWN_RESTRICTED:
+	可以用pathconf fpathconf函数查询。若_POSIX_CHOWN_RESTRICTED对指定的文件
+	起作用。则：
+	(1) 只有超级用户进程能更改该文件的用户ID。
+	(2) 若满足下列条件，一个非超级用户进程就可以更改该文件的组ID：
+		a)进程拥有此文件(其有效用户ID等于该文件的用户ID)。
+		b)参数owner等于-1或文件的用户ID，并且参数group等于进程有效组ID
+		  或进程的附加组ID之一。
+	这意味着，当_POSIX_CHOWN_RESTRICTED 起作用时，不能更改其他用户文件的用
+	户ID，但只能改到你所属的组。
+
+	如果这些函数由非超级用户进程调用，则在成功返回时，该文件的设置用户ID位	这句话的讲的什么意思??
+	和设置组ID位都会被清除。
+
+文件长度：
+	stat结构成员st_size 表示以字节为单位的字节长度。此字段只对普通文件、目	stat结构，存在那个地方，怎么和文件进行关联??
+	录文件和符号链接有意义。
+
+	对于目录，文件长度通常是一个数(例如16或512)的倍数。
+	对于符号链接，文件长度是文件名中的实际字节数。				就是指向的文件的文件名的长度，不包含结尾的null。

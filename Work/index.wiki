@@ -3,7 +3,7 @@
 	* [[FAQ]]
 	* [[GTP]]
 	* [[CDMA]]
-	* [[Test_radius]]
+	* [[radius]]
 	* [[switch]]
 	* [[Version]]
 	* [[规则匹配]]

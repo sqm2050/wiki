@@ -3,8 +3,10 @@
 
 int main(int argc, char *argv[])
 {
-	if (argc != 2)
+	if (argc != 2) {
 		printf("usage: a.out <pathname>\n");
+		return -1;
+	}
 
 	if (access(argv[1], R_OK ) < 0)
 		printf("access error for %s\n", argv[1]);
