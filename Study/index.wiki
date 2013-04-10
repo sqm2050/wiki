@@ -21,6 +21,7 @@
 = humanity  	=
 	* [[陈怀临]] 
 	* [[grace]]
+	* [[王聪]]
 == Computer 	==
 === Architecture===
 		* [[TLB]]
@@ -35,6 +36,8 @@
 		* [[交叉判断]]
 		* [[scanf]]
 		* [[lock]]
+		* [[restrict]]
+		* [[endian]]
 === multi Pro 	===
 		* [[the art of mutiprocessor programming]]
 === Network 	===
@@ -49,6 +52,7 @@
 		* [[openwrt]]
 		* [[flash-plugin]]
 		* [[flash-ic]]
+		* [[minicom]]
 === X86		===
 		* [[X86 Architecture]]
 		* [[段页内存管理]]

@@ -581,10 +581,10 @@ physical address space:		 _______________
 				|e upper 15.5 GB|	exact high address depends on the amount of DRAM
 				| as much as is	|	installed in the target system.
 	0x0 0000 2000 0000	|____present____|
-	0x0 0000 1fff ffff
-				256MB reserved for	Internally,once the boot bus addresses have been
-				   Boot Bus.		handled, the high address bits<35:34>are ignored
-							when talking to the DRAM controller,so DRAM Reg-
+	0x0 0000 1fff ffff											在启动起来之后--bootoct
+				256MB reserved for	Internally,once the boot bus addresses have been	内存控制器，会把，RAM1
+				   Boot Bus.		handled, the high address bits<35:34>are ignored	映射到boot-bus，这样对于
+							when talking to the DRAM controller,so DRAM Reg-	CPU是连续的。
 							ion 1 addressed appear to the DRAM controller to
 	0x0 0000 1000 0000	 _______________	be in the address range 0x1000 0000 to 0x1fff ff
 	0x0 0000 0fff ffff	|DRAM Region 0(S|	ff . The DRAM controller thus sees system memory
