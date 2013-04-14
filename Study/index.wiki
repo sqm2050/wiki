@@ -38,6 +38,7 @@
 		* [[lock]]
 		* [[restrict]]
 		* [[endian]]
+		* [[gcd]]
 === multi Pro 	===
 		* [[the art of mutiprocessor programming]]
 === Network 	===

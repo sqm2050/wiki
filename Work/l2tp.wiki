@@ -12,7 +12,7 @@
  * 	   依旧是对端分配的tunnel id。v3-P62说HELLO的session id是零，这个？
  * 	6. GRE有7e，有碎片。L2TP没有7e，没有碎片。
  * 
- * 	认证，加密-隐藏，流动窗口，分片-重组（ppp），帧封装格式
+ * 	认证，加密-隐藏，流动窗口，分片- 重组（ppp），帧封装格式
  */
 	L2TP支持包括IP、ATM、帧中继、X.25 在内的多种网络。在IP网络中，L2TP协议
 	使用注册端口 UDP 1701。[1]因此，在某种意义上，尽管L2TP协议的确是一个数
@@ -37,7 +37,7 @@ rfc3931:
 	L2TP Data Header	L2TP Control Header
 	L2TP Data Channel	L2TP Control Channel
 	   (unreliable)			(reliable)
-	Packet-Switch Network(IP,FR,MPLS,etc.)
+	Packet-Switch Network(IP,FR,MPLS,etc.)					分组交换网络支持
 
 	Data memssages are passed over an unreliable data channel,encapsulated
 	by an L2TP header,and sent over a Packet-Switched Network(PSN 分组交换
@@ -255,7 +255,7 @@ Message Digest AVP - 59
 		 Attribute Value:Digest Type| Message Digest...	H 0, M 1
 	Control Message Authentication Nonce(SCCRQ, SCCRP): 73
 		H 0,M 1
-	Random Vector (AL): 36
+	Random Vector (ALL): 36
 
 2.Control Connection Management AVPs: 
 	Control Connection Tie Breaker(SCCRQ): 5
@@ -405,3 +405,24 @@ Incoming calls:
 	侯变得困难。
 	1701端口也被L2F使用，但是Version field会不同，L2F值是1，L2TP值是2。
 
+AVP: Message Type(all message)
+	value length :2 octets。The length of this AVP is 8.
+
+	Message Type AVP一定要是消息中的第一个AVP。
+
+	Message Type AVP中的M位，具有特殊的意义，不代表是否忽略这个不识别的AVP
+	而是忽略整个消息，而且清楚tunnel。
+
+	H位一定不能置位。就是不能隐藏。
+
+1:
+	type	tunnel	session	ns	nr						src,dst,tunnel_id,session_id.
+	SCCRQ	0(120)	0	0	0
+	SCCRP	120(1)	0	0	1
+	SCCN	1	0	1	1
+2:
+	ICRQ	1	0(1)	2	1
+	ICRP	120	1(1)	1	3
+	ICCN	1	1	3	2
+3:
+	PPP->LCP->CCP->IPCP协商对方的地址。
