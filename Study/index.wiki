@@ -39,6 +39,7 @@
 		* [[restrict]]
 		* [[endian]]
 		* [[gcd]]
+		* [[shm]]
 === multi Pro 	===
 		* [[the art of mutiprocessor programming]]
 === Network 	===

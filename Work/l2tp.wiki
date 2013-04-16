@@ -331,8 +331,6 @@ Mandatory(M) bit:如果置位的话，在Session出现的没有识别的消息�
 
 	Vendor ID:
 
-AVP0: Message Type
-
 H bit:
 	If the H bit is set in any AVP(s) in a given control message, a Random
 	Vector AVP must also be present in the message and MUST precede the f-	precede:vt.vi.在...之前，在前面
@@ -347,9 +345,9 @@ H bit:
 		6 + 	4 + 				2 + 		12 = 24
 		head	Attribute Value length		size of length  padding
 	计算MD5 hash值：
-	1. AVP的属性号 2 octet		AV
+	1. AVP的属性号(2 octet)		AV
 	2. 共享密钥			S					v2是secret，v3是shared_key=HMAC_MD5(shared_secret, 1)
-	3. 任意一个随机数		RV
+	3. 任意长度的一个随机数		RV
 	随机数在Random Vector AVP中传递，必须在第一个hidden AVP 的前面，如果想
 	使用多个随机数，那么在第一次使用那个那随机数的hidden AVP前面要放置一个
 	randon vector AVP.
@@ -364,11 +362,6 @@ H bit:
 		b2 = MD5(S + c(1))	c(2) = p2 xor b2
 		.
 		bi = MD5(S + c(i-1))	c(i) = pi xor bi
-
-	Message Type AVP在控制消息中一定是消息中第一个AVP。控制消息中M bit有特	Attribute Type 0
-	殊的意义，而不是想其他的AVP判断AVP本身是否在无法识别的时候忽略，而是在
-	M bit被置位，而且消息类型不被识别的时候，整个隧道要被清除。在l2tp v2中
-	所有的控制消息类型都被置位，H被置0，这个AVP的长度是8。
 
 	控制隧道l2tp头是包含序列号，但是数据隧道没有包含，但是LAC 可以请求包含
 	序号，通过Sequencing Required AVP。一旦这个AVP在会话设置时候出现了，序
@@ -415,6 +408,12 @@ AVP: Message Type(all message)
 
 	H位一定不能置位。就是不能隐藏。
 
+Message Type:0, M must 1,H must 0
+
+Assigned Tunnel ID: 9, M must 1, H may 0-1;
+
+Assigned Session ID: 14, M must 1, H may 0-1;
+
 1:
 	type	tunnel	session	ns	nr						src,dst,tunnel_id,session_id.
 	SCCRQ	0(120)	0	0	0
@@ -426,3 +425,15 @@ AVP: Message Type(all message)
 	ICCN	1	1	3	2
 3:
 	PPP->LCP->CCP->IPCP协商对方的地址。
+
+隧道端点安全：Tunnel Endpoint Security, 通过认证来确保。
+
+报文等级的安全：packet level security , 安全的l2tp需要底层的传输提供有效的加密
+完整，认证服务。
+
+点到点的安全：
+
+隧道认证：l2tp使用一个简单的，可选的，类似与CHAP的认证机制。如果过一个LAC 或者
+LNS希望验证对端的端点，那么会在SCCRQ 或者SCCRP 中包含一个challeng AVP,相应的在
+SCCRP或者SCCCN中就要包含一个challeng response AVP了。
+为了参与隧道认证，一个共享密钥必须存在LAC和LNS之间，用于AVP隐藏。
