@@ -332,3 +332,7 @@ pit_t waitpid(pid_t pid, int *statloc, int options);
 回另一种出错。）
 
 waitpid支持作业控制(利用WUNTRACED和WCONTINUED选项)。
+
+int waitid(idtype_t idtype, id_tid, siginfo_t *infop, int options);
+与waitpid 相似，waitid允许一个进程指定要等待的子进程。但它使用单独的参数表示要
+等待的子进程的类型，而不是将此与进程ID或进程组ID组合成一个参数。
