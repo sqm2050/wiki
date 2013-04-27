@@ -1,0 +1,84 @@
+编写linux 驱动程序，是为了尽可能发挥硬件的作用以提高性能，但其难点不是在于对硬
+件的具体操作，而是需要了解清楚现有驱动程序的框架，并在这个框架中找到修改的位置
+加入并设计相关的硬件。
+
+Linux 系统的设备分为字符设备、块设备和网络设备三种。字符设备读写时没有缓存支持
+不支持随机存取，如鼠标和键盘；块设备的读写有缓存支持，并且能够随机存取，如硬盘
+而网络设备主要指网卡，它和前两者区别较大，内核对其作特殊处理，使用专门的数据结
+构（sk_buff）与其驱动程序进行数据传递。
+
+通用物理网络设备内核驱动的基本要求如下：
+发送和接收: 这是一个网络设备最基本的功能。驱动程序需要告诉内核其数据发送函数的
+位置内核在有数据要发送时便调用该发送函数；而当网络设备有数据到达时，驱动程序负
+责把这些原始数据进行必要处理后送给内核。因此，操作系统内核必须提供两个机制，一
+个是 找到驱动程序的发送函数，一个是让驱动程序把收到的数据送给系统。
+
+中断：操作系统内核需要提供驱动程序响应中断的能力。一般是把驱动程序中中断处理函
+数注册到系统中，从而操作系统内核在硬件中断发生后调用该中断处理函数。
+
+时钟：驱动程序在某些场合需要用到时钟，如一些协议里的超时处理、没有中断机制的硬
+件轮询等。操作系统则应为驱动程序提供定时机制，一般是在预订的时间过后回调注册的
+时钟函数。
+
+
+虚拟隧道设备内核驱动
+	对外设备配置结构：由于隧道设备是虚拟的，它相对于设备而言具有多种特性，
+譬如可以有用户随时创建和更新，同时它也是具有多种物理设备所没有的软件属性。因此
+驱动程序必须对外提供一个配置接口，使得用户态的配置程序能通过系统调用进入内核，
+并进一步进入该配 置接口对隧道虚拟设备进行配置。
+	隧道差错处理：报文在隧道中传输时有可能发生一些错误，对于FoX隧道而言，
+这些错误信息会以ICMPv6报文为载体发送给隧道入口节点，然后由隧道入口节点负责翻译
+位ICMPv4报文并中继给源IPv4主机。
+------------------------------------------------------------------------------
+入门ko：
+{{{
+
+#include "linux/init.h"
+#include "linux/module.h"
+#include "linux/kernel.h"
+
+/* 必选，模块许可生命 */
+MODULE_LICENSE("Dual BSD/GPL");
+
+/* 模块加载函数 */
+static int hello_init(void)
+{
+	printk(KERN_ALERT "hello, I am rumen-ko\n");
+	return 0;
+}
+
+/* 模块卸载函数 */
+static void hello_exit(void)
+{
+	printk(KERN_ALERT "bye bye, kernel\n");
+}
+
+/* 模块注册 */
+module_init(hello_init);
+module_exit(hello_exit);
+
+/* 可选 */
+MODULE_AUTHOR("sqm ");
+MODULE_DESCRIPTION("This is a simple example!\n");
+MODULE_ALIAS("A simplest example");
+									}}}
+makefile:
+{{{
+obj-m += hello.o
+
+CURRENT_PATH := $(shell pwd)
+
+LINUX_KERNEL := $(shell uname -r)
+
+LINUX_KERNEL_PATH := /usr/src/linux-headers-$(LINUX_KERNEL)
+
+all:
+	make -C $(LINUX_KERNEL_PATH) M=$(CURRENT_PATH) modules
+
+clean:
+	make -C $(LINUX_KERNEL_PATH) M=$(CURRENT_PATH) clean
+									}}}
+insmod hello.ko #加载模块
+dmesg		#显示开机信息
+
+------------------------------------------------------------------------------

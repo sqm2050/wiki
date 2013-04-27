@@ -1,0 +1,104 @@
+aclmask_old:
+	zxmd_aclmask_process(); --- zxmd_mproc.c
+		zxmd_acl_main_procs(); --- zxmd_acl.c
+			ACLNMASK
+			zxmd_acl_find_nmask(); --- zxmd_acl.c
+				zxmx_acl_hash_hw_cc(); --- zxmx_acl.h
+			END
+
+			zxmx_acl_rfc_process_pkt(); --- zxmx_acl.c
+
+		zxmd_mprocs_acl_act(); --- zxmd_mproc.c
+			eprm_procs_act_fwd(); --- zxmd_eprm.h
+
+			drop_pkt(); --- zxmx_xmit.h
+
+aclex_old:
+	zxmd_aclex_process(); --- zxmd_mproc.c
+		zxmd_aclex_process_pkt(); --- zxmd_aclex.c
+			zxmx_aclex_acsm2_process_pkt(); --- zxmx_aclex.c
+				acsmSearch2();	--- zxmx_aclex.c
+					acsmSearchSparseDFA_Full(); --- zxmx_aclex.c
+
+			zxmx_aclex_ud_process(); --- zxmd_aclex.c
+
+		zxmd_mprocs_aclex_act(); --- zxmd_mproc.c
+			eprm_procs_act_fwd(); --- zxmd_eprm.h
+
+			drop_pkt(); --- zxmx_xmit.h
+aclex_init:
+	zxmx_init_aclex(); --- zxmx_aclex.c
+	zxmx_init_acsm2(); --- zxmx_aclex.c
+acl_init:
+	zxmx_init_acl(); --- zxmx_acl.c
+
+aclmask_new:
+	zxmd_aclmask_process(); --- zxmx_acl.c
+		zxmd_acl_main_procs(); --- zxmx_acl.c
+			ACLNMASK
+			zxmd_acl_find_nmask(); --- zxmx_acl.c
+				zxmx_acl_hash_hw_cc(); --- zxmx_acl.h
+			END
+
+			zxmx_acl_rfc_process_pkt(); --- zxmx_acl.c
+
+		zxmd_mprocs_acl_act(); --- zxmx_acl.c
+			eprm_procs_act_fwd(); --- zxmx_eprm.c
+
+			drop_pkt(); --- zxmx_xmit.h
+
+aclex_new:
+	zxmd_aclex_process(); --- zxmx_aclex.c
+		zxmd_aclex_process_pkt(); --- zxmx_aclex.c
+			zxmx_aclex_acsm2_process_pkt(); --- zxmx_aclex.c
+				acsmSearch2();	--- zxmx_aclex.c
+					acsmSearchSparseDFA_Full(); --- zxmx_aclex.c
+						acsm2_match_found(); --- zxmx_aclex.c
+							zxmx_aclex_ud_process(); --- zxmx_aclex.c
+
+			zxmx_aclex_ud_process(); --- zxmx_aclex.c
+
+		zxmd_mprocs_aclex_act(); --- zxmd_mproc.c
+			eprm_procs_act_fwd(); --- zxmx_eprm.c
+
+			drop_pkt(); --- zxmx_xmit.h
+就是把旧的函数分布在3层文件中，现在把所有的函数集结到了，acl/rfc/zxmx_acl.c和
+zxmx_aclex.c中了。
+------------------------------------------------------------------------------
+接口部分：
+	复制过去后编译出错，在一个.h文件的函数声明中expect什么东西在什么东西之
+前，显然是缺少类型定义，发现是在zxmx_acl.h中定义的类型，然后在zxmx_acl.h中加上
+警告，追踪原来在flow_md中的包含逻辑，如下：
+{{{
+	In file included from mduapi_pcie.h:17,
+                 from mduapi_struct.h:12,
+                 from mduapi_acl.c:41:
+	/home/sqm/Documents/flow_md/linux/OpenWRT/../..//libexec//zxmx_acl.h:12:2: warning: #warning "sqm-sqm-sqm"
+
+	In file included from mduapi_pcie.h:17,
+                 from mduapi_struct.h:12,
+                 from mduapi_aclex.c:40:
+	/home/sqm/Documents/flow_md/linux/OpenWRT/../..//libexec//zxmx_acl.h:12:2: warning: #warning "sqm-sqm-sqm"	
+															}}}
+说明是这样的关系：
+{{{						      /---mduapi_acl.c
+	zxmx_acl.h - mduapi_pcie.h - mduapi_struct.h -
+						      \---mduapi_aclex.c
+									}}}
+
+	在新的box66上，删掉所有的acl（rfc）相关文件，这里要重新加入了.然后检查
+mduapi_pcie.h的逻辑关系。
+在mduapi_pcie.c中定义了相应的函数,这些报隐式声明的警告：
+ 'mduapi_add_remote_acl_rfc' 'mduapi_sync_remote_acl_rfc' 
+ 'mduapi_del_remote_acl_rfc_all' 'mduapi_del_remote_acl_rfc_one'
+ 'mduapi_query_remote_acl_rfc' 'mduapi_bind_remote_aclex'
+ 'mduapi_bind_del_remote_aclex' 'mduapi_del_remote_aclnmask_all'
+ 'mduapi_add_remote_aclex_acsm2' 'mduapi_sync_remote_aclex_acsm2'
+ 'mduapi_del_remote_aclex_acsm2_one' 'mduapi_del_remote_aclex_acsm2_all'
+ 'mduapi_query_remote_aclex_acsm2' 'mduapi_bind_remote_acl'
+ 'mduapi_bind_del_remote_acl'
+
+libexec/zxmx_pcie.h:
+	定义了相应的操作结构类型和大共用体的的成员名
+
+

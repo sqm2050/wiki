@@ -1,6 +1,281 @@
+[[语法分析]]
+
+------------------------------------------------------------------------------
+call函数妙用，简化打印信息：
+@file:Kbuild.include 定义call的表达式，和相应的参数：
+{{{
+	echo-cmd = $(if $($(quiet)cmd_$(1)),echo '  $($(quiet)cmd_$(1))';)
+	cmd = @$(echo-cmd) $(cmd_$(1))
+									}}}
+@Makefile 定义命令信息变量和命令变量
+{{{
+include Kbuild.include
+	quiet_cmd_sse ?= COMPILE        $@
+	      cmd_sse ?= $(MAKE) -C $(SSE_SRC)
+目标：
+	sse:
+		$(call cmd,sse)
+									}}}
+最终cmd就是
+{{{
+	$cmd = @echo 'COMPILE 	sse'; make -C /home/sqm/tmp/JusonFlow/sse 
+									}}}
+call函数回执行这两条命令，并且括号形成一个变量，echo $(call cmd,sse)会把cmd 信
+息打印出来，但是也会继续被call函数执行。
+
+include-flag: 把libexec中所有的子目录都加入了include变量中了，目标在被生成之前
+先把变量补充（替换成）最后一次的赋值，不管目标是在此变量之前还是之后。
+{{{
+	LIB_SUBDIR := $(shell ls $(LIBEXEC_DIR) -FR | grep ":" | sed 's/://g')
+	CFLAGS_SUBDIR := $(addprefix -I,$(LIB_SUBDIR))
+	CFLAGS_GLOBAL += $(CFLAGS_SUBDIR)
+	export CFLAGS_GLOBAL CFLAGS_LOCAL CFLAGS_ZXEXEC CC LD
+									}}}
+
+make menuconfig 生成两个配置文件
+	autoconf.h	c文件包含
+	auto.conf 	给makefile包含
+
+sse<---cmd_sse
+	mipsisa64-octeon-elf-gcc obj/zxmd_init.o obj/zxmd_main.o \
+	obj/zxmd_mproc.o obj/libcvm-common.a obj/libzxexe.a \
+	obj/libcvm-pci-drv.a obj/libcvmhfa.a obj/libocteon-hfa.a \
+	/home/sqm/tmp/JusonFlow/sdk/OCTEON-SDK/components/hfa/lib-octeon \
+	/pp/octeon/se/libpp.a obj/libcvmx.a obj/libfdt.a -mfix-cn63xxp1 \
+	-march=octeon2 -o cn66hw1.bin
+{{{
+	$(TARGET): $(CVMX_CONFIG) $(OBJS) $(LIBS_LIST)
+									}}}
+OBJS:
+	obj/zxmd_init.o obj/zxmd_main.o obj/zxmd_mproc.o
+
+CVMX_CONFIG:
+	config/cvmx-config.h
+
+LIBS_LIST:
+	obj/libcvm-common.a obj/libzxexe.a obj/libcvm-pci-drv.a obj/libcvmhfa.a 
+	obj/libocteon-hfa.a 
+	/home/sqm/tmp/JusonFlow/sdk/OCTEON-SDK/components/hfa/lib-octeon/pp\
+	/octeon/se/libpp.a obj/libcvmx.a obj/libfdt.a
+
+libexec: 在libexec/zxmx.mk中， libexec--->libzxexe.a注意库的排列顺序
+
+libexec目录:
+{{{
+	obj/zxmx_*.o: zxmx_*.c
+									}}}
+libexec子目录:
+	eprm	csps	acl
+	都编译成build-in.o,就是
+	$(LIBEXEC_DIR)/eprm/build-in.o
+	$(LIBEXEC_DIR)/csps/build-in.o
+	$(LIBEXEC_DIR)/acl/build-in.o
+{{{
+	MAKE_FUNC = libexec/Makefile.build
+	%/build-in.o :  FORCE
+        	@$(MAKE) -f $(MAKE_FUNC) obj=$(dir $@)
+									}}}
+{{{
+	all:$(obj)build-in.o	#obj等于make -f 传进来的obj
+
+	$(obj)build-in.o : $(local-obj) $(sub-obj)#当前目录的.o,子目录的.o
+		$(call cmd,ld)
+
+	wildcard子目录的Kbuild，然后-include子目录的Kbuild，相当于obj-dir+=
+	quiet_cmd_built ?= COMPILE      $@                                       
+		cmd_built ?= $(MAKE) -f $(LIBEXEC_DIR)/Makefile.build obj=$(dir $@)
+	$(obj)%/build-in.o : FORCE	#在递归调用，编译子目录
+		$(call cmd,built)
+
+	%.o : %.c
+		$(call cmd,base)
+									}}}
+------------------------------------------------------------------------------
+目录作为目标名，如果想利用目录名作为目标名，然后进行MAKE -C 这时候目录名的时间
+应该进行思考了，如果没有依赖那么，一直不会make -c 因为目标存在，而且没有依赖。
+如果有依赖，但是make -c 没有影响到目录的时间戳，而且依赖比目录的时间戳旧那么一
+直不会执行，如果新那么一直会执行。
+------------------------------------------------------------------------------
+如果依赖是个软连接文件，那么不管连接文件还是原文件被touch更新了， 都会重新执行
+
+但是ln -sf选项，重新建立的连接文件就不会引起重新执行。
+
+rm -f 依赖的连接，ln -s 新的连接，也不会重新执行。
+------------------------------------------------------------------------------
+call函数妙用，简化打印信息：
+@file:Kbuild.include 定义call的表达式，和相应的参数：
+{{{
+	echo-cmd = $(if $($(quiet)cmd_$(1)),echo '  $($(quiet)cmd_$(1))';)
+	cmd = @$(echo-cmd) $(cmd_$(1))
+									}}}
+@Makefile 定义命令信息变量和命令变量
+{{{
+include Kbuild.include
+	quiet_cmd_sse ?= COMPILE        $@
+	      cmd_sse ?= $(MAKE) -C $(SSE_SRC)
+目标：
+	sse:
+		$(call cmd,sse)
+									}}}
+最终cmd就是
+{{{
+	$cmd = @echo 'COMPILE 	sse'; make -C /home/sqm/tmp/JusonFlow/sse 
+									}}}
+call函数回执行这两条命令，并且括号形成一个变量，echo $(call cmd,sse)会把cmd 信
+息打印出来，但是也会继续被call函数执行。
+
+include-flag: 把libexec中所有的子目录都加入了include变量中了，目标在被生成之前
+先把变量补充（替换成）最后一次的赋值，不管目标是在此变量之前还是之后。
+{{{
+	LIB_SUBDIR := $(shell ls $(LIBEXEC_DIR) -FR | grep ":" | sed 's/://g')
+	CFLAGS_SUBDIR := $(addprefix -I,$(LIB_SUBDIR))
+	CFLAGS_GLOBAL += $(CFLAGS_SUBDIR)
+	export CFLAGS_GLOBAL CFLAGS_LOCAL CFLAGS_ZXEXEC CC LD
+									}}}
+
+make menuconfig 生成两个配置文件
+	autoconf.h	c文件包含
+	auto.conf 	给makefile包含
+
+sse<---cmd_sse
+	mipsisa64-octeon-elf-gcc obj/zxmd_init.o obj/zxmd_main.o \
+	obj/zxmd_mproc.o obj/libcvm-common.a obj/libzxexe.a \
+	obj/libcvm-pci-drv.a obj/libcvmhfa.a obj/libocteon-hfa.a \
+	/home/sqm/tmp/JusonFlow/sdk/OCTEON-SDK/components/hfa/lib-octeon \
+	/pp/octeon/se/libpp.a obj/libcvmx.a obj/libfdt.a -mfix-cn63xxp1 \
+	-march=octeon2 -o test
+{{{
+	$(TARGET): $(CVMX_CONFIG) $(OBJS) $(LIBS_LIST)
+									}}}
+OBJS:
+	obj/zxmd_init.o obj/zxmd_main.o obj/zxmd_mproc.o
+
+CVMX_CONFIG:
+	config/cvmx-config.h
+
+LIBS_LIST:
+	obj/libcvm-common.a obj/libzxexe.a obj/libcvm-pci-drv.a obj/libcvmhfa.a 
+	obj/libocteon-hfa.a 
+	/home/sqm/tmp/JusonFlow/sdk/OCTEON-SDK/components/hfa/lib-octeon/pp\
+	/octeon/se/libpp.a obj/libcvmx.a obj/libfdt.a
+
+libexec: 在libexec/zxmx.mk中， libexec--->libzxexe.a注意库的排列顺序
+
+libexec目录:
+{{{
+	obj/zxmx_*.o: zxmx_*.c
+									}}}
+libexec子目录:
+	eprm	csps	acl
+	都编译成build-in.o,就是
+	$(LIBEXEC_DIR)/eprm/build-in.o
+	$(LIBEXEC_DIR)/csps/build-in.o
+	$(LIBEXEC_DIR)/acl/build-in.o
+{{{
+	MAKE_FUNC = libexec/Makefile.build
+	%/build-in.o :  FORCE
+        	@$(MAKE) -f $(MAKE_FUNC) obj=$(dir $@)
+									}}}
+{{{
+	all:$(obj)build-in.o	#obj等于make -f 传进来的obj
+
+	$(obj)build-in.o : $(local-obj) $(sub-obj)#当前目录的.o,子目录的.o
+		$(call cmd,ld)
+
+	wildcard子目录的Kbuild，然后-include子目录的Kbuild，相当于obj-dir+=
+	quiet_cmd_built ?= COMPILE      $@                                       
+		cmd_built ?= $(MAKE) -f $(LIBEXEC_DIR)/Makefile.build obj=$(dir $@)
+	$(obj)%/build-in.o : FORCE	#在递归调用，编译子目录
+		$(call cmd,built)
+
+	%.o : %.c
+		$(call cmd,base)
+									}}}
+------------------------------------------------------------------------------
+目录作为目标名，如果想利用目录名作为目标名，然后进行MAKE -C 这时候目录名的时间
+应该进行思考了，如果没有依赖那么，一直不会make -c 因为目标存在，而且没有依赖。
+如果有依赖，但是make -c 没有影响到目录的时间戳，而且依赖比目录的时间戳旧那么一
+直不会执行，如果新那么一直会执行。
+------------------------------------------------------------------------------
+$@变量使用的重要性：
+{{{
+	LINUX_OBJS_TMP=$(MDUAPI_LINUX:.c=.o)
+	$(LINUX_OBJS_TMP):%.o:%.c FORCE
+		$(CC) $(CFLAGS_PCI) $(CFLAGS) -c -o $@ $<
+		mv $@ $(OBJS_DIR)/
+上面是把一个变量的.c后缀变成.o后缀,然后目标是所有的.o，依赖是对应的.c然后$@ $<
+的使用就把下面的执行语句，按照变量中的所有成员按序展开执行。
+
+第一次失误,
+	mv $@ $(OBJS_DIR)/
+这一句写成了
+	mv $(LINUX_OBJS_TMP) $(OBJS_DIR)/
+
+这样的话，就是把$(LINUX_OBJS_TMP)中的成员一次性在这条mv 语句中展开去执行了，然
+后就报错了。因为相应的.o文件还没有全部生成。
+									}}}
+------------------------------------------------------------------------------
+变量 在语句中，作为目标，作为依赖
+
+变量在语句中的值是是在整个makefile文件最后的被赋值确定的值，语句出现在前，也是
+被最终的赋值。
+{{{
+	var = string
+	all:
+		@echo $(var)
+	var = data
+									}}}
+	$ make
+	$ data
+如果var=* ，那么，将显示目录下所有的文件和目录，因为$(var）被makefile解释成“*”
+送给echo，echo在shell中执行就是：echo *，从而会显示所有的文件。如果想显示“*”号
+可以写成：
+{{{	var = string-tmp
+	all:
+		@echo "$(var)"
+	var = *
+									}}}
+
+作为目标和依赖时候，就会跟定义的位置和使用位置有关系了。
+{{{
+	target = main.c
+	all:$(target)		#这里all的依赖是main.c
+
+	target = dddd.o
+	$(target):dddd.c	#这里目标就又成了dddd.c了
+									}}}
+------------------------------------------------------------------------------
 变量：
   变量名 = main.o command.o
   $(变量名)	#引用
+
+1.   =	递归赋值，右边的变量不一定要先赋值
+2.  :=	递归展开赋值，但是右边的变量一定要先赋值
+{{{
+	eq = $a
+	a = $b
+	b = c
+
+	f = g
+	e = $f
+	dot := $e
+
+	all:
+		@echo $(eq)
+	dd:
+		@echo $(dot)
+									}}}
+3.  ?=	如果左边变量已经定义，则什么都不做
+{{{	
+	FOO = bar
+	等价于：
+	ifeq ($(origin FOO), undefined)
+		FOO = bar
+	endif
+									}}}
+4.  += 	给变量追加值
+
+
 
 自动推导：
   main.o:def.h <--> main.o:def.h main.c
@@ -69,8 +344,10 @@ $(objects):%.o:%.c 	#<targets ...>:<targets-pattern>:<prereq-patterns ...>
 "$@"表示所有的目标集。
 
 files = foo.elc bar.o lose.o
-$(filter %.o,$(files)):%.o:%.c
-	$(CC) -c $(CFLAGS) $< -o $@
+{{{
+	$(filter %.o,$(files)):%.o:%.c
+		$(CC) -c $(CFLAGS) $< -o $@
+}}}
 
 include $(source:.c=.d)
 把变量所有[.c]的字串都替换成[.d]

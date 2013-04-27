@@ -1,2 +1,7 @@
-	-f后面跟一些编译选项，PIC是其中一种，表示生成位置无关代码（Position Independent Code）
+1. -f后面跟一些编译选项，PIC是其中一种，表示生成位置无关代码（Position Indepen
+   dent Code）
 
+2. expected specifier-qualifier-list before sth:
+   使用了位定义的符号（类型在某些东西前面）， 一般是在结构体嵌套定义，或者引用
+   自定义的类型时候。
+  

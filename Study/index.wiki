@@ -14,7 +14,7 @@
 
 = My Study =
 == English	==
-	* 
+	* [[voa]]
 == Mathematics	==
 	* [[级数]]
 	* [[自然对数]]
@@ -22,6 +22,7 @@
 	* [[陈怀临]] 
 	* [[grace]]
 	* [[王聪]]
+	* [[行为学]]
 == Computer 	==
 === Architecture===
 		* [[TLB]]
@@ -31,7 +32,9 @@
 		* [[修养]]
 === C Lang 	===
 		* [[周期、指令、原子操作]]
+		* [[wiki-wpa]]
 		* [[apue]]
+		* [[全局]]
 		* [[C_note]]
 		* [[交叉判断]]
 		* [[scanf]]
@@ -47,6 +50,9 @@
 		* [[CRC]]
 === linux 	===
 		* [[ubuntu]]
+		* [[redhat-centos]]
+		* [[驱动]]
+		* [[shell]]
 		* [[gcc]]
 		* [[linux kernel]]
 		* [[command]]
@@ -59,7 +65,7 @@
 		* [[X86 Architecture]]
 		* [[段页内存管理]]
 	
-=== MIPS	===
+	=== MIPS	===
 		* [[mips notes]]
 		* [[MMU PA]]
 		* [[See MIPS Run Linux(2nd edition]]

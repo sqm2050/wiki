@@ -436,3 +436,87 @@ vlan add member 1 4034 22 1
 #  陈小阳(251779677)  20:07:24
 #  下了
 # 
+# 
+-----------------------------------------------------------------------------
+Auto-merging libexec/zxmx.mk
+Auto-merging sse/zxmd_mproc.c
+Merge made by recursive.
+ Makefile                   |    8 +-
+ cli/netgate                |    2 +-
+ include/executive-config.h |    3 +
+ libexec/Makefile.build     |    6 +-
+ libexec/acl/zxmx_acl_hfa.c |  124 ++++++++++++---------
+ libexec/acl/zxmx_acl_hfa.h |   20 +++-
+ libexec/acl/zxmx_hfa.c     |   73 +++++++++----
+ libexec/acl/zxmx_hfa.h     |    6 +-
+ libexec/acl/zxmx_hfa_api.h |  269 ++++++++++++++++++++++++++++++++++++++++++++
+ libexec/eprm/zxmx_if.c     |    6 -
+ libexec/zxmx.mk            |    4 +-
+ libexec/zxmx_debug.c       |    6 +
+ libexec/zxmx_debug.h       |   15 ++-
+ libexec/zxmx_utils.h       |    6 +-
+ mduapi/src/mduapi_hfa.c    |   11 +--
+ sdk/OCTEON-SDK             |    2 +-
+ sse/Makefile               |    7 +-
+ sse/zxmd_mproc.c           |   22 +---
+ 18 files changed, 453 insertions(+), 137 deletions(-)
+ create mode 100644 libexec/acl/zxmx_hfa_api.h
+-----------------------------------------------------------------------------
+Updating 8c92259..61d03e3
+Fast-forward
+ Config.in                         |   45 +
+ cli/netgate                       |    2 +-
+ libexec/Kbuild                    |   12 +
+ libexec/acl/Kbuild                |   16 +
+ libexec/acl/hfa/zxmx_acl_hfa.c    |  338 +++++
+ libexec/acl/hfa/zxmx_acl_hfa.h    |  163 ++
+ libexec/acl/hfa/zxmx_hfa.c        |  163 ++
+ libexec/acl/hfa/zxmx_hfa.h        |   25 +
+ libexec/acl/rfc/zxmx_acl.c        | 1106 ++++++++++++++
+ libexec/acl/rfc/zxmx_acl.h        |  363 +++++
+ libexec/acl/rfc/zxmx_aclex.c      | 1229 +++++++++++++++
+ libexec/acl/rfc/zxmx_aclex.h      |  353 +++++
+ libexec/acl/rfc/zxmx_acsm2.c      | 3002 +++++++++++++++++++++++++++++++++++++
+ libexec/acl/rfc/zxmx_acsm2.h      |  180 +++
+ libexec/acl/rfc/zxmx_dheap.c      |  826 ++++++++++
+ libexec/acl/rfc/zxmx_dheap.h      |   62 +
+ libexec/dpim/3gpp/zxmx_3gpp.h     |    2 -
+ libexec/zxmx.mk                   |    2 +-
+ libexec/zxmx_pcie.h               |  159 ++-
+ mduapi/src/Makefile               |   17 +-
+ mduapi/src/mduapi_acl.c           | 1577 +++++++++++++++++++
+ mduapi/src/mduapi_acl.h           |  378 +++++
+ mduapi/src/mduapi_aclex.c         | 1282 ++++++++++++++++
+ mduapi/src/mduapi_aclex.h         |  304 ++++
+ mduapi/src/mduapi_pcie.c          | 1261 ++++++++++++++++
+ mduapi/src/mduapi_pcie.h          |   61 +
+ mduapi/src/mduapi_rfc.c           |  233 +++
+ mduapi/src/mduapi_rfc.h           |   23 +
+ sdk/OCTEON-SDK                    |    2 +-
+ sse/build_data_eth_acsmtest512.sh |  112 --
+ sse/build_data_pos.sh             |   56 -
+ sse/build_data_vlan.sh            |   57 -
+ sse/zxmd_init.c                   |   26 +
+ sse/zxmd_main.c                   |    2 +
+ sse/zxmd_mproc.c                  |  220 +++-
+ 35 files changed, 13422 insertions(+), 237 deletions(-)
+ create mode 100644 libexec/acl/Kbuild
+ create mode 100644 libexec/acl/hfa/zxmx_acl_hfa.c
+ create mode 100644 libexec/acl/hfa/zxmx_acl_hfa.h
+ create mode 100644 libexec/acl/hfa/zxmx_hfa.c
+ create mode 100644 libexec/acl/hfa/zxmx_hfa.h
+ create mode 100644 libexec/acl/rfc/zxmx_acl.c
+ create mode 100644 libexec/acl/rfc/zxmx_acl.h
+ create mode 100644 libexec/acl/rfc/zxmx_aclex.c
+ create mode 100644 libexec/acl/rfc/zxmx_aclex.h
+ create mode 100644 libexec/acl/rfc/zxmx_acsm2.c
+ create mode 100644 libexec/acl/rfc/zxmx_acsm2.h
+ create mode 100644 libexec/acl/rfc/zxmx_dheap.c
+ create mode 100644 libexec/acl/rfc/zxmx_dheap.h
+ create mode 100644 mduapi/src/mduapi_acl.c
+ create mode 100644 mduapi/src/mduapi_acl.h
+ create mode 100644 mduapi/src/mduapi_aclex.c
+ create mode 100644 mduapi/src/mduapi_aclex.h
+ create mode 100644 mduapi/src/mduapi_rfc.c
+ create mode 100644 mduapi/src/mduapi_rfc.h
+ mode change 160000 => 120000 sdk/OCTEON-SDK

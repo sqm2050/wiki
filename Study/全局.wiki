@@ -1,0 +1,58 @@
+源文件有同名全局变量，如果有一个不初始化，就算类型不一样在每个文件中也会以初始化的那一个为准，如果初始化的类型空间比未初始化的类型小,则会报警告：
+如：int para = 2; long para;
+Warning: size of symbol `para' changed from 8 in /tmp/ccG7Ghmg.o to 4 in /tmp/ccZWeGEk.o
+同一文件内类型就必须相等，而且也不能都初始化。
+
+cvmx_share_bss:
+同名全局变量，在同文件内同类型，以初始化的为准。 
+同名全局变量，在多个文件中任何情况不可以了，就是报错：重定义。
+
+?
+#include <stdio.h>
+static int para;
+f_main()
+{
+    printf("main_para = %d\n", para);
+    f1();
+}
+main()
+{
+     
+    para = 100;
+    printf("para = %d\n", para);
+    f_main();
+    f1();
+    f2();
+    f3();
+}
+/* h2.c */
+#include <stdio.h>
+static int para = 2;
+f1()
+{
+    printf("f1 = %d\n", para);
+}
+f2()
+{
+    para += 1;
+    f1();
+}
+f3()
+{
+    f_main();
+}
+　　
+
+para = 100
+main_para = 100
+f1 = 2
+f1 = 2
+f1 = 3
+main_para = 100
+f1 = 3
+
+　　这里在两个c源文件中，都声明了一个静态 para变量，那么不管怎么引用对方的函数，都会打印函数所在的文件内的变量值。如果只有一个声明了static属性，也会这样。
+
+但是我推荐这样做，这和gcc的编译属性有关系，也就是各个编译器的不确定性。建议还是声明不同名全局变量，然后进行外部声明。
+
+
