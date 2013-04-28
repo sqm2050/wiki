@@ -1,0 +1,77 @@
+递归写法：
+
+#define MINLEN 8
+#define MAXLEN 20
+
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+
+int minlen;
+char crypt[63]="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890";
+
+void echo();
+
+int main(int argc,char *argv[])
+{
+	char *buf;
+	for(minlen=MINLEN;minlen<MAXLEN;minlen++){ 		/* 生成的字符长度可选 */
+		buf = malloc(minlen);
+		echo(0,buf);
+		free(buf);
+	}
+}
+
+void echo(int pos,char *buf)
+{
+	int i;
+	if(pos == minlen - 1){					/* pos ==> 0 - 7 */
+		for(i = 0;i < 62;i++)				/* 相当与最内层的for循环 */
+			printf("%s%c\n",buf,crypt[i]);
+		return;
+	}
+	for(i = 0;i < 62;i++){
+		buf[pos] = crypt[i];
+		echo(pos+1,buf);
+	}
+	return;
+}
+---------------------------------------------------------------
+for嵌套写法：
+
+#include <stdio.h>
+#include <stdlib.h>
+char data[62] = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+char tar[9] = {0};
+main()
+{
+	int i, j, k, l, m, n, o, p;;
+
+	for (i = 0;i < 62; i++) {
+		tar [0] = data[i];	
+		for (j = 0;j < 62; j++) {
+			tar[1] = data[j];
+			for (k = 0;k < 62; k++) {
+				tar[2] = data[k];
+				for (l = 0;l < 62; l++) {
+					tar[3] = data[l];
+					for (m = 0;m < 62; m++) {
+						tar[4] = data[m];
+						for (n = 0;n < 62; n++) {
+							tar[5] = data[n];
+							for (o = 0;o < 62; o++) {
+								tar[6] = data[o];
+								for (p = 0;p < 62; p++) {
+									tar[7] = data[p];
+									printf("%s\n", tar);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		printf("\n");
+	}
+}

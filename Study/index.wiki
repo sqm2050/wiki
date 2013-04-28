@@ -4,6 +4,7 @@
     * [[temp1]]
     * [[note]]
 == task ==
+    * [[task]]
     * [[books index]]
 == time money ==
     * [[year]]
@@ -18,10 +19,9 @@
 	* [[级数]]
 	* [[自然对数]]
 = humanity  	=
+	* [[aphorism]]
 	* [[陈怀临]] 
-	* [[grace]]
 	* [[王聪]]
-	* [[行为学]]
 == Computer 	==
 === Architecture===
 		* [[TLB]]
@@ -40,7 +40,7 @@
 		* [[lock]]
 		* [[restrict]]
 		* [[endian]]
-		* [[gcd]]
+		* [[递归]]
 		* [[shm]]
 === multi Pro 	===
 		* [[the art of mutiprocessor programming]]
