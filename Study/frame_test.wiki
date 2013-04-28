@@ -44,7 +44,7 @@ openwrt 编译问题
       cp sdk/OCTEON-SDK/tools-gcc-4.3/mips64-octeon-linux-gnu/sys-root/usr/lib64/libgcc_s.so.1  sdk/OCTEON-SDK/tools/lib/    
 4、找不到octeon的头文件，需要进入SDK中的linux，执行拷贝脚本，kernel dir是openwrt的目录，注意只需要指定到linux，不要asm。
      cd sdk/OCTEON-SDK/linux
-	./copy-se2kernel.sh copy ~/Documents/flow_md/linux/OpenWRT/build_dir/linux-octeon-dream/linux-2.6.32.27/                                 
+     ./copy-se2kernel.sh copy ~/Documents/flow_md/linux/OpenWRT/build_dir/linux-octeon-dream/linux-2.6.32.27/                                 
 cli:
 	cpu0: set sregister 3gpp disable
 
