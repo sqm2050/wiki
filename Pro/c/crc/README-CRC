@@ -1,0 +1,5 @@
+create-crc-table是产生crc驱动表的程序。
+
+direct-cal-sqm是直接计算法,我的实现。
+
+direct-cal-ndj是直接计算法，脑冻结的实现。

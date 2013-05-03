@@ -42,6 +42,7 @@
 		* [[endian]]
 		* [[递归]]
 		* [[shm]]
+		* [[异或]]
 === multi Pro 	===
 		* [[the art of mutiprocessor programming]]
 === Network 	===
@@ -49,6 +50,7 @@
 		* [[CRC]]
 === linux 	===
 		* [[ubuntu]]
+		* [[time]]
 		* [[redhat-centos]]
 		* [[驱动]]
 		* [[shell]]
