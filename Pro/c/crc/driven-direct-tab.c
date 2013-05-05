@@ -1,11 +1,12 @@
 #include <stdio.h>
 #define     BYTE_L  8
-//#define     CRC32   // default CRC16, unless define CRC32
+#define     CRC32   // default CRC16, unless define CRC32
 
 #ifdef  CRC32
     #define     CRC_WIDTH   32
     #define     CRC_POLY    0x04C11DB7
-    #define     CRC_INIT    0xFFFFFFFF
+    #define     CRC_INIT   0x0
+    // 0xFFFFFFFF
 #else
     #define     CRC_WIDTH   16
     #define     CRC_POLY    0x1021

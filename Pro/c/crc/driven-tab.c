@@ -47,6 +47,7 @@ int main()
         regs = ((regs<<BYTE_L)|*pointer++) ^ table[(regs>>(CRC_WIDTH-BYTE_L))&0xFF];
     }
     printf("-----------------------------------\n");
+// append zeros to finish the calculation
     for(i=0; i<CRC_WIDTH/BYTE_L; i++){
         print_regs(CRC_WIDTH, regs);
         regs = (regs<<BYTE_L) ^ table[(regs>>(CRC_WIDTH-BYTE_L))&0xFF];
