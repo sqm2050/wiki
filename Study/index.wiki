@@ -3,33 +3,33 @@
     * [[table]]
     * [[temp1]]
     * [[note]]
-== task ==
-    * [[task]]
-    * [[books index]]
-== time money ==
-    * [[year]]
-    * [[month]]
-    * [[week]]
-    * [[day]]
+    == task ==
+    	* [[task]]
+    	* [[books index]]
+    == time money ==
+    	* [[year]]
+    	* [[month]]
+    	* [[week]]
+    	* [[day]]
 
 = My Study =
-== English	==
+    == English	==
 	* [[voa]]
-== Mathematics	==
+    == Mathematics	==
 	* [[级数]]
 	* [[自然对数]]
-= humanity  	=
+    == humanity  	==
 	* [[aphorism]]
 	* [[陈怀临]] 
 	* [[王聪]]
-== Computer 	==
-=== Architecture===
+    == Computer 	==
+	=== Architecture===
 		* [[TLB]]
-=== Project 	===
+	=== Project 	===
 		* [[Makefile]]
 		* [[git]]
 		* [[修养]]
-=== C Lang 	===
+	=== C Lang	===
 		* [[周期、指令、原子操作]]
 		* [[wiki-wpa]]
 		* [[apue]]
@@ -43,12 +43,14 @@
 		* [[递归]]
 		* [[shm]]
 		* [[异或]]
-=== multi Pro 	===
+	=== Algorithm	===
+		* [[boyer moore]]
+	=== multi Pro 	===
 		* [[the art of mutiprocessor programming]]
-=== Network 	===
+	=== Network 	===
 		* [[协议]]
 		* [[CRC]]
-=== linux 	===
+	=== linux 	===
 		* [[ubuntu]]
 		* [[time]]
 		* [[redhat-centos]]
@@ -62,7 +64,7 @@
 		* [[flash-plugin]]
 		* [[flash-ic]]
 		* [[minicom]]
-=== X86		===
+	=== X86		===
 		* [[X86 Architecture]]
 		* [[段页内存管理]]
 	
@@ -72,7 +74,7 @@
 		* [[See MIPS Run Linux(2nd edition]]
 		* [[MIPS64 Architecture]]
 		* [[Mips assembly]]
-=== Octeon 	===
+	=== Octeon 	===
 		* [[框架结构]]
 		* [[frame_test]]
 		* [[OCTEON-Programmer's_Guide-The_Fundamentals]]
