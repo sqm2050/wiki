@@ -10,7 +10,8 @@ boyer moore字符串匹配算法
 
 
 
-```   adadadadda
+``` 
+	adadadadda
   	adadadadad
 	dada 
 ```
