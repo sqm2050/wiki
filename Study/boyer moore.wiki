@@ -1,5 +1,4 @@
 boyer moore字符串匹配算法
-=========================
 
 #坏字符规则
 * "坏字符" 对应在搜索词的第m位，在搜索词中的上一次出现位未n，所以后移位m - n位。
@@ -11,7 +10,7 @@ boyer moore字符串匹配算法
 
 
 
- ```   adadadadda
+```   adadadadda
   	adadadadad
 	dada 
 ```
