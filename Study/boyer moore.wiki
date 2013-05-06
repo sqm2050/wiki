@@ -11,6 +11,6 @@ boyer moore字符串匹配算法
 
 
 
-	adadadadda
-	adadadadad
+    adadadadda
+  adadadadad
 
