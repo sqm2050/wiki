@@ -14,5 +14,3 @@ boyer moore字符串匹配算法
   	adadadadad
 	dada 
 ```
-dadd
-
