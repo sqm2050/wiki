@@ -3,10 +3,9 @@
 opendir	getc	putc 	read	write	ferrorr	getpid	execlp	fprintf	strerror perror
 
 限制：
-
-	1) 编译时限制
-	2) 不与文件或目录相关联的运行时限制（sysconf函数）。
-	3) 与文件或目录相关联的运行时限制（pathconf和fpathconf函数）。
+# 编译时限制
+# 不与文件或目录相关联的运行时限制（sysconf函数）。
+# 与文件或目录相关联的运行时限制（pathconf和fpathconf函数）。
 
 文件I/O
 
@@ -19,7 +18,7 @@ opendir	getc	putc 	read	write	ferrorr	getpid	execlp	fprintf	strerror perror
     oflag:
     O_RDONLY	0
     O_WRONLY	1
-    O_RDWR		2
+    O_RDWR	2
 ```
 
 3.3 顺序执行下面3个函数调用
