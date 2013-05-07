@@ -23,12 +23,16 @@ opendir	getc	putc 	read	write	ferrorr	getpid	execlp	fprintf	strerror perror
 ```
 
 3.3 顺序执行下面3个函数调用
-	fd1 = open(pathname, oflags);
-	fd2 = dup(fd1);
-	fd3 = open(pathname, oflags);
+```
+    
+    fd1 = open(pathname, oflags);
+    fd2 = dup(fd1);
+    fd3 = open(pathname, oflags);
+    
+```
+* open 会新建文件描述符，文件表项,指向同一个v节点。
+* dup 新建一个新的文件描述符，但是指向上面一个文件表项。
 
-	open 会新建文件描述符，文件表项,指向同一个v节点。
-	dup 新建一个新的文件描述符，但是指向上面一个文件表项。
 
 4.
 	stat函数返回与此命名文件有关的信息结构。
