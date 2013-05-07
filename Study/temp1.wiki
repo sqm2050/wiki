@@ -520,3 +520,5 @@ Fast-forward
  create mode 100644 mduapi/src/mduapi_rfc.c
  create mode 100644 mduapi/src/mduapi_rfc.h
  mode change 160000 => 120000 sdk/OCTEON-SDK
+
+报文进入
