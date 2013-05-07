@@ -172,7 +172,6 @@ CRC是3比特的，表示它的宽度W=3.也就是说，原始数据后面加上
                         85 89  --> index(4)=A3, A3 = data(4) ^ table(index(3))[15:8] ^ table(index(2))[7:0]
             ------------------
     		    D7 89
-    
     index(n) = data(n)[7:0] ^ table(index(n-1))[15:8] ^ table(index(n-2))[7:0];
     result = index(last);
     
