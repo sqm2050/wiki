@@ -10,7 +10,6 @@ opendir	getc	putc 	read	write	ferrorr	getpid	execlp	fprintf	strerror perror
 文件I/O
 
 对于内核而言，所有打开的文件都通过文件描述符引用。文件描述符是一个非负整数。当打开一个现有文件或创建一个新文件时，内核向进程返回一个文件描述符。
-```
     
     open()
     int open(const char *pathname, int oflag, .../- mode -/);
@@ -19,7 +18,6 @@ opendir	getc	putc 	read	write	ferrorr	getpid	execlp	fprintf	strerror perror
     O_RDONLY	0
     O_WRONLY	1
     O_RDWR	2
-```
 
 3.3 顺序执行下面3个函数调用
 ```
