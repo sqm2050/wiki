@@ -1,23 +1,26 @@
-标准I/O
-opendir	getc	putc 	read	write	ferrorr	getpid	execlp	fprintf	strerror
-perror
+标准I/O:
+
+opendir	getc	putc 	read	write	ferrorr	getpid	execlp	fprintf	strerror perror
 
 限制：
+
 	1) 编译时限制
 	2) 不与文件或目录相关联的运行时限制（sysconf函数）。
 	3) 与文件或目录相关联的运行时限制（pathconf和fpathconf函数）。
 
 文件I/O
-	对于内核而言，所有打开的文件都通过文件描述符引用。文件描述符是一个非负
-	整数。当打开一个现有文件或创建一个新文件时，内核向进程返回一个文件描述
-	符。
-	open()
-	int open(const char *pathname, int oflag, .../- mode -/);
 
-	oflag:
-		O_RDONLY	0
-		O_WRONLY	1
-		O_RDWR		2
+对于内核而言，所有打开的文件都通过文件描述符引用。文件描述符是一个非负整数。当打开一个现有文件或创建一个新文件时，内核向进程返回一个文件描述符。
+```
+    
+    open()
+    int open(const char *pathname, int oflag, .../- mode -/);
+    
+    oflag:
+    O_RDONLY	0
+    O_WRONLY	1
+    O_RDWR		2
+```
 
 3.3 顺序执行下面3个函数调用
 	fd1 = open(pathname, oflags);
