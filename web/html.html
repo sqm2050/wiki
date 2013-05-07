@@ -1,0 +1,168 @@
+<html>
+<head>
+<style>
+html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+body{
+    color:#444;
+    font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+    font-size:13px;
+    line-height:1.5em;
+    margin:auto;
+    padding:1em;
+    max-width:800px;
+    background:#fefefe;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+h1 {
+    color: #111111;
+    font-size: 28px;
+}
+
+h2 {
+    border-bottom: 2px solid #CCCCCC;
+    color: #000000;
+    font-size: 24px;
+}
+
+h3 {
+    border-bottom: 2px solid #CCCCCC;
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+h5 {
+    font-size: 14px;
+}
+
+h6 {
+    color: #777777;
+    background-color: inherit;
+    font-size: 14px;
+}
+
+hr {
+    color: #CCCCCC;
+    height: 1px;
+    border: 0;
+    background-color: #666666;
+}
+
+p, blockquote, ul, ol, dl, li, table, pre {
+    margin: 15px 0;
+}
+
+p{
+    margin:1em 0;
+}
+
+pre { 
+    background-color: #F8F8F8;    
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    overflow: auto;
+    padding: 5px;
+}
+
+pre code {
+    background-color: #F8F8F8;
+    border: none;    
+    padding: 0;
+}
+
+code {
+    font-family: Consolas, Monaco, Andale Mono, monospace;
+    background-color:#F8F8F8;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    overflow:auto;
+    padding: 0 0.2em;
+    line-height: 1;
+}
+
+pre > code {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+
+a{ color: #0645ad; text-decoration:none;}
+a:visited { color: #0b0080; }
+a:hover{ color: #06e; }
+a:active{ color:#faa700; }
+a:focus{ outline: thin dotted; }
+a:hover, a:active{ outline: 0; }
+
+::-moz-selection{background:rgba(255,255,0,0.3);color:#000}
+::selection{background:rgba(255,255,0,0.3);color:#000}
+
+a::-moz-selection{background:rgba(255,255,0,0.3);color:#0645ad}
+a::selection{background:rgba(255,255,0,0.3);color:#0645ad}
+
+blockquote{
+    color:#666666;
+    margin:0;
+    padding-left: 3em;
+    border-left: 0.5em #EEE solid;
+}
+
+ul, ol { margin: 1em 0; padding: 0 0 0 2em; }
+li p:last-child { margin:0 }
+dd { margin: 0 0 0 2em; }
+
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; max-width:100%;}
+
+table { border-collapse: collapse; border-spacing: 0; }
+td { vertical-align: top; }
+
+@media only screen and (min-width: 480px) {
+    body{font-size:14px;}
+}
+
+@media only screen and (min-width: 768px) {
+    body{font-size:16px;}
+} 
+</style>
+</head>
+
+<body>
+
+<h1>html:</h1>
+<hr>
+<ul>
+<li>font-size： 在css中设置字体大小 </li>
+<pre>
+&lt;p style="font-size:20px"&gt; This is some text! &lt;/p&gt;
+</pre>
+<li>overfloy-y：纵向显示滚动条 </li>
+<li>符号，实体符号，显示实体符号 </li>
+<pre>
+&amp;  ---> &amp;amp; ---> &amp;amp;amp;
+&lt;  ---> &amp;lt;  ---> &amp;amp;lt;
+</pre>
+</ul>
+
+<h1>body:</h1>
+<hr>
+<ul>
+<li>color：body中的color会给所有的元素设置此颜色，但是会被局部的设置改变。</li>
+<li>font-family：如果浏览器不支持一个字体，则会尝试下一个。浏览器会使用它可识别的第一个值。
+<li>line-height：代表行距（行高），1em = 16px。</li>
+<li>padding：代表内边距，而且一个的话代表4个边距的大小使用一个值；两个代表上下、左右；三个是上右下；四个代表上右下左。
+<li>margin：设置一个属性的外边距，可以设置auto，由浏览器计算外边距，这时候如果设置给body，整个页面会居中。</li>
+<li>max-width：设置一个属性的最大宽度</li>
+</ul>
+
+<h1>h1-n</h1>
+<hr>
+
+</body>
+</html>
