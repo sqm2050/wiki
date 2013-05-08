@@ -43,6 +43,7 @@
 * [[递归]]
 * [[shm]]
 * [[异或]]
+* [[go]]
 === Algorithm===
 * [[boyer moore]]
 === multi Pro ===
