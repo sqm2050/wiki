@@ -6,6 +6,6 @@
 	.align 8
 kallsyms:
 	.asciz "abcdefg"
-        .byte 100, 101, 0
+        .byte 22, 33, 0
 	.long 429496729
 	.byte 111
