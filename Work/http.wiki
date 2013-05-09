@@ -1,11 +1,10 @@
 =超文本传输协议-http=
 
-总体操作
-=======
+==总体操作==
+
 http协议是一种请求/响应型的协议。客户端给服务器发送请求的格式是一个请求方法（request method），URL，协议版本号，然后紧接着一个包含请求（modifiers）。
 
-HTTP URL
-========
+==HTTP URL==
 
 连接：为通信而在两个程序间建立的传输层虚拟电路。
 
@@ -21,8 +20,7 @@ SP：空格（32）。
 
 HTTP消息由从客户到服务器的请求消息和从服务器到客户的响应消息两部分组成。
 
-请求（Requrst）
-==============
+==请求（Requrst）==
 一个请求是从客户端到服务器端的，在消息首行里包含方法，资源指示符，协议版本。
 
 ===请求行===
@@ -30,5 +28,4 @@ HTTP消息由从客户到服务器的请求消息和从服务器到客户的响�
 ====方法（Method）====
 方法标记（token）指明了在被Reuest-URI指定的资源上执行的方法。这种方法是大小写敏感的。
 
-Method	= 	"OPTIONS"|"GET"|"POST"|"PUT"|"DELETE"|"TRACE"|"CONNECT"|extension-method
-		
+Method	= "OPTIONS"|"GET"|"POST"|"PUT"|"DELETE"|"TRACE"|"CONNECT"|extension-method
