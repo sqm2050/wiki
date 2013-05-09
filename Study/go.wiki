@@ -24,7 +24,7 @@ go语言是一门年轻的语言，特性还一直在添加，甚至被删除。
     export GOOS=linux	#linux,darwin,freebad
     export GOARCH=amd64	#386,amd64
     export GOBIN=~/bin
-    export PATH=$PATH:$GOROOT/bin
+    export PATH=$PATH:~/bin
 ```
 
 起源
