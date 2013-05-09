@@ -31,7 +31,7 @@ HTTP消息由从客户到服务器的请求消息和从服务器到客户的响�
 ====方法（Method）====
 方法标记（token）指明了在被Reuest-URI指定的资源上执行的方法。这种方法是大小写敏感的。
 ```
-    Method	= "OPTIONS"|"GET"|"POST"|"PUT"|"DELETE"|"TRACE"|"CONNECT"|extension-method
+    Method = "OPTIONS"|"GET"|"POST"|"PUT"|"DELETE"|"TRACE"|"CONNECT"|extension-method
 ```
 资源所允许的方法有allow头域指定。响应的返回码总是通知客户某个方法对当前资源是否是被允许的，因为被允许的方法能被动态的改变。如果服务器能理解某方法但此方法对请求资源不被允许，那么源服务器应该返回405状态码（方法不允许）；如果源服务器不能识别或没有实现某个方法，那么服务器应返回501状态码（没有实现）。方法GET和HEAD必须被所有一般的服务器支持。所有其他的方法是可选的。
 
@@ -40,3 +40,27 @@ Request-URL是一种通用资源标识符，并且它用于指定请求的请求
 ```
     Request-URI = "*"|absoluteURI|abs_path|authotity
 ```
+"*"
+```
+    OPTIONS * HTTP/1.1
+```
+
+绝对URI
+```
+    GET http://www.w3.org/pub/www/TheProject.html HTTP/1.1
+```
+
+绝对路径（absolute path）不能是空的；如果在原始URI里没有出现绝对路径，必须给出“/”（服务器的根）。
+```
+    GET /pub/WWW/TheProject.html HTTP/1.1
+    Host: www.w3.org
+```
+authority格式只被用于CONNECT方法。
+
+相对路径应该是页面的其他资源相对于整个url。
+
+===请求资源的识别（The Resource Identified by a Request）===
+* 如果Request-URI是绝对地址（absoluteURI），那么主机（host）是Request—URI的一部分。任何出现在请求里Host头域的值应当被忽略。
+* 如果Request-URI不是绝对地址，并且请求包括一个Host头域，则主机（host）由该Host头域的值决定。
+ 
+===请求头域（Request Header Fields）===
