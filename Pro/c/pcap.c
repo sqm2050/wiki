@@ -6,6 +6,11 @@
 uint8_t buffer[100000];
 int main(int argc, char *argv[])
 {
+	if (argc != 2) {
+		puts("error para");
+		return 0;
+	}
+
 	int linefeed, i = 0;
 	pcap_dumper_t *outdumper;
 	struct pcap_pkthdr header;
@@ -42,6 +47,7 @@ int main(int argc, char *argv[])
 		}
 		printf("\n");
 #endif
+#if 0
 		/* notice the endian */
 		if (packet[12] == 0x91 && packet[13] == 0x00) {
 			header.len -= 0x0b;
@@ -56,6 +62,7 @@ int main(int argc, char *argv[])
 				buffer[i] = packet[i];
 			}
 		}
+#endif
 #if PRINT_2
 		for (i = 0; i < header.len; i++) {
 			printf("%02x ", buffer[i]);
