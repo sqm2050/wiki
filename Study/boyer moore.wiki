@@ -1,4 +1,5 @@
 =boyer moore字符串匹配算法=
+向后偏移，而且自后向前比较，移动的大小根据两个规则而定。
 
 ==坏字符规则==
 * "坏字符" 对应在搜索词的第m位，在搜索词中的上一次出现位未n，所以后移位m - n位。
@@ -11,28 +12,26 @@
 ==Boyer-Moore算法的基本思想==
 * 每次后移这两个规则之中的较大值。
 * 可以预先计算生成《坏字符规则表》和《好后缀规则表》。使用时进行查表。
-```code
+
+查找4位长度的host:
+```code 
     #include <stdio.h>
     #include <stdint.h>
     int bad(int i, char a)
     {
     	switch (a) {
     	case 'h':
-    		if (i > 0)
+    		if (i > 0) 		/* 比较，是因为要减去向上一次出现的位置 */
     			return i - 0;
-    		break;
     	case 'o':
     		if (i > 1)
     			return i - 1;
-    		break;
     	case 's':
     		if (i > 2)
     			return i - 2;
-    		break;
     	case 't':
     		if (i > 3)
-    			return i - 3;
-    		break;
+    			return i - 3;	/* 不要break，因为如果正好，i == n（后面的值）那么应该去default，否则返回值不确定 */
     	default:
     		return i - (-1);
     	}
@@ -76,4 +75,4 @@
     
     
     }
-   ```
+```
