@@ -67,7 +67,6 @@ go同其他语言不同的地方在于变量的类型在变量名的后面。不
 int型在32位机上32位的，在64位上是64的。所以这里：
 ```
     package main
-
     func main() {
      	var a int
     	var b int32
