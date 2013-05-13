@@ -34,7 +34,6 @@ go可以追溯到plan9.plan9被认为是Unix的继任者。Unix的核心思想�
 ```
     package main
     import "fmt"
-    
     func main() {
     	fmt.Printf("Hello, wordld!\n")
     }
