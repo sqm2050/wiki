@@ -1,0 +1,35 @@
+=URL版本=
+==url提取笔记==
+发现一个tcp报文中可能会有多个http get的报文:
+* 解析时候要全部解析
+* dpp结构里面要加上组织成链表添加url
+* 匹配时候要多次进行查找
+```
+    struct url_str {
+    	struct url_str	*next;
+		int				str_len;
+    	char 			*str;
+    };
+```
+
+字符串长度,数组和字符串常量最后一位都是0x00，printf(%s)通过这个进行判断,内存所以比实际长度长一位：
+```
+    char tmp[] = "abcd";	/* sizeof = 5,最后一位是0x00 */
+    char tmp_1[4] = "abcd"; /* sizeof = 4,打印字符串最后有乱码 */
+    char *p = "abcd";		/* sizeof = 8,地址占用的长度。不清楚字符串常量长度怎么确定，有人说和tmp[]相似 */
+```
+
+绝对URL abs_url：
+```
+    http://www.---
+```
+
+绝对路径 abs_path：
+```
+    /s?get=adad&dadad
+```
+url起始位置：不带着http://www.
+
+cvmx_malloc: 内存申请size可否是0.
+----------------------------------
+==继续看流表部分==
