@@ -7,7 +7,7 @@
 ```
     struct url_str {
     	struct url_str	*next;
-		int				str_len;
+     	int				str_len;
     	char 			*str;
     };
 ```
