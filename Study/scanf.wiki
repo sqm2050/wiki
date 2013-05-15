@@ -1,18 +1,20 @@
 你首先要明白，从键盘读入键盘缓冲区(buffer)的数据都是以ASCII码存储的（包括回车）。
 程序1
-#include "stdio.h"
-
-void main()
-{
- char a;
- char b;
- scanf("%d",&a);
- scanf("%d",&b);
- printf("%d %d",a,b);
-}
-
+```
+    #include "stdio.h"
+    void main()
+    {
+    	char a;
+    	char b;
+    	scanf("%d",&a);
+    	scanf("%d",&b);
+    	printf("%d %d",a,b);
+    }
+```
 键盘输入
-97<回车>
+
+97<回车> /* 9(ascii:39H), 7(ascii:37H) */
+
 第一次回车后，buffer中的ASCII:39h,37h,0AH（0A是换行的ASCII）， scanf会根据格式字符串中的第一个%d对buffer按字节顺序读取，当读取到0A时，认为％d型的数据结束，此时把已经读取到的39h,37h依据％d转为整型数据97存储在字符型变量a中。（这里是除去了扫描截止点0AH）
 此时buffer中已经无任何数据了。
 
@@ -179,3 +181,17 @@ while(i-->0)
 printf("%02x ",p[i]);
 printf("\n");
 }
+=============== fflush只清洗标准输入 ==========
+吸收任意不等于换行的符号:
+```
+    scanf("%[^\n]", &t);
+```
+
+可以使用scanf清洗输入,当清洗到换行时候，就结束。
+```
+    *************************
+    do {
+    	scanf("%c",&t); 
+    } while(t != '\n');
+```
+scanf好像在%c时候,在前面加上空格，可以跳过缓冲前面的空白符.

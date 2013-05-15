@@ -34,7 +34,6 @@ go可以追溯到plan9.plan9被认为是Unix的继任者。Unix的核心思想�
 ```
     package main
     import "fmt"
-    
     func main() {
     	fmt.Printf("Hello, wordld!\n")
     }
@@ -69,7 +68,6 @@ go同其他语言不同的地方在于变量的类型在变量名的后面。不
 int型在32位机上32位的，在64位上是64的。所以这里：
 ```
     package main
-    
     func main() {
      	var a int
     	var b int32

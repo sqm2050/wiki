@@ -12,7 +12,8 @@ int main(void)
 		glob++;		/* modify parent's variables */
 		var++;
 //		_exit(0);	/* child terminates */
-		exit(0);
+//		exit(0);
+		fflush(stdout);
 	}
 
 	printf("pid = %d, glob = %d, var = %d\n", getpid(), glob, var);
