@@ -1,2 +1,3 @@
 fmt位域图:
-![fmt_field](./fmt_field.png)
+.. image:: fmt_field.png
+![fmt_field](fmt_field.png)
