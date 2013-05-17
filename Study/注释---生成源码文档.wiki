@@ -1,0 +1,15 @@
+=graphviz=
+
+==安装graphviz==
+* sudo add-apt-repository ppa:gviz-adm/graphviz-dev
+* 
+
+=codeviz=
+* tar xvfz *tar.gz
+* cd code-
+* ./configure
+* make
+
+自己手动下载相应版本的gcc到./compliers
+
+=kscope=

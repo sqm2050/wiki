@@ -11,6 +11,7 @@
 * [[if_frag_xiang]]
 * [[66移植]]
 * [[url_version]]
+* [[fmt]]
 == net==
 * [[net_all]]
 * [[lwIP]]
