@@ -1,3 +1,0 @@
-fmt位域图:
-
-![image text](Work/fmt_field.png)

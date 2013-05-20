@@ -535,3 +535,148 @@ font-size: 12px;
 900005968985
 
 (http://github.com/sqm2050/wiki/raw/master/fmt_field.png)
+
+
+ md_ctl_t;
+==========
+typedef union {
+	struct {
+		union {
+			struct {
+				u32 mac:8,
+				    type:7,
+				    cmd:1,
+				    rsv:16;
+			} hdr;
+			struct {
+				u32 hdr:16,
+				    acl0:16;
+				u32 acl1:16,
+				    iif:6,
+				    rsv0:2,
+				    fmt_first:1,
+				    oif:6,	/* Output interface ID */
+				    fmt_val:1;  /*hit fmt packet*/
+				u32	rsv1:7,
+					idx:25;	/* Hash index of packet, RO */
+				u16 proto;
+				u8 iphdr[0];
+			} pkt;	/* Normal IP Packet */
+			struct {
+				u32 hdr:16,
+				    acl0:16;
+				u32 acl1:16,
+				    rsv0:2,
+				    iif:6,
+				    first:1,
+				    oif:6,
+				    fmt_val:1;/*hit fmt packet*/
+				u32	rsv1:7,
+					idx:25;	/* Hash index of packet, RO */
+				u32 proto:16,
+				    rsv2:8,
+				    ft_proto:8;
+				u32 sip;
+				u32 dip;
+				u32 sp:16,
+				    dp:16;
+				u32 rsv3;
+				u8 iphdr[0];
+			} pkt_ex;	/* Extend IP Packet */
+			struct {
+				u32 hdr:16,
+				    tim_in_wqe:8,
+				    rsv:8;
+				u32 rsv0;
+				u32 idx:25,
+				    grp:4,
+				    rsv1:3;
+				u32 rsv5;
+				u32 rsv2;
+				u32 proto:16,	/* ETH_P_FMT */
+				    rsv3:16;
+				u32 rsv4;
+				fmt_key_t f;	/* Flow tuple */
+			} st;		/* stat packet*/
+			struct {
+				u32 hdr:16,	/* Header above, RO */
+				    tim_in_wqe:8,
+				    rsv:8;
+				u32	rsv0;
+				u32 idx:25,
+				    grp:4,
+				    rsv1:3;
+				u32 vlan_out_prot:16,	/*0x8100*/
+				    vlan_out_prio:3,
+				    vlan_out_cfi:1,
+				    vlan_out_tag:12;
+				u32 vlan_in_prot:16,	/*0x8100*/
+				    vlan_in_prio:3,
+				    vlan_in_cfi:1,
+				    vlan_in_tag:12;
+				u32 rsv2;
+				u32 proto:16,
+				    rsv3:16;
+				u32 rsv4;
+				fmt_key_t f;	
+			} flow;		
+		};
+	};
+	u8 pad[64];
+} md_ctl_t;
+
+typedef union __md_fmt_t {
+	struct {
+		union {
+			struct {
+				u64 mac:8,
+				    type:7,
+				    cmd:1,
+				    tim_in_wqe:8,
+				    next_ptr:40;
+			};
+			u64 dword0;
+		};
+		union {
+			struct {
+				u32 idx:25,
+				    grp:4,
+				    is_head:1,
+				    tag_type:2;
+				struct {
+					u32 eth_proto:16,
+					    pri:3,
+					    cfi:1,
+					    tag:12;
+				} vlan_out;
+			};
+			u64 dword1;
+		};
+		union{
+			struct{
+				struct{
+					u16 eth_proto;
+					u16 tag;
+				}vlan_in;
+				s32 cnt1;
+			};
+			u64 dword2;
+		};
+		union {
+			union {
+				struct {
+					u64 proto:16,
+					    list:48;
+				};
+				struct {
+					u32 rsv1;
+					cvmx_spinlock_t lock;
+				};
+			};
+			u64 dword3;
+		};
+		fmt_key_t k;
+	};
+	u8 pad[64];
+	u64 data_64[8];
+} md_fmt_t;
