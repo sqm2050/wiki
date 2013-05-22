@@ -8,3 +8,5 @@
 if条件语句后面多一个分号";":
 * suggest braces around empty body in an 'if' statement:
 
+const 限定的变量赋给，非const时候的报错:
+* warning: initialization discards qualifiers from pointer target type
