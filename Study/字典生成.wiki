@@ -8,9 +8,9 @@
 #include <stdlib.h>
 
 int minlen;
-char crypt[63]="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890";
+char crypt[63]="1234567890aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
 
-void echo();
+void echo(int, char *);
 
 int main(int argc,char *argv[])
 {
@@ -26,7 +26,7 @@ void echo(int pos,char *buf)
 {
 	int i;
 	if(pos == minlen - 1){					/* pos ==> 0 - 7 */
-		for(i = 0;i < 62;i++)				/* 相当与最内层的for循环 */
+		for(i = 0;i < 62;i++)				/* 相当于最内层的for循环 */
 			printf("%s%c\n",buf,crypt[i]);
 		return;
 	}

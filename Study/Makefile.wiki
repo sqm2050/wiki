@@ -3,9 +3,10 @@
 ------------------------------------------------------------------------------
 call函数妙用，简化打印信息：
 @file:Kbuild.include 定义call的表达式，和相应的参数：
-{{{
-	echo-cmd = $(if $($(quiet)cmd_$(1)),echo '  $($(quiet)cmd_$(1))';)
+```
+    echo-cmd = $(if $($(quiet)cmd_$(1)),echo '  $($(quiet)cmd_$(1))';)
 	cmd = @$(echo-cmd) $(cmd_$(1))
+```
 									}}}
 @Makefile 定义命令信息变量和命令变量
 {{{
@@ -25,16 +26,18 @@ call函数回执行这两条命令，并且括号形成一个变量，echo $(cal
 
 include-flag: 把libexec中所有的子目录都加入了include变量中了，目标在被生成之前
 先把变量补充（替换成）最后一次的赋值，不管目标是在此变量之前还是之后。
-{{{
+```
 	LIB_SUBDIR := $(shell ls $(LIBEXEC_DIR) -FR | grep ":" | sed 's/://g')
 	CFLAGS_SUBDIR := $(addprefix -I,$(LIB_SUBDIR))
 	CFLAGS_GLOBAL += $(CFLAGS_SUBDIR)
 	export CFLAGS_GLOBAL CFLAGS_LOCAL CFLAGS_ZXEXEC CC LD
-									}}}
+```
+# se编译过程
+make -C sse; include zxmx.mk; make -f libexec/Makefile.build
 
 make menuconfig 生成两个配置文件
 	autoconf.h	c文件包含
-	auto.conf 	给makefile包含
+	auto.conf 	给makefile包含，子目录也经过它进行配置。
 
 sse<---cmd_sse
 	mipsisa64-octeon-elf-gcc obj/zxmd_init.o obj/zxmd_main.o \
@@ -43,9 +46,9 @@ sse<---cmd_sse
 	/home/sqm/tmp/JusonFlow/sdk/OCTEON-SDK/components/hfa/lib-octeon \
 	/pp/octeon/se/libpp.a obj/libcvmx.a obj/libfdt.a -mfix-cn63xxp1 \
 	-march=octeon2 -o cn66hw1.bin
-{{{
+```
 	$(TARGET): $(CVMX_CONFIG) $(OBJS) $(LIBS_LIST)
-									}}}
+```
 OBJS:
 	obj/zxmd_init.o obj/zxmd_main.o obj/zxmd_mproc.o
 
@@ -53,35 +56,41 @@ CVMX_CONFIG:
 	config/cvmx-config.h
 
 LIBS_LIST:
-	obj/libcvm-common.a obj/libzxexe.a obj/libcvm-pci-drv.a obj/libcvmhfa.a 
-	obj/libocteon-hfa.a 
-	/home/sqm/tmp/JusonFlow/sdk/OCTEON-SDK/components/hfa/lib-octeon/pp\
-	/octeon/se/libpp.a obj/libcvmx.a obj/libfdt.a
 
-libexec: 在libexec/zxmx.mk中， libexec--->libzxexe.a注意库的排列顺序
+    obj/libcvm-common.a obj/libzxexe.a obj/libcvm-pci-drv.a obj/libcvmhfa.a obj/libocteon-hfa.a /home/sqm/tmp/JusonFlow/sdk/OCTEON-SDK/components/hfa/lib-octeon/pp/octeon/se/libpp.a obj/libcvmx.a obj/libfdt.a
+
+libexec: 
+
+    在libexec/zxmx.mk中， libexec--->libzxexe.a注意库的排列顺序
 
 libexec目录:
-{{{
+```
 	obj/zxmx_*.o: zxmx_*.c
-									}}}
+```
 libexec子目录:
+
+sse中make -f libexec/Makefile.build obj=...
+
+然后Makefile.build自己也make -f Makefile.build obj=...
+
 	eprm	csps	acl
 	都编译成build-in.o,就是
 	$(LIBEXEC_DIR)/eprm/build-in.o
 	$(LIBEXEC_DIR)/csps/build-in.o
 	$(LIBEXEC_DIR)/acl/build-in.o
-{{{
+```
 	MAKE_FUNC = libexec/Makefile.build
 	%/build-in.o :  FORCE
         	@$(MAKE) -f $(MAKE_FUNC) obj=$(dir $@)
-									}}}
-{{{
+```
+```
 	all:$(obj)build-in.o	#obj等于make -f 传进来的obj
 
 	$(obj)build-in.o : $(local-obj) $(sub-obj)#当前目录的.o,子目录的.o
 		$(call cmd,ld)
 
 	wildcard子目录的Kbuild，然后-include子目录的Kbuild，相当于obj-dir+=
+
 	quiet_cmd_built ?= COMPILE      $@                                       
 		cmd_built ?= $(MAKE) -f $(LIBEXEC_DIR)/Makefile.build obj=$(dir $@)
 	$(obj)%/build-in.o : FORCE	#在递归调用，编译子目录
@@ -89,7 +98,7 @@ libexec子目录:
 
 	%.o : %.c
 		$(call cmd,base)
-									}}}
+```
 ------------------------------------------------------------------------------
 目录作为目标名，如果想利用目录名作为目标名，然后进行MAKE -C 这时候目录名的时间
 应该进行思考了，如果没有依赖那么，一直不会make -c 因为目标存在，而且没有依赖。
@@ -470,3 +479,7 @@ $(if <condition>,<then-part>,<else-part>)
 wildcard:扩展通配符
 $(wildcard *.o /src/*.o)#就是把通匹配符匹配的展开
 % *通配符的不同。
+
+## 变量传递的方法
+* include一个文件
+* export变量名
