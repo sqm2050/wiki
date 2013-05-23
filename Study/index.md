@@ -25,6 +25,8 @@
 == Computer ==
 === Architecture===
 * [[TLB]]
+== vim ==
+* [[自动补全-对齐]]
 === Project ===
 * [[注释---生成源码文档]]
 * [[Makefile]]
