@@ -74,5 +74,7 @@ git push:
     也可以用：git config
     	git config --global user.name sqm2050	/--注意不要等号--/
 
-==忽略已经跟踪的文件/目录==
-     git rm --cached ufile/udir
+## 忽略已经跟踪的文件/目录
+```
+	git rm --cached ufile/udir
+```
