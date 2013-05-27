@@ -33,6 +33,7 @@
 * [[git]]
 * [[修养]]
 * [[tips]]
+* [[code complete]]
 === C Lang===
 * [[周期、指令、原子操作]]
 * [[行缓冲-全缓冲]]
@@ -42,7 +43,6 @@
 * [[全局]]
 * [[C_note]]
 * [[交叉判断]]
-* [[scanf]]
 * [[lock]]
 * [[restrict]]
 * [[endian]]
@@ -50,6 +50,7 @@
 * [[shm]]
 * [[异或]]
 * [[go]]
+* [[libc]]
 === Algorithm===
 * [[boyer moore]]
 === multi Pro ===

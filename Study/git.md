@@ -78,3 +78,9 @@ git push:
 ```
 	git rm --cached ufile/udir
 ```
+## 远程分支
+### 检出远程分支
+```
+	git checkout -b master origin/master
+	或者
+	git checkout -t origin/master

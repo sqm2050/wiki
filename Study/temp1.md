@@ -680,3 +680,257 @@ typedef union __md_fmt_t {
 	u8 pad[64];
 	u64 data_64[8];
 } md_fmt_t;
+
+
+10.10.165.201 8003 串口
+10.10.167.142
+
+
+PP4:~CONSOLE-> 
+PP3:~CONSOLE-> 
+PP4:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303 
+PP3:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303 
+PP2:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303 
+PP5:~CONSOLE-> 
+PP5:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303
+
+```
+ t5 ($13): 0x0000000000000000 	  sp ($29): 0x00000000160ffee8
+ t6 ($14): 0x0000000000000000 	  s8 ($30): 0x0000000010060000
+ t7 ($15): 0x0000000000000000 	  ra ($31): 0x00000000100029f8
+      COP0_CAUSE: 0x00000000c0008008
+     COP0_STATUS: 0x0000000050000ce3
+   COP0_BADVADDR: 0x0000000000000000
+        COP0_EPC: 0x00000000100029f0
+******************************************************************
+Backtrace:
+
+  #0  0x1004a704
+  #1  0x1004a8b0
+  #2  0x1004aac0
+  #3  0x100029f0
+  #4  0x100037d4
+  #5  0x10001280
+  #6  0x100002f8
+******************************************************************
+PP9:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
+PP9:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+Core 9: Unhandled Exception. Cause register decodes to:
+tlb load/fetch
+******************************************************************
+ r0 ($00): 0x0000000000000000 	  s0 ($16): 0x0000000037cd9b00
+ at ($01): 0xffffffffffbfffff 	  s1 ($17): 0x0000000037cd9430
+ v0 ($02): 0x0000000000000000 	  s2 ($18): 0x0000000000000000
+ v1 ($03): 0x00000000100640ca 	  s3 ($19): 0x0000000037cd9444
+ a0 ($04): 0x0000000010064110 	  s4 ($20): 0x0000000014000000
+ a1 ($05): 0x00000000100640c0 	  s5 ($21): 0x0000000000000000
+ a2 ($06): 0x00000000100643d0 	  s6 ($22): 0x00000000100640c0
+ a3 ($07): 0x000000000000028c 	  s7 ($23): 0x0000000010060000
+ t0 ($08): 0x000000001610003d 	  t8 ($24): 0x0000000000000000
+ [[t1]] ($09): 0x000000001006410d 	  t9 ($25): 0x0000000010000ce8
+ t2 ($10): 0x00000000100640fd 	  k0 ($26): 0x000000001004a9f8
+ t3 ($11): 0x000000001610003d 	  k1 ($27): 0xffffffff80001190
+ t4 ($12): 0x0000000000000010 	  gp ($28): 0x0000000012009240
+ t5 ($13): 0x0000000000000000 	  sp ($29): 0x00000000160ffee8
+ t6 ($14): 0x0000000000000000 	  s8 ($30): 0x0000000010060000
+ t7 ($15): 0x0000000000000000 	  ra ($31): 0x00000000100029f8
+      COP0_CAUSE: 0x00000000c0008008
+     COP0_STATUS: 0x0000000050000ce3
+   COP0_BADVADDR: 0x0000000000000000
+        COP0_EPC: 0x00000000100029f0
+******************************************************************
+Backtrace:
+
+  #0  0x1004a704
+  #1  0x1004a8b0
+  #2  0x1004aac0
+  #3  0x100029f0
+  #4  0x100037d4
+  #5  0x10001280
+  #6  0x100002f8
+******************************************************************
+```
+
+* HTTP
+* zxmx_url_block.c---152
+```
+MCDebug(config-zxmdu-cn56a)# PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 174]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 HTTP/1.1
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 654]:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 HTTP/1.1
+PP1:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 152 
+```
+* HTTP ---> ok
+```
+PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
+PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 174]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+PP2:~CONSOLE-> 
+```
+
+```
+juson(config-cpu0)# PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 174]:URL:
+PP1:~CONSOLE-> 
+PP1:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 153 
+PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+Core 2: Unhandled Exception. Cause register decodes to:
+address exc, load/fetch
+******************************************************************
+ r0 ($00): 0x0000000000000000 	  s0 ($16): 0x6572722e74616f62
+ at ($01): 0xffffffffffbfffff 	  s1 ($17): 0x00000000d52df0a0
+ v0 ($02): 0x0000000000000050 	  s2 ($18): 0x0000000000000030
+ v1 ($03): 0x00000000d52df0f0 	  s3 ($19): 0x00000000d52df0a0
+ a0 ($04): 0x00000000d52df0a0 	  s4 ($20): 0x0000000000000030
+ a1 ($05): 0x6572722e74616f62 	  s5 ($21): 0x00000000160ffaa8
+ a2 ($06): 0x0000000000000052 	  s6 ($22): 0x00000000100641a0
+ a3 ($07): 0x00000000000002fd 	  s7 ($23): 0x0000000010060000
+ t0 ($08): 0x0000000037cd9478 	  t8 ($24): 0x0000000000000000
+ t1 ($09): 0x00000000160ffea8 	  t9 ($25): 0x0000000010000ce8
+ t2 ($10): 0x00000000160ffaa8 	  k0 ($26): 0x000000001004aad8
+ t3 ($11): 0x000000000000006f 	  k1 ($27): 0xffffffff80001190
+ t4 ($12): 0x0000000000000010 	  gp ($28): 0x0000000012009240
+ t5 ($13): 0x0a0aa8b23d87a97d 	  sp ($29): 0x00000000160ff630
+ t6 ($14): 0x000000000a0aa8b2 	  s8 ($30): 0x0000000010060000
+ t7 ($15): 0x0000000000009d06 	  ra ($31): 0x00000000100274e4
+      COP0_CAUSE: 0x0000000040008010
+     COP0_STATUS: 0x0000000050000ce3
+   COP0_BADVADDR: 0x6572722e74616f7a
+        COP0_EPC: 0x0000000010026d80
+******************************************************************
+Backtrace:
+
+  #0  0x1004a7e4
+  #1  0x1004a990
+  #2  0x1004aba0
+  #3  0x10026d80
+  #4  0x100274e4
+  #5  0x10001944
+  #6  0x10002a14
+  #7  0x100037bc
+  #8  0x10001280
+  #9  0x100002f8
+************************************************
+```
+
+```
+juson(config-cpu0)# PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 312]:FREE pkt url
+```
+
+```
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 447]:add a new url into fmt
+Core 1: Unhandled Exception. Cause register decodes to:
+address exc, load/fetch
+******************************************************************
+ r0 ($00): 0x0000000000000000 	  s0 ($16): 0x00000000d52dfe00
+
+ at ($01): 0xffffffffffbfffff 	  s1 ($17): 0x0000000085524dc0
+ v0 ($02): 0x0000000000000000 	  s2 ($18): 0x0000000037cd8020
+ v1 ($03): 0x00000000d52dfe00 	  s3 ($19): 0x00000000160fff38
+ a0 ($04): 0x0000000010060000 	  s4 ($20): 0x0000000037cd8000
+ a1 ($05): 0x00000000d52dfe00 	  s5 ($21): 0x0000000085524d80
+ a2 ($06): 0x6572722e74616f62 	  s6 ($22): 0x0000000010060000
+ a3 ($07): 0x0000000000000000 	  s7 ($23): 0x8001f00000000418
+ t0 ($08): 0x000000001610003d 	  t8 ($24): 0xfffffffffffffff0
+ t1 ($09): 0x0000000010066bc6 	  t9 ($25): 0x0000000000cee460
+ t2 ($10): 0x0000000010066bad 	  k0 ($26): 0x000000001004abe0
+ t3 ($11): 0x000000001610003d 	  k1 ($27): 0xffffffff80001190
+ t4 ($12): 0x0000000000000019 	  gp ($28): 0x0000000012009240
+ t5 ($13): 0x0000000000004000 	  sp ($29): 0x00000000160fff00
+ t6 ($14): 0x000000000a0aa8b2 	  s8 ($30): 0x000000fffffffff8
+ t7 ($15): 0x000000000000eba5 	  ra ($31): 0x000000001000ca7c
+      COP0_CAUSE: 0x0000000040008010
+     COP0_STATUS: 0x0000000050000ce3
+   COP0_BADVADDR: 0x6572722e74616f62
+        COP0_EPC: 0x000000001000cae0
+******************************************************************
+Backtrace:
+```
+```
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 449]:add a new url into fmt
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 456]:url_addr 0x0 
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 464]:not old url_addr
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 468]:get url str for fmt err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[                 cp_and_link][ 207]:get url str for fmt err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 312]:FREE pkt url
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 449]:add a new url into fmt
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 456]:url_addr 0xd52e04d0 
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 458]:find old url_addr
+PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 312]:FREE pkt url
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 449]:add a new url into fmt
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 456]:url_addr 0xd52e04d0 
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 458]:find old url_addr
+PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 312]:FREE pkt url
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+PP1:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 449]:add a new url into fmt
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 456]:url_addr 0xd52e04d0 
+PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 458]:find old url_addr
+PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 312]:FREE pkt url
+```
+
+set sregister url_block send_log enable
+set sregister 3gpp enable
+set sregister packetio enable
+set sregister fmt_manage send_stat enable
+
+set sregister url_block send_log disable
+set sregister 3gpp disable
+set sregister packetio disable
+
+# 测试并发
+PP1:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/dpim/zxmx_url.h,line 262
+
+| 16:50 - 17:00 | 实时日志没有命中，发送访问日志.  |
+| 17:02 - 17:20 | 添加命中的url，此时发送阻断日志. |
+| 17:20 - 17:40 | 添加命中的url，此时发送RST报文.  |
+
+# 测试发包情况下配置
+| 18:00 - 18:20 | 添加命中的url，此时发送RST报文. |

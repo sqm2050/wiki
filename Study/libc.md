@@ -1,0 +1,4 @@
+* [[scanf]]
+* [[printf]]
+* [[memcpy]]
+* 
