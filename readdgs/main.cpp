@@ -8,13 +8,13 @@
 				&& tmp[2]=='B' && tmp[3]=='l' \
 				&& tmp[4]=='k' && tmp[5]=='D' \
 				&& tmp[6]=='e'&&tmp[7]=='f') 
+
 using namespace std;
 
 int main()
 { 
 	char *content;
-	ifstream fin;//定义输入流
-	fin.open("GRID_Export1.dgs");//文件名
+	ifstream fin("GRID_Export1.dgs");//文件名
 	char tmp[1000] = {0}; //存储当前行字符串
 	int i=0;
 	int j=0;
@@ -34,7 +34,7 @@ int main()
 			}
 			while(tmp[0]!='$')//读本模块的终止条件==读到下一模块头的第一个字符
 			{
-				startindex=2;
+				startindex=0;
 				endindex=0;
 				numindex=0;
 				for(int i=0;i<1000;i++)//读内容
@@ -43,19 +43,20 @@ int main()
 					{
 						endindex=i;
 						numindex++;
-						if(numindex==3)//以需要第三列内容为例
+						if(numindex==5)//以需要第三列内容为例
 						{
-							content=new char[endindex-startindex-1];//需要的内容暂存在content中
+							content=new char[endindex-startindex + 1];//需要的内容暂存在content中
 							int mm=0;
-							for(j=startindex+1;j<endindex;j++)//给content赋值并显示content内容
+							for(j=startindex;j<endindex;j++)//给content赋值并显示content内容
 							{
 								content[mm]=tmp[j];
-								cout<<content[mm];
 								mm++;
 							}
+							cout<<content;
 							cout<<endl;
+							break;
 						}
-						startindex=endindex;
+						startindex=endindex + 1; // offset the ';'
 					}
 				}
 				memset(tmp,0,1000);              //将tmp清零
