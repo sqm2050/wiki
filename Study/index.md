@@ -51,6 +51,7 @@
 * [[异或]]
 * [[go]]
 * [[libc]]
+* [[c++]]
 === Algorithm===
 * [[boyer moore]]
 === multi Pro ===
@@ -72,6 +73,7 @@
 * [[flash-plugin]]
 * [[flash-ic]]
 * [[minicom]]
+* [[httpd]]
 === X86===
 * [[X86 Architecture]]
 * [[段页内存管理]]
