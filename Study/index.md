@@ -34,24 +34,8 @@
 * [[修养]]
 * [[tips]]
 * [[code complete]]
-### C Lang
-* [[周期、指令、原子操作]]
-* [[行缓冲-全缓冲]]
-* [[define]]
-* [[wiki-wpa]]
-* [[apue]]
-* [[全局]]
-* [[C_note]]
-* [[交叉判断]]
-* [[lock]]
-* [[restrict]]
-* [[endian]]
-* [[递归]]
-* [[shm]]
-* [[异或]]
-* [[go]]
-* [[libc]]
-* [[c++]]
+### C Lang	
+* [[c_index]]
 ### Algorithm
 * [[boyer moore]]
 ### multi Pro
