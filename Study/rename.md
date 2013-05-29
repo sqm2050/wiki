@@ -1,0 +1,1 @@
+rename 's/.wiki/.md/'	*
