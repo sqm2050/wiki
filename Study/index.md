@@ -67,6 +67,7 @@
 
 ### MIPS
 * [[mips notes]]
+* [[computer organization and design]]
 * [[MMU PA]]
 * [[See MIPS Run Linux(2nd edition]]
 * [[MIPS64 Architecture]]
