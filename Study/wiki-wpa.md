@@ -1,3 +1,4 @@
+# wifi破解
 wpa密码叫做PSK（pre-shared key），长度一般是8 - 63字节，它加上ssid通过SHA-1算法可以得到PMK（pairwise master key）。PMK=SHA-1（ssid，psk），PMK的长度是定长的，都是64字节。事先把PMK计算好的工具叫做airlib-ng。
 
 认证的时候会生成一个PTK（pairwise temporary）,这是一组密钥，由参数客户端MAC地址，AP的BSSID、A-NONCE、S-NONCE、PMK，其中A-NONCE和S-NONCE 是两个随机数哈希出来。PTK加上报文数据采用一定的算法（AES或TKIP），得到密文，同时会得到一个签名叫做MIC（message intergrality check）。
@@ -9,7 +10,7 @@ wpa密码叫做PSK（pre-shared key），长度一般是8 - 63字节，它加上
     PTK + data ---> MIC
 
 所以截包可以获得的是：MAC，BSSID，A-NONCE，S-NONCE,data 。利用字典计算出MIC，然后和报文中的MIC作比较。
---------------------------------
+
 ## wep
 ubuntu中安装aircrack-ng工具集:
 ```
@@ -48,6 +49,7 @@ wpa
 ```
     aircrack-ng -w dic 捕获的cap文件  #字典文件
 ```
+
 ## 生成字典文件的程序
 ```
     #define MINLEN 8
