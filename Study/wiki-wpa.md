@@ -37,7 +37,7 @@ ubuntu中安装aircrack-ng工具集:
     aircrack-ng 捕获的ivs文件
 ```
 
-wpa
+## wpa
 前两步与wep破解一样，开启监视，抓包（不添加ivs参数）。但是要进行deauth攻击才更有机会抓到握手包
 ```
     aireplay-ng -0 1 –a AP的mac -c 客户端的mac wlan0
