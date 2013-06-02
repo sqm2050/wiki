@@ -15,3 +15,4 @@
 * [[libc]]
 * [[c++]]
 * [[short_value]]
+* [[fast_cmp]]

@@ -1,10 +1,10 @@
 # Fundamentals of Computer Design
 ```
 	And now for something completely different
-									--- Monty Python's Flying Circus
+					--- Monty Python's Flying Circus
 ```
 
-## Introduction
+## 1.1 Introduction
 Computer technology has made incredible progress in the past half century.In 1945,there were no stored-program computers.
 
 Today,a few thousand dollars will purchase a personal computer that has more performance,more main memory,and more disk  storage than a computer bought in 1965 for $1 million.This rapid rate of improvement has come both from advances in the technology used to build computers and from innovation in computer design.
@@ -23,4 +23,17 @@ This growth rate,combined with the cost advantages of a mass-produced microproce
 
 Prior to the mid 1980s,microprocessor performance grouth was largely technology driven and averaged about 35% per year.The increase in growth **since then** is attributable to more advanced architectural ideas.
 
+The effect of this dramatic growth rate has been twofold:
+* First,it has significantly enhanced the capability available to computer users.As a simple example,consider the highest-performance workstation announced in 1993,an IBM Power-2 machine.Compared with a CRAY Y-MP supercomputer introduced in 1988(probaly the fastest machine in the world at that point),the worstation offers comparable performance on many floating-point programs and better performance on integer programs for a price that is less than one-tenth of the supercomputer!
+* Second,this dramatic rate of improvement has led to the dominance of microprocessor-based computers across the entire range of the computer design.Work-stations and PCs have emerged as major products in the computer industy.Minicomputers,which were traditionally made from off-the-shelf logic or form gate arrays,have been replaced by servers made using microprocessors.Mainframes are slowly being replaced with multiprocessors consisting of small numbers of off-the-shelf microprocessors.Even high-end supercomputers are being built with collections of microprocessors.
 
+> High-end:`High-end` products,especially electronic products,are the most expensive of their kind.
+
+Freedom from compatibility with old designs and the use of microprocessor technology led to a renaissance in computer design,which emphasized both architectural innovation and efficient use of technology improvements.This renaissance is responsible for the higher performance growth--- a rate that is unprecedented in the computer industy.
+
+> If something is `unprecedented`,it has never happened before
+
+This text is about the architectural ideas and accompanying compiler improvements that have made this incredible growth rate possible.
+
+## 1.2 The task of a computer designer
+The task the computer designer faces is a complex one: Determine what attributes are important for a new machine,then design a machine to maximize performance while staying within cost constraints.
