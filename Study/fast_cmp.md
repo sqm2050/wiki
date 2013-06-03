@@ -9,10 +9,16 @@ int g = ' ' << 24 \
 main()
 { 
 	char a[4] = "GET ";
-	if (g  == *(int *)a) {
+	if (g == *(int *)a) {
 		printf("yes\n");
 	}
 	printf("%#x\n", *(int *)a);
 	printf("%#x\n", g);
 }
+```
+
+比较慢:
+```
+char g[] = "GET ";
+
 ```
