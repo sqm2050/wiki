@@ -38,6 +38,11 @@
 * [[code complete]]
 ### C Lang	
 * [[c_index]]
+ 
+### go
+* [[go]]
+* [[studylang]]
+
 ### Algorithm
 * [[boyer moore]]
 ### multi Pro
