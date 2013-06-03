@@ -3,16 +3,16 @@
 * [[table]]
 * [[temp1]]
 * [[note]]
-## task
-* [[task]]
-* [[books index]]
 ## time money 
 * [[year]]
 * [[month]]
 * [[week]]
 * [[day]]
-## markdown
-* [[table]]
+* 
+## Books
+* [[task]]
+* [[books index]]
+* [[book notes]]
 
 # My Study 
 ## English
@@ -24,12 +24,13 @@
 * [[aphorism]]
 * [[陈怀临]] 
 * [[王聪]]
-## Computer 
-### Architecture
+# Computer 
+## Architecture
 * [[TLB]]
 ## vim 
 * [[自动补全-对齐]]
-### Project 
+## Project 
+* [[table]]
 * [[注释---生成源码文档]]
 * [[Makefile]]
 * [[git]]
