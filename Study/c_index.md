@@ -1,7 +1,6 @@
 * [[周期、指令、原子操作]]
 * [[行缓冲-全缓冲]]
 * [[define]]
-* [[wiki-wpa]]
 * [[apue]]
 * [[全局]]
 * [[C_note]]
@@ -17,3 +16,4 @@
 * [[short_value]]
 * [[string data]]
 * [[fast_memcpy]]
+* [[fast_cmp]]
