@@ -1265,3 +1265,15 @@ PP1:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/dpim/zxmx_url.h,
 
 # 测试发包情况下配置
 | 18:00 - 18:20 | 添加命中的url，此时发送RST报文. |
+
+GET /s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 HTTP/1.1\r\n
+
+PP1:~CONSOLE-> URL_BLOCK:[   check_ethhdr_and_set_ipif][ 959]:pkt in port:1
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 643]:Get pkt:0x474554202f733f77
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 646]:Get a url pkt
+PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 253]:To process abs_path
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 134]:uri_len: 111 abs_uri:/s?wd=urlw1&rsv_spt=1&issp=r0201&rsv_bp=0&ie=utf-8&tn=baiduhome_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 164]:Host_len: 13 Host:www.baidu.com
+PP1:~CONSOLE->   77  77  77  2e  62  61  69  64  75  2e  63  6f  6d  2f  73  3f  77  64  3d  75  72  6c  77  19  31  26  72  73  76  5f  73  70  74  3d  31  26  69  73  73  70  3d  72  30  32  30  31  26  72  73  76  5f  62  70  3d  30  26  69  65  3d  75  74  66  2d  38  26  74  6e  3d  62  61  69  64  75  68  6f  6d  65  5f  70  67  26  72  73  76  5f  73  75  67  33  3d  32  26  72  73  76  5f  73  75  67  3d  30  26  72  73  76  5f  73  75  67  31  3d  32  26  72  73  76  5f  73  75  67  34  3d  39  30URL_BLOCK:[             dpim_decode_url][ 264]:URL:www.baidu.com/s?wd=urlw1&rsv_spt=1&issp=r0201&rsv_bp=0&ie=utf-8&tn=baiduhome_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 100]:FREE pkt url
+]]]]]]]]]]]]]]]]
