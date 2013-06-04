@@ -88,4 +88,42 @@ One can access memory as part of any instruction,called __register-memory__ arch
 </table>
 **Figure 2.1 The code sequence for C = A + B for four instruction sets.It is assumed that A,B,and C all belong in memory and that values of A and B cannot be destroyed.**
 
-How many registers are sufficient?The answer of course depends on how they are used by the compiler.Most compilers reserve some registers for expression evalution,use some for parameter passing,and allow the remainder to be allocated to hold variables.
+how many registers are sufficient?The answer of course depends on how they are used by the compiler.Most compilers reserve some registers for expression evalution,use some for parameter passing,and allow the remainder to be allocated to hold variables.
+
+An ALU instruction has two or three operands,and the number of memory operands supported by a typical ALU instruction may vary from none to three.So there are seven possible combinations: 2 - 0, 2 - 1, 2 - 2;3 - 0, 3 - 1, 3 - 2, 3 - 3.
+
+<table>
+	<tr>
+		<th>Number of memory addresses</th>
+		<th>Maximum number of operands allowed</th>
+		<th>Examples</th>
+	</tr>
+	<tr>
+		<td>0</td>
+		<td>3</td>
+		<td>SPARC,MIPS,Precision Architecture,PowerPC,ALPHA</td>
+	<tr>
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>Intel 80x86,Motorola 68000</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>2</td>
+		<td>VAX</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>3</td>
+		<td>VAX</td>
+	</tr>
+</table>
+
+GPR architecture:general-purpose register.
+
+DLX
+
+## 2.3 Memory Addressing
+### Interpreting Memory Addresses
+How is a memory address interpreted?That is,what object is accessed as a function of the address and the length?All the instruction sets discussed in this book are byte addressed and provide access for byte(8bits),half words(16bits),and words(32bits).Most of the machines also provide access for double words(64bits).
