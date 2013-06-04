@@ -86,4 +86,4 @@ One can access memory as part of any instruction,called __register-memory__ arch
 		<td>Store C, R3</td>
 	</tr>
 </table>
-Figure 2.1 The code sequence for C = A + B for four instruction sets.It is assumed that A,B,and C all belong in memory and that values of A and B cannot be destroyed.
+**Figure 2.1 The code sequence for C = A + B for four instruction sets.It is assumed that A,B,and C all belong in memory and that values of A and B cannot be destroyed.**
