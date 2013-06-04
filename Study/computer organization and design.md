@@ -87,3 +87,5 @@ One can access memory as part of any instruction,called __register-memory__ arch
 	</tr>
 </table>
 **Figure 2.1 The code sequence for C = A + B for four instruction sets.It is assumed that A,B,and C all belong in memory and that values of A and B cannot be destroyed.**
+
+How many registers are sufficient?The answer of course depends on how they are used by the compiler.Most compilers reserve some registers for expression evalution,use some for parameter passing,and allow the remainder to be allocated to hold variables.
