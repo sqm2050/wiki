@@ -37,3 +37,53 @@ This text is about the architectural ideas and accompanying compiler improvement
 
 ## 1.2 The task of a computer designer
 The task the computer designer faces is a complex one: Determine what attributes are important for a new machine,then design a machine to maximize performance while staying within cost constraints.
+
+## 1.3 Technology and computer usage trends
+Underestimating address-space growth is often the major reason why an instruction set architecture must be abandoned.
+
+The development of compiler technology for parallel machines is likely to have a large impact in the future.
+
+# 2 Instruction Set Principles and Examples
+## 2.1 Introduction
+We begin by exploring how instruction set architectures can be classified and analyzed.
+
+## 2.2 Classifying instruction set architectures
+The type of internal storage in the CPU is the most basic differentication,so in this section we will focus on the alternatives for this portion of the arhitecture.
+
+Operands may be named explicitly or implicitly:The operands in a stack architecture are implicitly on the top of the stack,in an accumulator architecture one operand is implicitly the accumulator,and general-purpose register architectures have only explicit operands---either registers or memory locations.
+
+One can access memory as part of any instruction,called __register-memory__ architecture,and one can access memory only with load and store instructions,call __load-store__ or __register-register__ architecture.A third class,not found in machines shipping today,keeps all operands in memory and is called a __memory-memory__ architecture.
+
+<table>
+	<tr>
+		<th>Stack</th>
+		<th>Accumulator</th>
+		<th>Register(register-memory)</th>
+		<th>Register(load-store)</th>
+	</tr>
+	<tr>
+		<td>Push A</td>
+		<td>Load A</td>
+		<td>Load R1, A</td>
+		<td>Load R1, A</td>
+	</tr>
+	<tr>
+		<td>Push B</td>
+		<td>Add B</td>
+		<td>Add R1, B</td>
+		<td>Load R2, B</td>
+	</tr>
+	<tr>
+		<td>Add</td>
+		<td>Store C</td>
+		<td>Store C, R1</td>
+		<td>Add R3, R1, R2</td>
+	</tr>
+	<tr>
+		<td>Pop C</td>
+		<td> </td>
+		<td> </td>
+		<td>Store C, R3</td>
+	</tr>
+</table>
+Figure 2.1 The code sequence for C = A + B for four instruction sets.It is assumed that A,B,and C all belong in memory and that values of A and B cannot be destroyed.
