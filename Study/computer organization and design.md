@@ -127,3 +127,7 @@ DLX
 ## 2.3 Memory Addressing
 ### Interpreting Memory Addresses
 How is a memory address interpreted?That is,what object is accessed as a function of the address and the length?All the instruction sets discussed in this book are byte addressed and provide access for byte(8bits),half words(16bits),and words(32bits).Most of the machines also provide access for double words(64bits).
+
+Why would someone design a machine with alignment restrictions?Misalignment causes hardware complications,since the memory is typically aligned on a word or double-word boundary.A misaligned memory access will,therefore,take multiple aligned memory references.Thus,even in machines that allow misaligned access,programs with aligned accesses run faster.
+
+### Addressing Modes
