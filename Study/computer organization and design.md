@@ -43,3 +43,97 @@ In this book the term __instruction set architecture__ refers to the actual prog
 Often a line of machines contains machines with identical instruction set architectures and nearly identical organizations,but they differ in the detailed hardware implementation.
 
 In this book the world architecture is intended to cover all three aspects of computer design---instruction set architecture,organization,and harfware.
+## 1.3 Technology and computer usage trends
+Underestimating address-space growth is often the major reason why an instruction set architecture must be abandoned.
+
+The development of compiler technology for parallel machines is likely to have a large impact in the future.
+
+# 2 Instruction Set Principles and Examples
+## 2.1 Introduction
+We begin by exploring how instruction set architectures can be classified and analyzed.
+
+## 2.2 Classifying instruction set architectures
+The type of internal storage in the CPU is the most basic differentication,so in this section we will focus on the alternatives for this portion of the arhitecture.
+
+Operands may be named explicitly or implicitly:The operands in a stack architecture are implicitly on the top of the stack,in an accumulator architecture one operand is implicitly the accumulator,and general-purpose register architectures have only explicit operands---either registers or memory locations.
+
+One can access memory as part of any instruction,called __register-memory__ architecture,and one can access memory only with load and store instructions,call __load-store__ or __register-register__ architecture.A third class,not found in machines shipping today,keeps all operands in memory and is called a __memory-memory__ architecture.
+
+<table>
+	<tr>
+		<th>Stack</th>
+		<th>Accumulator</th>
+		<th>Register(register-memory)</th>
+		<th>Register(load-store)</th>
+	</tr>
+	<tr>
+		<td>Push A</td>
+		<td>Load A</td>
+		<td>Load R1, A</td>
+		<td>Load R1, A</td>
+	</tr>
+	<tr>
+		<td>Push B</td>
+		<td>Add B</td>
+		<td>Add R1, B</td>
+		<td>Load R2, B</td>
+	</tr>
+	<tr>
+		<td>Add</td>
+		<td>Store C</td>
+		<td>Store C, R1</td>
+		<td>Add R3, R1, R2</td>
+	</tr>
+	<tr>
+		<td>Pop C</td>
+		<td> </td>
+		<td> </td>
+		<td>Store C, R3</td>
+	</tr>
+</table>
+**Figure 2.1 The code sequence for C = A + B for four instruction sets.It is assumed that A,B,and C all belong in memory and that values of A and B cannot be destroyed.**
+
+how many registers are sufficient?The answer of course depends on how they are used by the compiler.Most compilers reserve some registers for expression evalution,use some for parameter passing,and allow the remainder to be allocated to hold variables.
+
+An ALU instruction has two or three operands,and the number of memory operands supported by a typical ALU instruction may vary from none to three.So there are seven possible combinations: 2 - 0, 2 - 1, 2 - 2;3 - 0, 3 - 1, 3 - 2, 3 - 3.
+
+<table>
+	<tr>
+		<th>Number of memory addresses</th>
+		<th>Maximum number of operands allowed</th>
+		<th>Examples</th>
+	</tr>
+	<tr>
+		<td>0</td>
+		<td>3</td>
+		<td>SPARC,MIPS,Precision Architecture,PowerPC,ALPHA</td>
+	<tr>
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>Intel 80x86,Motorola 68000</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>2</td>
+		<td>VAX</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>3</td>
+		<td>VAX</td>
+	</tr>
+</table>
+
+GPR architecture:general-purpose register.
+
+DLX
+
+## 2.3 Memory Addressing
+### Interpreting Memory Addresses
+How is a memory address interpreted?That is,what object is accessed as a function of the address and the length?All the instruction sets discussed in this book are byte addressed and provide access for byte(8bits),half words(16bits),and words(32bits).Most of the machines also provide access for double words(64bits).
+
+Why would someone design a machine with alignment restrictions?Misalignment causes hardware complications,since the memory is typically aligned on a word or double-word boundary.A misaligned memory access will,therefore,take multiple aligned memory references.Thus,even in machines that allow misaligned access,programs with aligned accesses run faster.
+
+### Addressing Modes
+>>>>>>> 44514977f8aeebb0c3870c08f901d46913ca7dca
