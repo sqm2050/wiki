@@ -686,13 +686,13 @@ typedef union __md_fmt_t {
 10.10.167.142
 
 
-PP4:~CONSOLE-> 
-PP3:~CONSOLE-> 
-PP4:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303 
-PP3:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303 
-PP2:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303 
-PP5:~CONSOLE-> 
-PP5:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303
+4-> 
+3-> 
+4-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303 
+3-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303 
+2-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303 
+5-> 
+5-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 303
 
 
  t5 ($13): 0x0000000000000000 	  sp ($29): 0x00000000160ffee8
@@ -713,8 +713,8 @@ Backtrace:
   #5  0x10001280
   #6  0x100002f8
 ******************************************************************
-PP9:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
-PP9:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+9-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
+9-> :[             dpim_decode_tcp][ 651]:Get a url pkt
 Core 9: Unhandled Exception. Cause register decodes to:
 tlb load/fetch
 ******************************************************************
@@ -754,28 +754,28 @@ Backtrace:
 * HTTP
 * zxmx_url_block.c---152
 
-MCDebug(config-zxmdu-cn56a)# PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 174]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 HTTP/1.1
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 654]:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 HTTP/1.1
-PP1:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 152 
+MCDebug(config-zxmdu-cn56a)# 1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
+1-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+1-> :[             dpim_decode_url][ 174]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 HTTP/1.1
+1-> :[             dpim_decode_tcp][ 654]:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 HTTP/1.1
+1-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 152 
 
 * HTTP ---> ok
 
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 174]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP2:~CONSOLE-> 
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
+2-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+2-> :[             dpim_decode_url][ 174]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+2-> 
 
 
 
-juson(config-cpu0)# PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 174]:URL:
-PP1:~CONSOLE-> 
-PP1:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 153 
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
+juson(config-cpu0)# 1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+1-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+1-> :[             dpim_decode_url][ 174]:URL:
+1-> 
+1-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/url_block/zxmx_url_block.c,line 153 
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+2-> :[             dpim_decode_tcp][ 651]:Get a url pkt
 Core 2: Unhandled Exception. Cause register decodes to:
 address exc, load/fetch
 ******************************************************************
@@ -816,26 +816,26 @@ Backtrace:
 
 
 
-juson(config-cpu0)# PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 312]:FREE pkt url
+juson(config-cpu0)# 1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+1-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+1-> :[             dpim_decode_url][ 166]:To process abs_path
+1-> :[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+1-> :[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+1-> :[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+1-> :[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+1-> :[                    free_url][ 312]:FREE pkt url
 
 
 
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 447]:add a new url into fmt
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+1-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+1-> :[             dpim_decode_url][ 166]:To process abs_path
+1-> :[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+1-> :[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+1-> :[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+1-> :[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+1-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+1-> :[                     fmt_add][ 447]:add a new url into fmt
 Core 1: Unhandled Exception. Cause register decodes to:
 address exc, load/fetch
 ******************************************************************
@@ -864,384 +864,384 @@ address exc, load/fetch
 Backtrace:
 
 ```
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 449]:add a new url into fmt
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 456]:url_addr 0x0 
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 464]:not old url_addr
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 468]:get url str for fmt err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[                 cp_and_link][ 207]:get url str for fmt err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 312]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 449]:add a new url into fmt
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 456]:url_addr 0xd52e04d0 
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 458]:find old url_addr
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 312]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 449]:add a new url into fmt
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 456]:url_addr 0xd52e04d0 
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 458]:find old url_addr
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 312]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
-PP1:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 449]:add a new url into fmt
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 456]:url_addr 0xd52e04d0 
-PP1:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 458]:find old url_addr
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 312]:FREE pkt url
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+1-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+1-> :[             dpim_decode_url][ 166]:To process abs_path
+1-> :[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+1-> :[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+1-> :[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+1-> :[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+1-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+1-> :[                     fmt_add][ 449]:add a new url into fmt
+1-> :[                     fmt_add][ 456]:url_addr 0x0 
+1-> :[                     fmt_add][ 464]:not old url_addr
+1-> :[                     fmt_add][ 468]:get url str for fmt err.taobao.com/error1.html
+1-> :[                 cp_and_link][ 207]:get url str for fmt err.taobao.com/error1.html
+1-> :[                    free_url][ 312]:FREE pkt url
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+1-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+1-> :[             dpim_decode_url][ 166]:To process abs_path
+1-> :[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+1-> :[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+1-> :[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+1-> :[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+1-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+1-> :[                     fmt_add][ 449]:add a new url into fmt
+1-> :[                     fmt_add][ 456]:url_addr 0xd52e04d0 
+1-> :[                     fmt_add][ 458]:find old url_addr
+1-> :[                    free_url][ 312]:FREE pkt url
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+1-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+1-> :[             dpim_decode_url][ 166]:To process abs_path
+1-> :[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+1-> :[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+1-> :[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+1-> :[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+1-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+1-> :[                     fmt_add][ 449]:add a new url into fmt
+1-> :[                     fmt_add][ 456]:url_addr 0xd52e04d0 
+1-> :[                     fmt_add][ 458]:find old url_addr
+1-> :[                    free_url][ 312]:FREE pkt url
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f657272
+1-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+1-> :[             dpim_decode_url][ 166]:To process abs_path
+1-> :[                get_abs_path][  72]:uri_len: 12 abs_uri:/error1.html
+1-> :[                get_abs_path][  91]:Host_len: 14 Host:err.taobao.com
+1-> :[                get_abs_path][ 108]:str_len: 26 Host:err.taobao.com/error1.html
+1-> :[             dpim_decode_url][ 181]:URL:err.taobao.com/error1.html
+1-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+1-> :[                     fmt_add][ 449]:add a new url into fmt
+1-> :[                     fmt_add][ 456]:url_addr 0xd52e04d0 
+1-> :[                     fmt_add][ 458]:find old url_addr
+1-> :[                    free_url][ 312]:FREE pkt url
 
  get_abs_path][  72]:uri_len: 281 abs_uri:/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xfe58
-PP6:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x0
-PP5:~CONSOLE-> URL_BLOCK:[                 cp_and_link][ 187]:get url str for fmt api.share.baidu.com/getsharenum?urls=17091797201692772740,11532546021778491826,4607969594987258370,13371752734895889225,5427010760400390956,3331117510697159647,17352347182496212156,17499921033298219140,2856178610194949267&callback=bds.se.like.giveData
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x0
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP4:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP5:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP7:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x0
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x0
-PP3:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 13 Host:www.baidu.com
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP3:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 294 Host:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP7:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x0
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP6:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP7:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x0
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP8:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP3:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x0
-PP5:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP3:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP6:~CONSOLE-> URL_BLOCK:[             fmt_stat_report][ 295]:fmt report eif:0
-PP7:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
-PP9:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
-PP7:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x2226
-PP4:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP3:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 470]:add a new url into fmt
-PP6:~CONSOLE-> URL_BLOCK:[        url_block_report_url][ 196]:Report 0 url, Total_size:64
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xe94
-PP7:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP3:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 475]:url_addr 0xd52df9f0 
-PP5:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP8:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x43fb
-PP5:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xb263
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x2ee8
-PP7:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 281 abs_uri:/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP9:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP7:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 13 Host:www.baidu.com
-PP3:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 477]:find old url_addr
-PP8:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP6:~CONSOLE-> URL_BLOCK:[        url_block_report_url][ 198]:Fmt delete wqe push
-PP3:~CONSOLE-> URL_BLOCK:[             link_url_to_fmt][ 232]:Compare: www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP6:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x3e69
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP3:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP5:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP4:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP7:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 294 Host:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP8:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x3d6d6b33534c564e
-PP5:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
-PP6:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP7:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x3d6d6b33534c564e
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x6226
-PP4:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP3:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP2:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP4:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP6:~CONSOLE-> URL_BLOCK:[           zxmd_main_process][  88]:Get fmt aged wqe
-PP2:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP3:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x441b
-PP9:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x377f
-PP3:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xe297
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP3:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP9:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP5:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP4:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP9:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x1577
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP6:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xbfc8
-PP3:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP7:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP6:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP3:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x1f8b080000000000
-PP6:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP3:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x6eab
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x1b51
-PP6:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP7:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 470]:add a new url into fmt
-PP9:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP8:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP9:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x9ffa8bc33d2f8ea8
-PP7:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 475]:url_addr 0xd52df9f0 
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP4:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP9:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x34b7
-PP4:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP4:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP7:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 477]:find old url_addr
-PP3:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP4:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP8:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP9:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP7:~CONSOLE-> URL_BLOCK:[             link_url_to_fmt][ 232]:Compare: www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP8:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP9:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x6b48
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP5:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xaf41
-PP6:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x885b
-PP9:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP3:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xe8b8
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f722f77
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP6:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x111d
-PP3:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP8:~CONSOLE-> URL_BLOCK:[             fmt_stat_report][ 295]:fmt report eif:0
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP7:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP2:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP6:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP2:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP8:~CONSOLE-> URL_BLOCK:[        url_block_report_url][ 196]:Report 1 url, Total_size:107
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP5:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP7:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP4:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 46 abs_uri:/r/www/cache/static/global/img/bg_ba15d188.png
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP4:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 15 Host:s1.bdstatic.com
-PP7:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP9:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP6:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP3:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x1f8b080000000000
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x1577
-PP8:~CONSOLE-> URL_BLOCK:[        url_block_report_url][ 198]:Fmt delete wqe push
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x1f8b080000000000
-PP3:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP6:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x2871
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP3:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x6226
-PP5:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP3:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP6:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x441b
-PP5:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP6:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xaf41
-PP8:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP4:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 61 Host:s1.bdstatic.com/r/www/cache/static/global/img/bg_ba15d188.png
-PP7:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
-PP2:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP2:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:s1.bdstatic.com/r/www/cache/static/global/img/bg_ba15d188.png
-PP6:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP3:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP9:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP7:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x1b51
-PP3:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP4:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP5:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP8:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP3:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xbfc8
-PP5:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x9ffa8bc33d2f8ea8
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xfa92
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP7:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP9:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xffc2
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP4:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xd20de321343449e5
-PP8:~CONSOLE-> URL_BLOCK:[           zxmd_main_process][  88]:Get fmt aged wqe
-PP7:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 281 abs_uri:/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP6:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP4:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP5:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xd778
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x988
-PP3:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP6:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP5:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xbb91
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x885b
-PP8:~CONSOLE-> URL_BLOCK:[           free_url_from_fmt][ 253]:Free one url success
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP7:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 13 Host:www.baidu.com
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP8:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x48be
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP6:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f696d67
-PP5:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP7:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 294 Host:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP3:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP5:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
-PP6:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP3:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP5:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP3:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f722f77
-PP6:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP4:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP7:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP7:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP1:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP5:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f696d67
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
-PP4:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP4:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP5:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f676574
-PP3:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP5:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xefb0
-PP3:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP7:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 470]:add a new url into fmt
-PP5:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 23 abs_uri:/img/baidu_jgylogo3.gif
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xfa92
-PP4:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP5:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 13 Host:www.baidu.com
-PP9:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP6:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 23 abs_uri:/img/baidu_jgylogo3.gif
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0xbb91
-PP5:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 36 Host:www.baidu.com/img/baidu_jgylogo3.gif
-PP7:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 475]:url_addr 0xd52df9f0 
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP8:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP6:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 13 Host:www.baidu.com
-PP3:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 48 abs_uri:/r/www/cache/static/global/js/common_5955eef4.js
-PP5:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:www.baidu.com/img/baidu_jgylogo3.gif
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f722f77
-PP6:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 36 Host:www.baidu.com/img/baidu_jgylogo3.gif
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 651]:Get a url pkt
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP5:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP7:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 477]:find old url_addr
-PP3:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 15 Host:s1.bdstatic.com
-PP6:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:www.baidu.com/img/baidu_jgylogo3.gif
-PP7:~CONSOLE-> URL_BLOCK:[             link_url_to_fmt][ 232]:Compare: www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP8:~CONSOLE-> URL_BLOCK:[             fmt_stat_report][ 295]:fmt report eif:0
-PP9:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP3:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 63 Host:s1.bdstatic.com/r/www/cache/static/global/js/common_5955eef4.js
-PP6:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 166]:To process abs_path
-PP5:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 470]:add a new url into fmt
-PP8:~CONSOLE-> URL_BLOCK:[        url_block_report_url][ 196]:Report 1 url, Total_size:126
-PP9:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP2:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 232 abs_uri:/getsharenum?urls=17091797201692772740,11532546021778491826,4607969594987258370,13371752734895889225,5427010760400390956,3331117510697159647,17352347182496212156,17499921033298219140,2856178610194949267&callback=bds.se.like.giveData
-PP3:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:s1.bdstatic.com/r/www/cache/static/global/js/common_5955eef4.js
-PP5:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 475]:url_addr 0xd52df9f0 
-PP2:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 19 Host:api.share.baidu.com
-PP4:~CONSOLE-> URL_BLOCK:[                get_abs_path][  72]:uri_len: 48 abs_uri:/r/www/cache/static/global/js/common_5955eef4.js
-PP7:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP4:~CONSOLE-> URL_BLOCK:[                get_abs_path][  91]:Host_len: 15 Host:s1.bdstatic.com
-PP7:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP8:~CONSOLE-> URL_BLOCK:[        url_block_report_url][ 198]:Fmt delete wqe push
-PP5:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 477]:find old url_addr
-PP2:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 251 Host:api.share.baidu.com/getsharenum?urls=17091797201692772740,11532546021778491826,4607969594987258370,13371752734895889225,5427010760400390956,3331117510697159647,17352347182496212156,17499921033298219140,2856178610194949267&callback=bds.se.like.giveData
-PP5:~CONSOLE-> URL_BLOCK:[             link_url_to_fmt][ 232]:Compare: www.baidu.com/img/baidu_jgylogo3.gif www.baidu.com/img/baidu_jgylogo3.gif
-PP4:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 108]:str_len: 63 Host:s1.bdstatic.com/r/www/cache/static/global/js/common_5955eef4.js
-PP8:~CONSOLE-> URL_BLOCK:[           zxmd_main_process][  88]:Get fmt aged wqe
-PP4:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:s1.bdstatic.com/r/www/cache/static/global/js/common_5955eef4.js
-PP2:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 181]:URL:api.share.baidu.com/getsharenum?urls=17091797201692772740,11532546021778491826,4607969594987258370,13371752734895889225,5427010760400390956,3331117510697159647,17352347182496212156,17499921033298219140,2856178610194949267&callback=bds.se.like.giveData
-PP7:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP8:~CONSOLE-> URL_BLOCK:[           free_url_from_fmt][ 253]:Free one url success
-PP2:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP5:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP1:~CONSOLE-> URL_BLOCK:[             fmt_stat_report][ 295]:fmt report eif:0
-PP4:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP9:~CONSOLE-> URL_BLOCK:[             fmt_stat_report][ 295]:fmt report eif:0
-PP4:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP2:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP9:~CONSOLE-> URL_BLOCK:[        url_block_report_url][ 196]:Report 1 url, Total_size:107
-PP1:~CONSOLE-> URL_BLOCK:[        url_block_report_url][ 196]:Report 2 url, Total_size:396
-PP5:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP9:~CONSOLE-> URL_BLOCK:[        url_block_report_url][ 198]:Fmt delete wqe push
-PP3:~CONSOLE-> URL_BLOCK:[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
-PP5:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP4:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP3:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 470]:add a new url into fmt
-PP4:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP2:~CONSOLE-> URL_BLOCK:[           zxmd_main_process][  88]:Get fmt aged wqe
-PP3:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 475]:url_addr 0x0 
-PP1:~CONSOLE-> URL_BLOCK:[        url_block_report_url][ 198]:Fmt delete wqe push
-PP2:~CONSOLE-> URL_BLOCK:[           free_url_from_fmt][ 253]:Free one url success
-PP4:~CONSOLE-> URL_BLOCK:[           zxmd_main_process][  88]:Get fmt aged wqe
-PP3:~CONSOLE-> URL_BLOCK:[                 cp_and_link][ 187]:get url str for fmt s1.bdstatic.com/r/www/cache/static/global/js/common_5955eef4.js
-PP6:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 470]:add a new url into fmt
-PP3:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 268]:old vlan:4033
-PP6:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 475]:url_addr 0xd52df9f0 
-PP3:~CONSOLE-> URL_BLOCK:[               eprm_xmit_pkt][ 271]:new vlan:12225
-PP6:~CONSOLE-> URL_BLOCK:[                     fmt_add][ 477]:find old url_addr
-PP3:~CONSOLE-> URL_BLOCK:[                    free_url][ 313]:FREE pkt url
-PP6:~CONSOLE-> URL_BLOCK:[             link_url_to_fmt][ 232]:Compare: www.baidu.com/img/baidu_jgylogo3.gif www.baidu.com/img/baidu_jgylogo3.gif
+1-> :[                    free_url][ 313]:FREE pkt url
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0xfe58
+6-> :[             dpim_decode_tcp][ 648]:Get pkt:0x0
+5-> :[                 cp_and_link][ 187]:get url str for fmt api.share.baidu.com/getsharenum?urls=17091797201692772740,11532546021778491826,4607969594987258370,13371752734895889225,5427010760400390956,3331117510697159647,17352347182496212156,17499921033298219140,2856178610194949267&callback=bds.se.like.giveData
+4-> :[             dpim_decode_tcp][ 648]:Get pkt:0x0
+2-> :[                    free_url][ 313]:FREE pkt url
+4-> :[                    free_url][ 313]:FREE pkt url
+5-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+7-> :[                    free_url][ 313]:FREE pkt url
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x0
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x0
+3-> :[                get_abs_path][  91]:Host_len: 13 Host:www.baidu.com
+2-> :[                    free_url][ 313]:FREE pkt url
+3-> :[                get_abs_path][ 108]:str_len: 294 Host:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+7-> :[             dpim_decode_tcp][ 648]:Get pkt:0x0
+1-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+6-> :[                    free_url][ 313]:FREE pkt url
+7-> :[                    free_url][ 313]:FREE pkt url
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x0
+1-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+8-> :[                    free_url][ 313]:FREE pkt url
+3-> :[             dpim_decode_url][ 181]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+4-> :[             dpim_decode_tcp][ 648]:Get pkt:0x0
+5-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+1-> :[                    free_url][ 313]:FREE pkt url
+3-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+6-> :[             fmt_stat_report][ 295]:fmt report eif:0
+7-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
+9-> :[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
+7-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x2226
+4-> :[                    free_url][ 313]:FREE pkt url
+1-> :[                    free_url][ 313]:FREE pkt url
+3-> :[                     fmt_add][ 470]:add a new url into fmt
+6-> :[        url_block_report_url][ 196]:Report 0 url, Total_size:64
+4-> :[             dpim_decode_tcp][ 648]:Get pkt:0xe94
+7-> :[             dpim_decode_url][ 166]:To process abs_path
+3-> :[                     fmt_add][ 475]:url_addr 0xd52df9f0 
+5-> :[                    free_url][ 313]:FREE pkt url
+8-> :[             dpim_decode_tcp][ 648]:Get pkt:0x43fb
+5-> :[             dpim_decode_tcp][ 648]:Get pkt:0xb263
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x2ee8
+7-> :[                get_abs_path][  72]:uri_len: 281 abs_uri:/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+9-> :[                    free_url][ 313]:FREE pkt url
+7-> :[                get_abs_path][  91]:Host_len: 13 Host:www.baidu.com
+3-> :[                     fmt_add][ 477]:find old url_addr
+8-> :[                    free_url][ 313]:FREE pkt url
+6-> :[        url_block_report_url][ 198]:Fmt delete wqe push
+3-> :[             link_url_to_fmt][ 232]:Compare: www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+6-> :[             dpim_decode_tcp][ 648]:Get pkt:0x3e69
+2-> :[                    free_url][ 313]:FREE pkt url
+1-> :[                    free_url][ 313]:FREE pkt url
+3-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+5-> :[                    free_url][ 313]:FREE pkt url
+1-> :[                    free_url][ 313]:FREE pkt url
+4-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+7-> :[                get_abs_path][ 108]:str_len: 294 Host:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+8-> :[             dpim_decode_tcp][ 648]:Get pkt:0x3d6d6b33534c564e
+5-> :[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
+6-> :[                    free_url][ 313]:FREE pkt url
+7-> :[             dpim_decode_url][ 181]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x3d6d6b33534c564e
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x6226
+4-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+1-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+3-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+1-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+2-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+4-> :[                    free_url][ 313]:FREE pkt url
+1-> :[                    free_url][ 313]:FREE pkt url
+6-> :[           zxmd_main_process][  88]:Get fmt aged wqe
+2-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+3-> :[                    free_url][ 313]:FREE pkt url
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x441b
+9-> :[             dpim_decode_tcp][ 648]:Get pkt:0x377f
+3-> :[             dpim_decode_tcp][ 648]:Get pkt:0xe297
+1-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+3-> :[                    free_url][ 313]:FREE pkt url
+9-> :[                    free_url][ 313]:FREE pkt url
+5-> :[                    free_url][ 313]:FREE pkt url
+4-> :[                    free_url][ 313]:FREE pkt url
+9-> :[             dpim_decode_tcp][ 648]:Get pkt:0x1577
+2-> :[                    free_url][ 313]:FREE pkt url
+6-> :[             dpim_decode_tcp][ 648]:Get pkt:0xbfc8
+3-> :[                    free_url][ 313]:FREE pkt url
+7-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+1-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+6-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+3-> :[                    free_url][ 313]:FREE pkt url
+1-> :[                    free_url][ 313]:FREE pkt url
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x1f8b080000000000
+6-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+3-> :[             dpim_decode_tcp][ 648]:Get pkt:0x6eab
+4-> :[             dpim_decode_tcp][ 648]:Get pkt:0x1b51
+6-> :[                    free_url][ 313]:FREE pkt url
+7-> :[                     fmt_add][ 470]:add a new url into fmt
+9-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+2-> :[                    free_url][ 313]:FREE pkt url
+8-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+9-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x9ffa8bc33d2f8ea8
+7-> :[                     fmt_add][ 475]:url_addr 0xd52df9f0 
+1-> :[                    free_url][ 313]:FREE pkt url
+4-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+9-> :[                    free_url][ 313]:FREE pkt url
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x34b7
+4-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+1-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+4-> :[                    free_url][ 313]:FREE pkt url
+7-> :[                     fmt_add][ 477]:find old url_addr
+3-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+4-> :[                    free_url][ 313]:FREE pkt url
+8-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+9-> :[                    free_url][ 313]:FREE pkt url
+1-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+7-> :[             link_url_to_fmt][ 232]:Compare: www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+8-> :[                    free_url][ 313]:FREE pkt url
+9-> :[             dpim_decode_tcp][ 648]:Get pkt:0x6b48
+1-> :[                    free_url][ 313]:FREE pkt url
+5-> :[             dpim_decode_tcp][ 648]:Get pkt:0xaf41
+6-> :[             dpim_decode_tcp][ 648]:Get pkt:0x885b
+9-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+3-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0xe8b8
+4-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f722f77
+2-> :[                    free_url][ 313]:FREE pkt url
+6-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x111d
+3-> :[                    free_url][ 313]:FREE pkt url
+8-> :[             fmt_stat_report][ 295]:fmt report eif:0
+4-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+7-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+2-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+4-> :[             dpim_decode_url][ 166]:To process abs_path
+6-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+2-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+8-> :[        url_block_report_url][ 196]:Report 1 url, Total_size:107
+2-> :[                    free_url][ 313]:FREE pkt url
+5-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+7-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+1-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+4-> :[                get_abs_path][  72]:uri_len: 46 abs_uri:/r/www/cache/static/global/img/bg_ba15d188.png
+1-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+4-> :[                get_abs_path][  91]:Host_len: 15 Host:s1.bdstatic.com
+7-> :[                    free_url][ 313]:FREE pkt url
+1-> :[                    free_url][ 313]:FREE pkt url
+9-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+6-> :[                    free_url][ 313]:FREE pkt url
+3-> :[             dpim_decode_tcp][ 648]:Get pkt:0x1f8b080000000000
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x1577
+8-> :[        url_block_report_url][ 198]:Fmt delete wqe push
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x1f8b080000000000
+3-> :[                    free_url][ 313]:FREE pkt url
+6-> :[             dpim_decode_tcp][ 648]:Get pkt:0x2871
+1-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+3-> :[             dpim_decode_tcp][ 648]:Get pkt:0x6226
+5-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+1-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+3-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+2-> :[                    free_url][ 313]:FREE pkt url
+1-> :[                    free_url][ 313]:FREE pkt url
+6-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x441b
+5-> :[                    free_url][ 313]:FREE pkt url
+6-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+1-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0xaf41
+8-> :[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
+1-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+4-> :[                get_abs_path][ 108]:str_len: 61 Host:s1.bdstatic.com/r/www/cache/static/global/img/bg_ba15d188.png
+7-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f733f77
+2-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+1-> :[                    free_url][ 313]:FREE pkt url
+2-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+4-> :[             dpim_decode_url][ 181]:URL:s1.bdstatic.com/r/www/cache/static/global/img/bg_ba15d188.png
+6-> :[                    free_url][ 313]:FREE pkt url
+3-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+9-> :[                    free_url][ 313]:FREE pkt url
+7-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x1b51
+3-> :[                    free_url][ 313]:FREE pkt url
+4-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+5-> :[                    free_url][ 313]:FREE pkt url
+2-> :[                    free_url][ 313]:FREE pkt url
+8-> :[                    free_url][ 313]:FREE pkt url
+3-> :[             dpim_decode_tcp][ 648]:Get pkt:0xbfc8
+5-> :[             dpim_decode_tcp][ 648]:Get pkt:0x9ffa8bc33d2f8ea8
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0xfa92
+1-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+7-> :[             dpim_decode_url][ 166]:To process abs_path
+9-> :[             dpim_decode_tcp][ 648]:Get pkt:0xffc2
+1-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+4-> :[                    free_url][ 313]:FREE pkt url
+2-> :[                    free_url][ 313]:FREE pkt url
+4-> :[             dpim_decode_tcp][ 648]:Get pkt:0xd20de321343449e5
+8-> :[           zxmd_main_process][  88]:Get fmt aged wqe
+7-> :[                get_abs_path][  72]:uri_len: 281 abs_uri:/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+6-> :[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
+1-> :[                    free_url][ 313]:FREE pkt url
+4-> :[                    free_url][ 313]:FREE pkt url
+5-> :[                    free_url][ 313]:FREE pkt url
+4-> :[             dpim_decode_tcp][ 648]:Get pkt:0xd778
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x988
+3-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+6-> :[                    free_url][ 313]:FREE pkt url
+5-> :[             dpim_decode_tcp][ 648]:Get pkt:0xbb91
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x885b
+8-> :[           free_url_from_fmt][ 253]:Free one url success
+1-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+7-> :[                get_abs_path][  91]:Host_len: 13 Host:www.baidu.com
+1-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+2-> :[                    free_url][ 313]:FREE pkt url
+8-> :[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
+1-> :[                    free_url][ 313]:FREE pkt url
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0x48be
+2-> :[                    free_url][ 313]:FREE pkt url
+6-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f696d67
+5-> :[                    free_url][ 313]:FREE pkt url
+7-> :[                get_abs_path][ 108]:str_len: 294 Host:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+3-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+5-> :[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
+6-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+3-> :[                    free_url][ 313]:FREE pkt url
+5-> :[                    free_url][ 313]:FREE pkt url
+3-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f722f77
+6-> :[             dpim_decode_url][ 166]:To process abs_path
+4-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+7-> :[             dpim_decode_url][ 181]:URL:www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+1-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+7-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+1-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+5-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f696d67
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x485454502f312e31
+4-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+2-> :[                    free_url][ 313]:FREE pkt url
+4-> :[                    free_url][ 313]:FREE pkt url
+5-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+1-> :[                    free_url][ 313]:FREE pkt url
+2-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f676574
+3-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+5-> :[             dpim_decode_url][ 166]:To process abs_path
+4-> :[             dpim_decode_tcp][ 648]:Get pkt:0xefb0
+3-> :[             dpim_decode_url][ 166]:To process abs_path
+7-> :[                     fmt_add][ 470]:add a new url into fmt
+5-> :[                get_abs_path][  72]:uri_len: 23 abs_uri:/img/baidu_jgylogo3.gif
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0xfa92
+4-> :[                    free_url][ 313]:FREE pkt url
+5-> :[                get_abs_path][  91]:Host_len: 13 Host:www.baidu.com
+9-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+1-> :[                    free_url][ 313]:FREE pkt url
+6-> :[                get_abs_path][  72]:uri_len: 23 abs_uri:/img/baidu_jgylogo3.gif
+1-> :[             dpim_decode_tcp][ 648]:Get pkt:0xbb91
+5-> :[                get_abs_path][ 108]:str_len: 36 Host:www.baidu.com/img/baidu_jgylogo3.gif
+7-> :[                     fmt_add][ 475]:url_addr 0xd52df9f0 
+1-> :[                    free_url][ 313]:FREE pkt url
+8-> :[                    free_url][ 313]:FREE pkt url
+2-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+6-> :[                get_abs_path][  91]:Host_len: 13 Host:www.baidu.com
+3-> :[                get_abs_path][  72]:uri_len: 48 abs_uri:/r/www/cache/static/global/js/common_5955eef4.js
+5-> :[             dpim_decode_url][ 181]:URL:www.baidu.com/img/baidu_jgylogo3.gif
+4-> :[             dpim_decode_tcp][ 648]:Get pkt:0x474554202f722f77
+6-> :[                get_abs_path][ 108]:str_len: 36 Host:www.baidu.com/img/baidu_jgylogo3.gif
+4-> :[             dpim_decode_tcp][ 651]:Get a url pkt
+2-> :[             dpim_decode_url][ 166]:To process abs_path
+5-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+7-> :[                     fmt_add][ 477]:find old url_addr
+3-> :[                get_abs_path][  91]:Host_len: 15 Host:s1.bdstatic.com
+6-> :[             dpim_decode_url][ 181]:URL:www.baidu.com/img/baidu_jgylogo3.gif
+7-> :[             link_url_to_fmt][ 232]:Compare: www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 www.baidu.com/s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+8-> :[             fmt_stat_report][ 295]:fmt report eif:0
+9-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+3-> :[                get_abs_path][ 108]:str_len: 63 Host:s1.bdstatic.com/r/www/cache/static/global/js/common_5955eef4.js
+6-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+4-> :[             dpim_decode_url][ 166]:To process abs_path
+5-> :[                     fmt_add][ 470]:add a new url into fmt
+8-> :[        url_block_report_url][ 196]:Report 1 url, Total_size:126
+9-> :[                    free_url][ 313]:FREE pkt url
+2-> :[                get_abs_path][  72]:uri_len: 232 abs_uri:/getsharenum?urls=17091797201692772740,11532546021778491826,4607969594987258370,13371752734895889225,5427010760400390956,3331117510697159647,17352347182496212156,17499921033298219140,2856178610194949267&callback=bds.se.like.giveData
+3-> :[             dpim_decode_url][ 181]:URL:s1.bdstatic.com/r/www/cache/static/global/js/common_5955eef4.js
+5-> :[                     fmt_add][ 475]:url_addr 0xd52df9f0 
+2-> :[                get_abs_path][  91]:Host_len: 19 Host:api.share.baidu.com
+4-> :[                get_abs_path][  72]:uri_len: 48 abs_uri:/r/www/cache/static/global/js/common_5955eef4.js
+7-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+4-> :[                get_abs_path][  91]:Host_len: 15 Host:s1.bdstatic.com
+7-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+8-> :[        url_block_report_url][ 198]:Fmt delete wqe push
+5-> :[                     fmt_add][ 477]:find old url_addr
+2-> :[                get_abs_path][ 108]:str_len: 251 Host:api.share.baidu.com/getsharenum?urls=17091797201692772740,11532546021778491826,4607969594987258370,13371752734895889225,5427010760400390956,3331117510697159647,17352347182496212156,17499921033298219140,2856178610194949267&callback=bds.se.like.giveData
+5-> :[             link_url_to_fmt][ 232]:Compare: www.baidu.com/img/baidu_jgylogo3.gif www.baidu.com/img/baidu_jgylogo3.gif
+4-> :[                get_abs_path][ 108]:str_len: 63 Host:s1.bdstatic.com/r/www/cache/static/global/js/common_5955eef4.js
+8-> :[           zxmd_main_process][  88]:Get fmt aged wqe
+4-> :[             dpim_decode_url][ 181]:URL:s1.bdstatic.com/r/www/cache/static/global/js/common_5955eef4.js
+2-> :[             dpim_decode_url][ 181]:URL:api.share.baidu.com/getsharenum?urls=17091797201692772740,11532546021778491826,4607969594987258370,13371752734895889225,5427010760400390956,3331117510697159647,17352347182496212156,17499921033298219140,2856178610194949267&callback=bds.se.like.giveData
+7-> :[                    free_url][ 313]:FREE pkt url
+8-> :[           free_url_from_fmt][ 253]:Free one url success
+2-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+5-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+1-> :[             fmt_stat_report][ 295]:fmt report eif:0
+4-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+9-> :[             fmt_stat_report][ 295]:fmt report eif:0
+4-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+2-> :[                    free_url][ 313]:FREE pkt url
+9-> :[        url_block_report_url][ 196]:Report 1 url, Total_size:107
+1-> :[        url_block_report_url][ 196]:Report 2 url, Total_size:396
+5-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+9-> :[        url_block_report_url][ 198]:Fmt delete wqe push
+3-> :[     _zxmd_url_block_process][ 701]:access log vlantag_out:2032
+5-> :[                    free_url][ 313]:FREE pkt url
+4-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+3-> :[                     fmt_add][ 470]:add a new url into fmt
+4-> :[                    free_url][ 313]:FREE pkt url
+2-> :[           zxmd_main_process][  88]:Get fmt aged wqe
+3-> :[                     fmt_add][ 475]:url_addr 0x0 
+1-> :[        url_block_report_url][ 198]:Fmt delete wqe push
+2-> :[           free_url_from_fmt][ 253]:Free one url success
+4-> :[           zxmd_main_process][  88]:Get fmt aged wqe
+3-> :[                 cp_and_link][ 187]:get url str for fmt s1.bdstatic.com/r/www/cache/static/global/js/common_5955eef4.js
+6-> :[                     fmt_add][ 470]:add a new url into fmt
+3-> :[               eprm_xmit_pkt][ 268]:old vlan:4033
+6-> :[                     fmt_add][ 475]:url_addr 0xd52df9f0 
+3-> :[               eprm_xmit_pkt][ 271]:new vlan:12225
+6-> :[                     fmt_add][ 477]:find old url_addr
+3-> :[                    free_url][ 313]:FREE pkt url
+6-> :[             link_url_to_fmt][ 232]:Compare: www.baidu.com/img/baidu_jgylogo3.gif www.baidu.com/img/baidu_jgylogo3.gif
 ```
 
 
@@ -1257,7 +1257,7 @@ set sregister 3gpp disable
 set sregister packetio disable
 
 # 测试并发
-PP1:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/dpim/zxmx_url.h,line 262
+1-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/dpim/zxmx_url.h,line 262
 
 | 16:50 - 17:00 | 实时日志没有命中，发送访问日志.  |
 | 17:02 - 17:20 | 添加命中的url，此时发送阻断日志. |
@@ -1268,12 +1268,89 @@ PP1:~CONSOLE-> Assertion failed:/home/sqm/tmp/JusonFlow/libexec/dpim/zxmx_url.h,
 
 GET /s?wd=url%E7%A9%BA%20&rsv_spt=1%20&issp=%%20201&rsv_bp=0&ie=u%20tf-8&tn=ba%20iduho%20%20%20%20%20%20me_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90 HTTP/1.1\r\n
 
-PP1:~CONSOLE-> URL_BLOCK:[   check_ethhdr_and_set_ipif][ 959]:pkt in port:1
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 643]:Get pkt:0x474554202f733f77
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_tcp][ 646]:Get a url pkt
-PP1:~CONSOLE-> URL_BLOCK:[             dpim_decode_url][ 253]:To process abs_path
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 134]:uri_len: 111 abs_uri:/s?wd=urlw1&rsv_spt=1&issp=r0201&rsv_bp=0&ie=utf-8&tn=baiduhome_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP1:~CONSOLE-> URL_BLOCK:[                get_abs_path][ 164]:Host_len: 13 Host:www.baidu.com
-PP1:~CONSOLE->   77  77  77  2e  62  61  69  64  75  2e  63  6f  6d  2f  73  3f  77  64  3d  75  72  6c  77  19  31  26  72  73  76  5f  73  70  74  3d  31  26  69  73  73  70  3d  72  30  32  30  31  26  72  73  76  5f  62  70  3d  30  26  69  65  3d  75  74  66  2d  38  26  74  6e  3d  62  61  69  64  75  68  6f  6d  65  5f  70  67  26  72  73  76  5f  73  75  67  33  3d  32  26  72  73  76  5f  73  75  67  3d  30  26  72  73  76  5f  73  75  67  31  3d  32  26  72  73  76  5f  73  75  67  34  3d  39  30URL_BLOCK:[             dpim_decode_url][ 264]:URL:www.baidu.com/s?wd=urlw1&rsv_spt=1&issp=r0201&rsv_bp=0&ie=utf-8&tn=baiduhome_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
-PP1:~CONSOLE-> URL_BLOCK:[                    free_url][ 100]:FREE pkt url
+1-> :[   check_ethhdr_and_set_ipif][ 959]:pkt in port:1
+1-> :[             dpim_decode_tcp][ 643]:Get pkt:0x474554202f733f77
+1-> :[             dpim_decode_tcp][ 646]:Get a url pkt
+1-> :[             dpim_decode_url][ 253]:To process abs_path
+1-> :[                get_abs_path][ 134]:uri_len: 111 abs_uri:/s?wd=urlw1&rsv_spt=1&issp=r0201&rsv_bp=0&ie=utf-8&tn=baiduhome_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+1-> :[                get_abs_path][ 164]:Host_len: 13 Host:www.baidu.com
+1->   77  77  77  2e  62  61  69  64  75  2e  63  6f  6d  2f  73  3f  77  64  3d  75  72  6c  77  19  31  26  72  73  76  5f  73  70  74  3d  31  26  69  73  73  70  3d  72  30  32  30  31  26  72  73  76  5f  62  70  3d  30  26  69  65  3d  75  74  66  2d  38  26  74  6e  3d  62  61  69  64  75  68  6f  6d  65  5f  70  67  26  72  73  76  5f  73  75  67  33  3d  32  26  72  73  76  5f  73  75  67  3d  30  26  72  73  76  5f  73  75  67  31  3d  32  26  72  73  76  5f  73  75  67  34  3d  39  30:[             dpim_decode_url][ 264]:URL:www.baidu.com/s?wd=urlw1&rsv_spt=1&issp=r0201&rsv_bp=0&ie=utf-8&tn=baiduhome_pg&rsv_sug3=2&rsv_sug=0&rsv_sug1=2&rsv_sug4=90
+1-> :[                    free_url][ 100]:FREE pkt url
 ]]]]]]]]]]]]]]]]
+
+
+
+1-> :[    zxmx_url_conf_by_bootmem][  81]:Get a linux command
+
+url: err.taobao.com/error1.html
+action:drop
+
+juson(config-cpu0)# 1-> :[   check_ethhdr_and_set_ipif][ 959]:pkt in port:1
+1-> :[             dpim_decode_tcp][ 643]:Get pkt:0x474554202f657272
+1-> :[             dpim_decode_tcp][ 646]:Get a url pkt
+1-> :[             dpim_decode_url][ 261]:To process abs_path
+1-> :[                get_abs_path][ 148]:uri_len: 12 abs_uri:/error1.html
+1-> :[                get_abs_path][ 177]:Host_len: 14 Host:err.taobao.com
+1-> :[             dpim_decode_url][ 272]:URL:err.taobao.com/error1.html
+1-> :[     _zxmd_url_block_process][ 757]:Hit url 1385274
+1-> :[           url_block_add_fmt][ 101]:fmt vlanout:2032
+1-> :[           url_block_add_fmt][ 103]:url: err.taobao.com/error1.html
+1-> :[             add_fmt_for_pkt][ 374]:url: err.taobao.com/error1.html
+1-> :[                     fmt_add][ 390]:url: err.taobao.com/error1.html
+1-> :[                    free_url][ 110]:FREE pkt url
+1-> :[   check_ethhdr_and_set_ipif][ 959]:pkt in port:1
+1-> :[                    free_url][ 110]:FREE pkt url
+1-> :[   check_ethhdr_and_set_ipif][ 959]:pkt in port:1
+1-> :[                    free_url][ 110]:FREE pkt url
+1-> :[   check_ethhdr_and_set_ipif][ 959]:pkt in port:1
+1-> :[                    free_url][ 110]:FREE pkt url
+1-> :[   check_ethhdr_and_set_ipif][ 959]:pkt in port:1
+1-> :[                    free_url][ 110]:FREE pkt url
+1-> :[   check_ethhdr_and_set_ipif][ 959]:pkt in port:1
+
+1-> :[             dpim_decode_tcp][ 643]:Get pkt:0x474554202f657272
+1-> :[             dpim_decode_tcp][ 646]:Get a url pkt
+1-> :[             dpim_decode_url][ 261]:To process abs_path
+2-> :[   check_ethhdr_and_set_ipif][ 959]:pkt in port:1
+1-> :[                get_abs_path][ 148]:uri_len: 12 abs_uri:/error1.html
+2-> :[             dpim_decode_tcp][ 643]:Get pkt:0x474554202f657272
+1-> :[                get_abs_path][ 177]:Host_len: 14 Host:err.taobao.com
+2-> :[             dpim_decode_tcp][ 646]:Get a url pkt
+1-> :[             dpim_decode_url][ 272]:URL:err.taobao.com/error1.html
+2-> :[             dpim_decode_url][ 261]:To process abs_path
+1-> :[     _zxmd_url_block_process][ 757]:Hit url 1385274
+2-> :[                get_abs_path][ 148]:uri_len: 12 abs_uri:/error1.html
+1-> :[           url_block_add_fmt][ 101]:fmt vlanout:2032
+2-> :[                get_abs_path][ 177]:Host_len: 14 Host:err.taobao.com
+1-> :[           url_block_add_fmt][ 103]:url: err.taobao.com/error1.html
+2-> :[             dpim_decode_url][ 272]:URL:err.taobao.com/error1.html
+1-> :[             add_fmt_for_pkt][ 374]:url: err.taobao.com/error1.html
+2-> :[     _zxmd_url_block_process][ 757]:Hit url 1385274
+1-> :[                     fmt_add][ 390]:url: err.taobao.com/error1.html
+2-> :[           url_block_add_fmt][ 101]:fmt vlanout:2032
+1-> :[                     fmt_add][ 480]:add a new url into fmt
+2-> :[           url_block_add_fmt][ 103]:url: err.taobao.com/error1.html
+1-> :[                     fmt_add][ 485]:url_addr 0x0 
+2-> :[             add_fmt_for_pkt][ 374]:url: err.taobao.com/error1.html
+1-> :[                 cp_and_link][ 278]:get url str for fmt err.taobao.com/error1.html
+2-> :[                     fmt_add][ 390]:url: err.taobao.com/error1.html
+1-> :[                    free_url][ 110]:FREE pkt url
+2-> :[                     fmt_add][ 480]:add a new url into fmt
+2-> :[                     fmt_add][ 485]:url_addr 0xda7e8a30 
+2-> :[                     fmt_add][ 487]:find old url_addr
+2-> :[             link_url_to_fmt][ 323]:Compare: err.taobao.com/error1.html err.taobao.com/error1.html
+2-> :[                    free_url][ 110]:FREE pkt url
+1-> :[   check_ethhdr_and_set_ipif][ 959]:pkt in port:1
+1-> :[                    free_url][ 110]:FREE pkt url
+
+
+---------1010101010101010101010---------
+tcpreplay [[-i]] eth6 -l 1 128B_GET_A.pcap
+add url_block analy.qq.com/Affffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff action=drop
+
+set sregister packetio enable
+set sregister fmt_manage send_stat enable
+set sregister fmt_manage stat_eif 0
+set sregister url_block_eif 0 
+add outgroup 0 16
+delete outgroup 0 0

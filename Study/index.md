@@ -65,7 +65,6 @@
 * [[flash-plugin]]
 * [[flash-ic]]
 * [[minicom]]
-* [[httpd]]
 * [[wiki-wpa]]
 ### X86
 * [[X86 Architecture]]

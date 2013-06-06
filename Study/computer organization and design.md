@@ -37,3 +37,9 @@ This text is about the architectural ideas and accompanying compiler improvement
 
 ## 1.2 The task of a computer designer
 The task the computer designer faces is a complex one: Determine what attributes are important for a new machine,then design a machine to maximize performance while staying within cost constraints.
+
+In this book the term __instruction set architecture__ refers to the actual programmer-visible instruction set.The instruction set architecture serves as the boundary between the software and hardware.
+
+Often a line of machines contains machines with identical instruction set architectures and nearly identical organizations,but they differ in the detailed hardware implementation.
+
+In this book the world architecture is intended to cover all three aspects of computer design---instruction set architecture,organization,and harfware.

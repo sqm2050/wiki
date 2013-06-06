@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
 	const uint8_t *packet;
 	uint8_t errbuf[1000000];
 
+	/* open input file */
 	pcap_t *handle = pcap_open_offline(argv[1], errbuf);
 	if (!handle) {
 		printf("open file fail !\n");
@@ -26,15 +27,18 @@ int main(int argc, char *argv[])
 	pcap_is_swapped(handle);
 	pcap_datalink(handle);
 
+	/* open outhandle */
 	pcap_t *outhandle = pcap_open_dead(DLT_EN10MB, 65535);
 	if (!outhandle) {
 		printf("outhandle is NULL\n");
 		return -1;
 	}
 
+	/* open out file to outdumper */
 	outdumper = pcap_dump_open(outhandle, "gtp_u_normal.pcap");
 
 	while (1) {
+		/* input file -> handle -> 1. packet ptr 2, header info */
 		packet = pcap_next(handle, &header);
 		if (!packet) break;
 #if PRINT_1
