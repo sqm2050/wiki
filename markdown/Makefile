@@ -1,6 +1,6 @@
 all:a.out
 objs := main.o markdown.o
-a.out:$(objs)
+a.out:$(objs) markdown.h
 	cc  $(objs) -o $@ 
 
 main.o:main.c

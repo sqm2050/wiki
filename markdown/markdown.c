@@ -22,16 +22,17 @@ int decode(int fd_in, int fd_out)
 {
 	char buf[LINE_MAX_LONG] = {0};
 
-	do {
-		if (get_line(fd_in, buf) < 0)
-			break;
-
+	while (get_line(fd_in, buf) > 0) {
 		if (HEAD(buf)) {
 			process_head(buf, fd_out);
-			continue;
-		} else if (PRE(buf))
-			continue;
-	} while (1);
+		} else if (PRE(buf)) {
+			process_pre(buf, fd_in, fd_out);
+		} else if (TIT_1(buf)) {
+			process_tit(buf, fd_in, fd_out);
+		} else
+			write(fd_out, buf, strlen(buf));
+
+	}
 }
 
 int process_head(char *buf, int fd_out)
@@ -40,6 +41,67 @@ int process_head(char *buf, int fd_out)
 		write(fd_out, "<h1>", strlen("<h1>"));
 		write(fd_out, buf + 2, strlen(buf) - 1 - 2);
 		write(fd_out, "</h1>\n", strlen("</h1>\n"));
+	} else if (HEAD_2(buf)) {
+		write(fd_out, "<h2>", strlen("<h2>"));
+		write(fd_out, buf + 3, strlen(buf) - 1 - 3);
+		write(fd_out, "</h2>\n", strlen("</h2>\n"));
+
+	} else if (HEAD_3(buf)) {
+		write(fd_out, "<h3>", strlen("<h3>"));
+		write(fd_out, buf + 4, strlen(buf) - 1 - 4);
+		write(fd_out, "</h3>\n", strlen("</h3>\n"));
+	} else if (HEAD_4(buf)) {
+		write(fd_out, "<h4>", strlen("<h4>"));
+		write(fd_out, buf + 5, strlen(buf) - 1 - 5);
+		write(fd_out, "</h4>\n", strlen("</h4>\n"));
+	}
+}
+
+int process_pre(char *buf, int in, int out)
+{
+	write(out, "<pre><p>", strlen("<pre><p>"));
+again:
+	if (get_line(in, buf) > 0){
+		if (!PRE(buf)) {
+
+			write(out, buf, strlen(buf));
+			goto again;
+		} else {
+			write(out, "</pre></p>\n", strlen("</pre></p>\n"));
+			return 0;
+		}
+	}
+}
+
+void process_tit(char *buf, int in, int out)
+{
+	char tmp[LINE_MAX_LONG] = {0};
+	strcpy(tmp, buf);
+	int lv, lv1;
+	for (lv = 0; buf[lv] == '\t'; lv++);lv++;
+
+	write(out, "<ul>\n<li>", strlen("<ul>\n<li>"));
+	write(out, buf + lv + 1, strlen(buf) - lv -1);
+	write(out, "</li>\n", strlen("</li>\n"));
+	while (get_line(in, buf) > 0) {
+		if (PRE(buf))
+			process_pre(buf, in, out);
+		else if (TIT_1(buf) || TIT_2(buf) || TIT_3(buf)) {
+			for (lv1 = 0; buf[lv1] == '\t'; lv1++);lv1++;
+			if (lv1 - lv == 1)
+				process_tit(buf, in, out);
+			else {
+				write(out, "<li>\n", strlen("<li>\n"));
+				write(out, buf + lv + 1, strlen(buf) - lv -1);
+				write(out, "</li>\n", strlen("</li>\n"));
+			}
+		} else {
+			printf("[%10s]:[%05d]\n", __FILE__, __LINE__);
+			write(out, "</ul>\n", strlen("</ul>\n"));
+			write(out, buf, strlen(buf));
+			return;
+		}
 	}
 
+	write(out, "</ul>\n", strlen("</ul>\n"));
 }
