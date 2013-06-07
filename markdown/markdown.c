@@ -123,10 +123,20 @@ void process_tit(char *buf, int in, int out)
 
 void process_quote(char *buf, int fd_in, int fd_out)
 {
-	int lv;
+	int lv, i, j = 0;
 	for (lv = 0; buf[lv] == '\t'; lv++);lv++;
 	write(fd_out, "<blockquote>\n", strlen("<blockquote>\n"));
-	write(fd_out, buf + lv + 1, strlen(buf) - lv - 1);
+	for (i = lv + 1; i < strlen(buf) - lv -1 ; i++) {
+		if (buf[i] == '`') {
+			j++;
+			if (j > 0 && j % 2 == 1) {
+				write(fd_out, "<code>", strlen("<code>"));
+			} else if (j > 0 && j % 2 == 0) {
+				write(fd_out, "</code>", strlen("</code>"));
+			}
+		} else
+			write(fd_out, &buf[i], 1);
+	}
 	write(fd_out, "</blockquote>\n", strlen("</blockquote>\n"));
 }
 
