@@ -32,10 +32,10 @@ int decode(int fd_in, int fd_out)
 			process_pre(buf, fd_in, fd_out);
 		} else if (TIT_1(buf)) {
 			process_tit(buf, fd_in, fd_out);
+		} else if (QUOTE(buf)) {
+			process_quote(buf, fd_in, fd_out);
 		} else {
-			write(fd_out, "<p>", strlen("<p>"));
-			write(fd_out, buf, strlen(buf));
-			write(fd_out, "</p>", strlen("</p>"));
+			process_normal(buf, fd_in, fd_out);
 		}
 
 	}
@@ -102,16 +102,48 @@ void process_tit(char *buf, int in, int out)
 				return;
 			}
 		}
+		/* 列表引用后留空行 */
+		if (QUOTE(buf)) {
+			process_quote(buf, in, out);
+			continue;
+		}
 
 		if (PRE(buf)) {
 			process_pre(buf, in, out);
 			write(out, "</ul>\n", strlen("</ul>\n"));
 			return;
 		}
-		printf("--------\n");
+		/* 最后一个列表后空行 */
 		write(out, buf, strlen(buf));
 		write(out, "</ul>\n", strlen("</ul>\n"));
 		return;
 	}
 	return;
+}
+
+void process_quote(char *buf, int fd_in, int fd_out)
+{
+	int lv;
+	for (lv = 0; buf[lv] == '\t'; lv++);lv++;
+	write(fd_out, "<blockquote>\n", strlen("<blockquote>\n"));
+	write(fd_out, buf + lv + 1, strlen(buf) - lv - 1);
+	write(fd_out, "</blockquote>\n", strlen("</blockquote>\n"));
+}
+
+void process_normal(char *buf, int fd_in, int fd_out)
+{
+	int i, j = 0;
+	write(fd_out, "<p>", strlen("<p>"));
+	for (i = 0; i < strlen(buf); i++) {
+		if (buf[i] == '`') {
+			j++;
+			if (j > 0 && j % 2 == 1) {
+				write(fd_out, "<code>", strlen("<code>"));
+			} else if (j > 0 && j % 2 == 0) {
+				write(fd_out, "</code>", strlen("</code>"));
+			}
+		} else
+			write(fd_out, &buf[i], 1);
+	}
+	write(fd_out, "</p>", strlen("</p>"));
 }

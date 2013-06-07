@@ -24,6 +24,12 @@
 /* normal p */
 #define PPP(r) (r[0] != '`' && r[0] != '#' && r[0] != '>' && r[0] != '-')
 
+#define QUOTE(r) ((r[0] == '>') || (r[0] == '\t' && r[1] == '>') \
+			|| (r[0] == '\t'  && r[2] == '>' ) \
+			|| (r[0] == '\t'  && r[3] == '>' ) \
+			|| (r[0] == '\t'  && r[4] == '>' ) \
+			|| (r[0] == '\t'  && r[5] == '>' ))
+
 #define LINE_MAX_LONG	1024
 
 int open_file(char *, int trunk);
@@ -32,3 +38,5 @@ int decode(int, int);
 int process_head(char *buf, int fd_out);
 int process_pre(char *, int, int);
 void process_tit(char *, int, int);
+void process_quote(char *, int, int);
+void process_normal(char *, int, int);
