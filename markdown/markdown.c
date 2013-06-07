@@ -1,8 +1,11 @@
 #include "markdown.h"
-int open_file(char *name)
+int open_file(char *name, int trunck)
 {
 	int fd;
-	fd = open(name, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (!trunck) {
+		fd = open(name, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	} else
+		fd = open(name, O_RDWR | O_CREAT |O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	return fd;
 }
 
@@ -29,8 +32,11 @@ int decode(int fd_in, int fd_out)
 			process_pre(buf, fd_in, fd_out);
 		} else if (TIT_1(buf)) {
 			process_tit(buf, fd_in, fd_out);
-		} else
+		} else {
+			write(fd_out, "<p>", strlen("<p>"));
 			write(fd_out, buf, strlen(buf));
+			write(fd_out, "</p>", strlen("</p>"));
+		}
 
 	}
 }
@@ -63,11 +69,10 @@ int process_pre(char *buf, int in, int out)
 again:
 	if (get_line(in, buf) > 0){
 		if (!PRE(buf)) {
-
 			write(out, buf, strlen(buf));
 			goto again;
 		} else {
-			write(out, "</pre></p>\n", strlen("</pre></p>\n"));
+			write(out, "</pre></p>", strlen("</pre></p>"));
 			return 0;
 		}
 	}
@@ -84,24 +89,29 @@ void process_tit(char *buf, int in, int out)
 	write(out, buf + lv + 1, strlen(buf) - lv -1);
 	write(out, "</li>\n", strlen("</li>\n"));
 	while (get_line(in, buf) > 0) {
-		if (PRE(buf))
-			process_pre(buf, in, out);
-		else if (TIT_1(buf) || TIT_2(buf) || TIT_3(buf)) {
+		if (TIT_1(buf) || TIT_2(buf) || TIT_3(buf)) {
 			for (lv1 = 0; buf[lv1] == '\t'; lv1++);lv1++;
-			if (lv1 - lv == 1)
-				process_tit(buf, in, out);
-			else {
+			if (lv1 == lv) {
 				write(out, "<li>\n", strlen("<li>\n"));
-				write(out, buf + lv + 1, strlen(buf) - lv -1);
+				write(out, buf + lv1 + 1, strlen(buf) - lv1 -1);
 				write(out, "</li>\n", strlen("</li>\n"));
+				continue;
+			} else {
+				process_tit(buf, in, out);
+				write(out, "</ul>\n", strlen("</ul>\n"));
+				return;
 			}
-		} else {
-			printf("[%10s]:[%05d]\n", __FILE__, __LINE__);
+		}
+
+		if (PRE(buf)) {
+			process_pre(buf, in, out);
 			write(out, "</ul>\n", strlen("</ul>\n"));
-			write(out, buf, strlen(buf));
 			return;
 		}
+		printf("--------\n");
+		write(out, buf, strlen(buf));
+		write(out, "</ul>\n", strlen("</ul>\n"));
+		return;
 	}
-
-	write(out, "</ul>\n", strlen("</ul>\n"));
+	return;
 }

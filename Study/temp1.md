@@ -1354,3 +1354,109 @@ set sregister fmt_manage stat_eif 0
 set sregister url_block_eif 0 
 add outgroup 0 16
 delete outgroup 0 0
+
+
+Environment size: 1074/131068 bytes
+Dream 6645 box # set serverip<INTERRUPT>
+Dream 6645 box # ping 10.10.168.178
+Using octmgmt0 device
+ping failed; host 10.10.168.178 is not alive
+Dream 6645 box # ping 10.10.168.178
+Using octmgmt0 device
+ping failed; host 10.10.168.178 is not alive
+Dream 6645 box # set ipaddr=10.10.168.82
+Unknown command 'set' - try 'help'
+Dream 6645 box # help
+?           - alias for 'help'
+askenv      - get environment variables from stdin
+base        - print or set address offset
+base64      - print or set 64-bit address offset
+bdinfo      - print Board Info structure
+bootelf     - Boot from an ELF image in memory
+bootloaderunlzma- UN-LZMA the bootloader image
+bootloaderupdate- Update the bootloader in flash
+bootloadervalidate- Validate the bootloader image
+bootm       - boot application image from memory
+bootoct     - Boot from an Octeon Executive ELF image in memory
+bootoctelf  - Boot a generic ELF image in memory. NOTE: This command does not
+              support simple executive applications, use bootoct for those.
+bootoctlinux- Boot from a linux ELF image in memory
+bootp       - boot image via network using BOOTP/TFTP protocol
+bootvx      - Boot vxWorks from an ELF image
+bypass      - DM6335C or DM6645C Copper Bypass sub-system
+
+cdp         - Perform CDP network configuration
+chpart      - change active partition
+cmp         - memory compare
+coninfo     - print console devices and information
+cp          - memory copy
+crc32       - checksum calculation
+detect      - detect FLASH chip
+dhcp        - boot image via network using DHCP/TFTP protocol
+dns         - lookup the IP of a hostname
+echo        - echo args to console
+editenv     - edit environment variable
+eeprom      - EEPROM sub-system
+env         - environment handling commands
+erase       - erase FLASH memory
+eraseenv    - erase the environment in flash
+fdt         - flattened device tree utility commands
+flinfo      - print FLASH memory information
+flush_dcache- Flushes and invalidates the data cache
+flush_l2c   - Flushes the L2 cache
+freeprint   - Print list of free bootmem blocks
+go          - start application at address 'addr'
+gpio        - Octeon GPIO rx/tx function
+
+gunzip      - unzip a memory region (deprecated, use unzip instead)
+help        - print command description/usage
+i2c         - I2C sub-system
+imxtract    - extract a part of a multi-image
+inv_icache  - Invalidates the instruction cache
+itest       - return true/false on integer compare
+loadb       - load binary file over serial line (kermit mode)
+loads       - load S-Record file over serial line
+loady       - load binary file over serial line (ymodem mode)
+loop        - infinite loop on address range
+md          - memory display
+md5sum      - compute MD5 message digest
+mii         - MII utility commands
+mm          - memory modify (auto-incrementing address)
+mtdparts    - define flash/nand partitions
+mtest       - simple RAM read/write test
+mw          - memory write (fill)
+namedalloc  - Allocate a named bootmem block
+namedfree   - Free a named bootmem block
+namedprint  - Print list of named bootmem blocks
+nfs         - boot image via network using NFS protocol
+nm          - memory modify (constant address)
+nmi         - Generate a non-maskable interrupt
+octreginfo  - print register information
+pci         - list and access PCI Configuration Space
+ping        - send ICMP ECHO_REQUEST to network host
+printenv    - print environment variables
+protect     - enable or disable FLASH write protection
+qlm         - Octeon QLM debug function (dangerous - remove from final product)
+read64      - read 64 bit word from 64 bit address
+read64b     - read 8 bit word from 64 bit address
+read64l     - read 32 bit word from 64 bit address
+read64s     - read 16 bit word from 64 bit address
+reset       - Perform RESET of the CPU
+run         - run commands in an environment variable
+saveenv     - save environment variables to persistent storage
+saves       - save S-Record file over serial line
+setenv      - set environment variables
+setexpr     - set environment variable as the result of eval expression
+sha1sum     - compute SHA1 message digest
+sleep       - delay execution for some time
+source      - run script from memory
+strings     - display strings
+tftpboot    - boot image via network using TFTP protocol
+tlv_eeprom  - EEPROM data parsing
+unzip       - unzip a memory region
+upgrade     - upgrade FLASH data
+version     - print monitor, compiler and linker version
+write64     - write 64 bit word to 64 bit address
+write64b    - write 8 bit word to 64 bit address
+write64l    - write 32 bit word to 64 bit address
+write64s    - write 16 bit word to 64 bit address

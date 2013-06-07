@@ -26,7 +26,7 @@
 
 #define LINE_MAX_LONG	1024
 
-int open_file(char *);
+int open_file(char *, int trunk);
 int get_line(int fd, char *);
 int decode(int, int);
 int process_head(char *buf, int fd_out);
