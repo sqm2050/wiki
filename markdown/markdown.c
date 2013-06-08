@@ -126,7 +126,7 @@ void process_quote(char *buf, int fd_in, int fd_out)
 	int lv, i, j = 0;
 	for (lv = 0; buf[lv] == '\t'; lv++);lv++;
 	write(fd_out, "<blockquote>\n", strlen("<blockquote>\n"));
-	for (i = lv + 1; i < strlen(buf) - lv -1 ; i++) {
+	for (i = lv + 1; i < strlen(buf); i++) {
 		if (buf[i] == '`') {
 			j++;
 			if (j > 0 && j % 2 == 1) {

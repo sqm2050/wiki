@@ -1,146 +1,116 @@
-<style id="system" type="text/css">*{margin:0;padding:0;} html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; background:#eeeeee;} body {	font:15px helvetica,arial,freesans,clean,sans-serif;	color:black;	line-height:1.4em;	background-color: #FFF;	padding: 0.7em;} p {	margin:1em 0;	line-height:1.5em;} table {	font-size:inherit;	font:100%;	margin:1em;} table th{border-bottom:1px solid #bbb;padding:.2em 1em;} table td{border-bottom:1px solid #ddd;padding:.2em 1em;} input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;} select,option{padding:0 .25em;} optgroup{margin-top:.5em;} pre,code{font:13px "DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;} pre {	margin:1em 0;	font-size:13px;	background-color:#eee;	border:1px solid #ddd;	padding:5px;	line-height:1.5em;	color:#444;	overflow:auto;	-webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;	-webkit-border-radius:3px;	-moz-border-radius:3px;border-radius:3px;} pre code {	padding:0;	font-size:13px;	background-color:#eee;	border:none;} code {	font-size:13px;	background-color:#eee;	color:#d14; pading:2px 4px border:1px solid #elele8;border-radius:3px} img{border:0;max-width:100%;} abbr{border-bottom:none;} a{color:#4183c4;text-decoration:none;} a:hover{text-decoration:underline;} a code,a:link code,a:visited code{color:#4183c4;} h2,h3{margin:1em 0;} h1,h2,h3,h4,h5,h6{border:0;} h1{font-size:170%;border-bottom:3px solid #aaa;padding-top:.5em;padding-bottom:.5en;margin-top:1.5em;} h1:first-child{margin-top:0;padding-bottom:.25em;border-top:none;} h2{font-size:150%;margin-top:1.5em;border-bottom:3px solid #e0e0e0;padding-bottom:0.5em;} h3{margin-top:1em;} hr{border:1px solid #ddd;} ul{margin:1em 0 1em 2em;} ol{margin:1em 0 1em 2em;} ul li,ol li{margin-top:.5em;margin-bottom:.5em;} ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;} blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;} dt{font-weight:bold;margin-left:1em;} dd{margin-left:2em;margin-bottom:1em;} @media screen and (min-width: 768px) {    body {        width: 748px;        margin:10px auto;    } } </style><style id="custom" type="text/css"></style></head> <body marginheight="0"><html><h1>Fundamentals of Computer Design</h1>
-<pre><p>	And now for something completely different
-					--- Monty Python's Flying Circus
-</pre></p><p>
-</p><h2>1.1 Introduction</h2>
-<p>Computer technology has made incredible progress in the past half century.In 1945,there were no stored-program computers.
-</p><p>
-</p><p>Today,a few thousand dollars will purchase a personal computer that has more performance,more main memory,and more disk  storage than a computer bought in 1965 for $1 million.This rapid rate of improvement has come both from advances in the technology used to build computers and from innovation in computer design.
-</p><p>
-</p><p>While technological improvements have been fairly steady,progress arising from better computer architectures has been much less consistent.
-</p><p>
-</p><blockquote>
-consistent:someone who is <code>consistent </code> always behaves in the same way,has the same attitudes towards people or things,or achieves the same level of success in something</blockquote>
+<style id="system" type="text/css">*{margin:0;padding:0;} html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; background:#eeeeee;} body {	font:15px helvetica,arial,freesans,clean,sans-serif;	color:black;	line-height:1.4em;	background-color: #FFF;	padding: 0.7em;} p {	margin:1em 0;	line-height:1.5em;} table {	font-size:inherit;	font:100%;	margin:1em;} table th{border-bottom:1px solid #bbb;padding:.2em 1em;} table td{border-bottom:1px solid #ddd;padding:.2em 1em;} input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;} select,option{padding:0 .25em;} optgroup{margin-top:.5em;} pre,code{font:13px "DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;} pre {	margin:1em 0;	font-size:13px;	background-color:#eee;	border:1px solid #ddd;	padding:5px;	line-height:1.5em;	color:#444;	overflow:auto;	-webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;	-webkit-border-radius:3px;	-moz-border-radius:3px;border-radius:3px;} pre code {	padding:0;	font-size:13px;	background-color:#eee;	border:none;} code {	font-size:13px;	background-color:#eee;	color:#d14; pading:2px 4px border:1px solid #elele8;border-radius:3px} img{border:0;max-width:100%;} abbr{border-bottom:none;} a{color:#4183c4;text-decoration:none;} a:hover{text-decoration:underline;} a code,a:link code,a:visited code{color:#4183c4;} h2,h3{margin:1em 0;} h1,h2,h3,h4,h5,h6{border:0;} h1{font-size:170%;border-bottom:3px solid #aaa;padding-top:.5em;padding-bottom:.5em;margin-top:1.5em;} h1:first-child{margin-top:0;padding-bottom:.25em;border-top:none;} h2{font-size:150%;margin-top:1.5em;border-bottom:3px solid #e0e0e0;padding-bottom:0.5em;} h3{margin-top:1em;} hr{border:1px solid #ddd;} ul{margin:1em 0 1em 2em;} ol{margin:1em 0 1em 2em;} ul li,ol li{margin-top:.5em;margin-bottom:.5em;} ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;} blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;} dt{font-weight:bold;margin-left:1em;} dd{margin-left:2em;margin-bottom:1em;} @media screen and (min-width: 768px) {    body {        width: 748px;        margin:10px auto;    } } </style><style id="custom" type="text/css"></style></head> <body marginheight="0"><html><h1>URL版本</h1>
+<h2>url提取</h2>
 <p>
-</p><p>During the first 25 year of electronic computers,both forces made a major contribution;but beginning in about 1970,computer designers became largely dependent upon intergrated circuit technology.During the 1970s,performance continued to improve at about 25% to 30% per year for the mainframes and minicomputers that dominated the industy.
-</p><p>
-</p><blockquote>
-mainframe:A <code>mainframe</code> or <code>mainframe computer</code> is a large powerful computer which can be used by many people at the same time and which can do very large or complicated tasks</blockquote>
-<p>
-</p><p>The late 1970s saw the emergence of the microprocessor.The ablility of microprocessor to ride the improvements in integrated circuit technology more closely than the less integrated mainframes and minicomputers led to a higher rate of improvement---roughly 35% growth per year in performance.
-</p><p>
-</p><p>This growth rate,combined with the cost advantages of a mass-produced microprocessor,let to an increasing fraction of the computer business being based on microprocessors.In addition,two significant changes in the computer marketplace made it easier than ever before to be commercially successful with a new architecture.First,the virtual elimination of assembly language programming reduced the need for object-code compatibility.Second,the creation of standardized,vendor-independent operating systems,such as UNIX,lowered the cost and risk of bringing out a new architecture.These changes made it possible to successively develop a new set of architectures,called RISC architectures,in the early 1980s.Since the RISC-based microprocessors reached the market in the mid 1980s,these machines have grown in performance at an annual rate of over 50%.
-</p><p>
-</p><p>Prior to the mid 1980s,microprocessor performance grouth was largely technology driven and averaged about 35% per year.The increase in growth **since then** is attributable to more advanced architectural ideas.
-</p><p>
-</p><p>The effect of this dramatic growth rate has been twofold:
-</p><ul>
-<li>First,it has significantly enhanced the capability available to computer users.As a simple example,consider the highest-performance workstation announced in 1993,an IBM Power-2 machine.Compared with a CRAY Y-MP supercomputer introduced in 1988(probaly the fastest machine in the world at that point),the worstation offers comparable performance on many floating-point programs and better performance on integer programs for a price that is less than one-tenth of the supercomputer!
+</p><h3>不同形式url的统一、最简解义</h3>
+<ul>
+<li>host后面的`%20`应该简化
 </li>
 <li>
-Second,this dramatic rate of improvement has led to the dominance of microprocessor-based computers across the entire range of the computer design.Work-stations and PCs have emerged as major products in the computer industy.Minicomputers,which were traditionally made from off-the-shelf logic or form gate arrays,have been replaced by servers made using microprocessors.Mainframes are slowly being replaced with multiprocessors consisting of small numbers of off-the-shelf microprocessors.Even high-end supercomputers are being built with collections of microprocessors.
+大小写统一
 </li>
 
 </ul>
-<blockquote>
-High-end:<code>High-end</code> products,especially electronic products,are the most expensive of their kind</blockquote>
+<h3>发现一个tcp报文中可能会有多个http get的报文:</h3>
+<ul>
+<li>解析时候要全部解析
+</li>
+<li>
+dpp结构里面要加上组织成链表添加url
+</li>
+<li>
+匹配时候要多次进行查找
+</li>
+<pre><p>    struct url_str {
+    	struct url_str	*next;
+    	char 			*str;
+    };
+</pre></p></ul>
 <p>
-</p><p>Freedom from compatibility with old designs and the use of microprocessor technology led to a renaissance in computer design,which emphasized both architectural innovation and efficient use of technology improvements.This renaissance is responsible for the higher performance growth--- a rate that is unprecedented in the computer industy.
+</p><h3>字符串隐晦规则</h3>
+<p>字符串长度,数组和字符串常量最后一位都是0x00，printf(%s)通过这个进行判断,内存所以比实际长度长一位：
+</p><pre><p>    char tmp[] = "abcd";	/* sizeof = 5,最后一位是0x00 */
+    char tmp_1[4] = "abcd"; /* sizeof = 4,打印字符串最后有乱码 */
+    char *p = "abcd";		/* sizeof = 8,地址占用的长度。不清楚字符串常量长度怎么确定，有人说和tmp[]相似 */
+</pre></p><p>就是说字符串存储默认在最后一位留下<code>0x00</code>作为结束符，也方便使用库函数（printf、strlen）等函数处理。
 </p><p>
+</p><h3>绝对URL abs_url：</h3>
+<pre><p>    http://www.---
+</pre></p><p>
+</p><h3>绝对路径 abs_path：</h3>
+<pre><p>    /s?get=adad&dadad
+</pre></p><p>url起始位置：不带着<code>http://</code>
+</p><p>
+</p><p>cvmx_malloc: 内存申请size可否是0.
+</p><p>
+</p><h3>void *ptr = str;无类型指针被赋值后，使用时可以进行强转后使用。</h3>
+<pre><p>	struct {
+			void *url;
+	} dpp;
+</pre></p><p>
+</p><h2>模块位置</h2>
+<p>模块按照分层的，结构还是分格---》最后称为网格结构。
+</p><p>
+</p><h2>日志系统</h2>
+<p>阻断日志实时的进行发送，不依赖于流表
+</p><p>访问日志是依赖流表原有的发送功能
+</p><p>
+</p><h3>访问日志开关和出口设置</h3>
+<pre><p>juson(config-cpu0)# set sregister fmt_manage
+ttlset               set fmt default aging time
+stat_eif             set egress interface group that fmt stat packet will go with
+send_stat            set enable of send fmt stat packet
+</pre></p><p>
+</p><h2>删除url_block send_log 开关</h2>
+<p>作为访问日志的开关使用，没有删除
+</p><p>
+</p><h2>组织访问日志逻辑</h2>
+<h3>流表结构添加新位域</h3>
+<p><table>
+</p><p>	<tr>
+</p><p>		<td> zxmx_fmt_api.h </td>
+</p><p>		<td> fmt_key_t </td>
+</p><p>		<td> md_fmt_t </td>
+</p><p>	</tr>
+</p><p></table>
+</p><p>
+</p><pre><p>	#ifndef CONFIG_URL_BLOCK                                              
+                    pkts:40;    /* Total packets in Flow, RO */       
+	#else                                                                 
+                    bidir_en:1,                                       
+                    rst_en:1,   /* reset flag */                      
+                    rst_num:4,  /* the pkts after sent reset packet */
+                    [[pkts:34;]]    /* Total packets in Flow, RO */       
+	#endif                                                                
+</pre></p><h3>各个规则模块添加rst标志，定义一个通用的结构给各个规则模块</h3>
+<p>
+</p><h2>vlan更改</h2>
+<p>66从掩码从6位变作5位
+</p><p>
+</p><h4>30s-3min 没有发送访问日志(只在30s 3min发送访问日志)</h4>
+<p>
 </p><blockquote>
-If something is <code>unprecedented</code>,it has never happened befor</blockquote>
+30s-3min的那是建流表时候设置活动位，以后search的时候在把活动位置位，但是现在命中的报文被url模块给劫持了，活动位失效了，就不会这段时间就不会发送访问日志了（不过发没有命中的相同流报文可以激活活动位，再次发送访问日志)
+</blockquote>
 <p>
-</p><p>This text is about the architectural ideas and accompanying compiler improvements that have made this incredible growth rate possible.
+</p><p>保证30s-3min发送，在<code>fmt_add()</code>__find exist__的地方设置<code>dyn = 1</code>；
+</p><p>强调性能，只在3min时候发送，在<code>fmt_timeout()</code> 30s检测地方，把判断<code>dyn == 1</code>然后发送的地方注释掉，在aged或ttl减到零时候发送
+</p><p> 
+</p><p>ttl在search_refresh处会被刷新fl->k.ttl = fl->k.ttl_set;
 </p><p>
-</p><h2>1.2 The task of a computer designer</h2>
-<p>The task the computer designer faces is a complex one: Determine what attributes are important for a new machine,then design a machine to maximize performance while staying within cost constraints.
+</p><h4>发送10个或者10的倍数个相同报文，会发送两个日志(和30-3问题同时存在时候，在3min时候也会发送两个)</h4>
+<p>
+</p><blockquote>
+发送两个两个报文肯定是建立连个不同的流表，所以每个流表项才都会发送两个
+</blockquote>
+<p>
+</p><blockquote>
+观察发送出来的两个报文发现port结构位置的port位不对，一次是0，一次是1
+</blockquote>
+<p>
+</p><p>- 09bf 0050 __0__411 2200
+</p><p>- 09bf 0050 __1__411 2200
 </p><p>
-</p><p>In this book the term __instruction set architecture__ refers to the actual programmer-visible instruction set.The instruction set architecture serves as the boundary between the software and hardware.
+</p><p>定位到fmt_proto的枚举，往常在流表模块开启的时候dpp->fmt_proto在fmt_process中设置: <code>dpp->fmt_proto = FMT_PROTO_UDP;</code>
 </p><p>
-</p><p>Often a line of machines contains machines with identical instruction set architectures and nearly identical organizations,but they differ in the detailed hardware implementation.
-</p><p>
-</p><p>In this book the world architecture is intended to cover all three aspects of computer design---instruction set architecture,organization,and harfware.
-</p><h2>1.3 Technology and computer usage trends</h2>
-<p>Underestimating address-space growth is often the major reason why an instruction set architecture must be abandoned.
-</p><p>
-</p><p>The development of compiler technology for parallel machines is likely to have a large impact in the future.
-</p><p>
-</p><h1>2 Instruction Set Principles and Examples</h1>
-<h2>2.1 Introduction</h2>
-<p>We begin by exploring how instruction set architectures can be classified and analyzed.
-</p><p>
-</p><h2>2.2 Classifying instruction set architectures</h2>
-<p>The type of internal storage in the CPU is the most basic differentication,so in this section we will focus on the alternatives for this portion of the arhitecture.
-</p><p>
-</p><p>Operands may be named explicitly or implicitly:The operands in a stack architecture are implicitly on the top of the stack,in an accumulator architecture one operand is implicitly the accumulator,and general-purpose register architectures have only explicit operands---either registers or memory locations.
-</p><p>
-</p><p>One can access memory as part of any instruction,called __register-memory__ architecture,and one can access memory only with load and store instructions,call __load-store__ or __register-register__ architecture.A third class,not found in machines shipping today,keeps all operands in memory and is called a __memory-memory__ architecture.
-</p><p>
-</p><p><table>
-</p><p>	<tr>
-</p><p>		<th>Stack</th>
-</p><p>		<th>Accumulator</th>
-</p><p>		<th>Register(register-memory)</th>
-</p><p>		<th>Register(load-store)</th>
-</p><p>	</tr>
-</p><p>	<tr>
-</p><p>		<td>Push A</td>
-</p><p>		<td>Load A</td>
-</p><p>		<td>Load R1, A</td>
-</p><p>		<td>Load R1, A</td>
-</p><p>	</tr>
-</p><p>	<tr>
-</p><p>		<td>Push B</td>
-</p><p>		<td>Add B</td>
-</p><p>		<td>Add R1, B</td>
-</p><p>		<td>Load R2, B</td>
-</p><p>	</tr>
-</p><p>	<tr>
-</p><p>		<td>Add</td>
-</p><p>		<td>Store C</td>
-</p><p>		<td>Store C, R1</td>
-</p><p>		<td>Add R3, R1, R2</td>
-</p><p>	</tr>
-</p><p>	<tr>
-</p><p>		<td>Pop C</td>
-</p><p>		<td> </td>
-</p><p>		<td> </td>
-</p><p>		<td>Store C, R3</td>
-</p><p>	</tr>
-</p><p></table>
-</p><p>**Figure 2.1 The code sequence for C = A + B for four instruction sets.It is assumed that A,B,and C all belong in memory and that values of A and B cannot be destroyed.**
-</p><p>
-</p><p>how many registers are sufficient?The answer of course depends on how they are used by the compiler.Most compilers reserve some registers for expression evalution,use some for parameter passing,and allow the remainder to be allocated to hold variables.
-</p><p>
-</p><p>An ALU instruction has two or three operands,and the number of memory operands supported by a typical ALU instruction may vary from none to three.So there are seven possible combinations: 2 - 0, 2 - 1, 2 - 2;3 - 0, 3 - 1, 3 - 2, 3 - 3.
-</p><p>
-</p><p><table>
-</p><p>	<tr>
-</p><p>		<th>Number of memory addresses</th>
-</p><p>		<th>Maximum number of operands allowed</th>
-</p><p>		<th>Examples</th>
-</p><p>	</tr>
-</p><p>	<tr>
-</p><p>		<td>0</td>
-</p><p>		<td>3</td>
-</p><p>		<td>SPARC,MIPS,Precision Architecture,PowerPC,ALPHA</td>
-</p><p>	<tr>
-</p><p>	<tr>
-</p><p>		<td>1</td>
-</p><p>		<td>2</td>
-</p><p>		<td>Intel 80x86,Motorola 68000</td>
-</p><p>	</tr>
-</p><p>	<tr>
-</p><p>		<td>2</td>
-</p><p>		<td>2</td>
-</p><p>		<td>VAX</td>
-</p><p>	</tr>
-</p><p>	<tr>
-</p><p>		<td>3</td>
-</p><p>		<td>3</td>
-</p><p>		<td>VAX</td>
-</p><p>	</tr>
-</p><p></table>
-</p><p>
-</p><p>GPR architecture:general-purpose register.
-</p><p>
-</p><p>DLX
-</p><p>
-</p><h2>2.3 Memory Addressing</h2>
-<h3>Interpreting Memory Addresses</h3>
-<p>How is a memory address interpreted?That is,what object is accessed as a function of the address and the length?All the instruction sets discussed in this book are byte addressed and provide access for byte(8bits),half words(16bits),and words(32bits).Most of the machines also provide access for double words(64bits).
-</p><p>
-</p><p>Why would someone design a machine with alignment restrictions?Misalignment causes hardware complications,since the memory is typically aligned on a word or double-word boundary.A misaligned memory access will,therefore,take multiple aligned memory references.Thus,even in machines that allow misaligned access,programs with aligned accesses run faster.
-</p><p>
-</p><h3>Addressing Modes</h3>
-</html>
+</p><p>上面两个问题都是由于url模块加在流表模块之间，考虑不周全导致的问题。
+</p></html>
