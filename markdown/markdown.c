@@ -86,7 +86,7 @@ void process_tit(char *buf, int in, int out)
 	for (lv = 0; buf[lv] == '\t'; lv++);lv++;
 
 	write(out, "<ul>\n<li>", strlen("<ul>\n<li>"));
-	process_normal(buf + lv1 + 1, in, out);
+	process_normal(buf + lv + 1, in, out);
 	write(out, "</li>\n", strlen("</li>\n"));
 	while (get_line(in, buf) > 0) {
 		if (TIT_1(buf) || TIT_2(buf) || TIT_3(buf)) {
