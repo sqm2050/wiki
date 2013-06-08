@@ -1,5 +1,6 @@
 #include "markdown.h"
 #include "css.h"
+char *tip = "<p align=right>Edit By<a href=\"mailto:sqm2050@gmail.com\"> sqm</a></p>";
 
 int main(int argc, char *argv[])
 {
@@ -23,8 +24,8 @@ int main(int argc, char *argv[])
 	write(fd_out, "<html>", strlen("<html>"));
 
 	decode(fd_in, fd_out);
+	write(fd_out, tip, strlen(tip));
 	write(fd_out, "</html>", strlen("</html>"));
-
 	close(fd_in);
 	close(fd_out);
 }
