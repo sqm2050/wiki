@@ -5,3 +5,4 @@ a.out
 Work
 *.core
 core.*
+*.o

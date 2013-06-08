@@ -1460,3 +1460,118 @@ write64     - write 64 bit word to 64 bit address
 write64b    - write 8 bit word to 64 bit address
 write64l    - write 32 bit word to 64 bit address
 write64s    - write 16 bit word to 64 bit address
+
+
+
+====================
+root@juson:~# PP1:~CONSOLE-> ffec 17 2f fff2 ffd7 ffb5 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 00 05 2f ffdd 10  40 00 40 06 ffbe fff7 0a 0a 
+PP1:~CONSOLE-> ffa8 ffb2 3d ff87 ffa9 7d ff9d 06  00 50 18 26 ffa4 28 7e 74 
+PP1:~CONSOLE-> 5c 45 50 18 39 08 ff9e ffe2  
+PP1:~CONSOLE-> ffec 17 2f fff2 ffd7 ffb5 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 00 05 2f ffdd 10  40 00 40 06 ffbe fff7 0a 0a 
+PP1:~CONSOLE-> ffa8 ffb2 3d ff87 ffa9 7d ff9d 06  00 50 18 26 ffa4 28 7e 74 
+PP1:~CONSOLE-> 5c 45 50 18 39 08 ff9e ffe2  
+PP1:~CONSOLE-> ffff ffff ffff ffff ffff ffff 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 10 01 48 00 00  00 00 ff80 11 39 ff96 00 00 
+PP1:~CONSOLE-> 00 00 ffff ffff ffff ffff 00 44  00 43 01 34 3f ffb0 01 01 
+PP1:~CONSOLE-> 06 00 ff8a ffea ffab 3a 00 03  
+
+root@juson:~# PP1:~CONSOLE-> ffec 17 2f fff2 ffd7 ffb5 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 00 05 2f ffdd 10  40 00 40 06 ffbe fff7 0a 0a 
+PP1:~CONSOLE-> ffa8 ffb2 3d ff87 ffa9 7d ff9d 06  00 50 18 26 ffa4 28 7e 74 
+PP1:~CONSOLE-> 5c 45 50 18 39 08 ff9e ffe2  
+
+root@juson:~# PP1:~CONSOLE-> ffec 17 2f fff2 ffd7 ffb5 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 00 05 2f ffdd 10  40 00 40 06 ffbe fff7 0a 0a 
+PP1:~CONSOLE-> ffa8 ffb2 3d ff87 ffa9 7d ff9d 06  00 50 18 26 ffa4 28 7e 74 
+PP1:~CONSOLE-> 5c 45 50 18 39 08 ff9e ffe2  
+
+root@juson:~# PP1:~CONSOLE-> ffec 17 2f fff2 ffd7 ffb5 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 00 05 2f ffdd 10  40 00 40 06 ffbe fff7 0a 0a 
+PP1:~CONSOLE-> ffa8 ffb2 3d ff87 ffa9 7d ff9d 06  00 50 18 26 ffa4 28 7e 74 
+PP1:~CONSOLE-> 5c 45 50 18 39 08 ff9e ffe2  
+
+root@juson:~# PP1:~CONSOLE-> ffec 17 2f fff2 ffd7 ffb5 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 00 05 2f ffdd 10  40 00 40 06 ffbe fff7 0a 0a 
+PP1:~CONSOLE-> ffa8 ffb2 3d ff87 ffa9 7d ff9d 06  00 50 18 26 ffa4 28 7e 74 
+PP1:~CONSOLE-> 5c 45 50 18 39 08 ff9e ffe2  
+
+root@juson:~# PP1:~CONSOLE-> ffff ffff ffff ffff ffff ffff 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 10 01 48 00 00  00 00 ff80 11 39 ff96 00 00 
+PP1:~CONSOLE-> 00 00 ffff ffff ffff ffff 00 44  00 43 01 34 3f ffac 01 01 
+PP1:~CONSOLE-> 06 00 ff8a ffea ffab 3a 00 07  
+PP1:~CONSOLE-> ffec 17 2f fff2 ffd7 ffb5 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 00 05 2f ffdd 10  40 00 40 06 ffbe fff7 0a 0a 
+PP1:~CONSOLE-> ffa8 ffb2 3d ff87 ffa9 7d ff9d 06  00 50 18 26 ffa4 28 7e 74 
+PP1:~CONSOLE-> 5c 45 50 18 39 08 ff9e ffe2  
+PP1:~CONSOLE-> ffec 17 2f fff2 ffd7 ffb5 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 00 05 2f ffdd 10  40 00 40 06 ffbe fff7 0a 0a 
+PP1:~CONSOLE-> ffa8 ffb2 3d ff87 ffa9 7d ff9d 06  00 50 18 26 ffa4 28 7e 74 
+PP1:~CONSOLE-> 5c 45 50 18 39 08 ff9e ffe2  
+
+root@juson:~# PP1:~CONSOLE-> ffec 17 2f fff2 ffd7 ffb5 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 00 05 2f ffdd 10  40 00 40 06 ffbe fff7 0a 0a 
+PP1:~CONSOLE-> ffa8 ffb2 3d ff87 ffa9 7d ff9d 06  00 50 18 26 ffa4 28 7e 74 
+PP1:~CONSOLE-> 5c 45 50 18 39 08 ff9e ffe2  
+PP1:~CONSOLE-> ffec 17 2f fff2 ffd7 ffb5 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 00 05 2f ffdd 10  40 00 40 06 ffbe fff7 0a 0a 
+PP1:~CONSOLE-> ffa8 ffb2 3d ff87 ffa9 7d ff9d 06  00 50 18 26 ffa4 28 7e 74 
+PP1:~CONSOLE-> 5c 45 50 18 39 08 ff9e ffe2  
+PP1:~CONSOLE-> ffec 17 2f fff2 ffd7 ffb5 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 00 05 2f ffdd 10  40 00 40 06 ffbe fff7 0a 0a 
+PP1:~CONSOLE-> ffa8 ffb2 3d ff87 ffa9 7d ff9d 06  00 50 18 26 ffa4 28 7e 74 
+PP1:~CONSOLE-> 5c 45 50 18 39 08 ff9e ffe2  
+PP1:~CONSOLE-> ffff ffff ffff ffff ffff ffff 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 10 01 48 00 00  00 00 ff80 11 39 ff96 00 00 
+PP1:~CONSOLE-> 00 00 ffff ffff ffff ffff 00 44  00 43 01 34 3f ffa3 01 01 
+PP1:~CONSOLE-> 06 00 ff8a ffea ffab 3a 00 10  
+PP1:~CONSOLE-> 00 03 00 00 00 00 00 00  ffff ffff ffff ff81 ff81 00 2f ffc1 
+PP1:~CONSOLE-> ff92 00 01 01 00 00 00 00  ff90 03 00 01 02 03 04 05 
+PP1:~CONSOLE-> 06 07 08 09 0a 0b 0c 0d  0e 0f 10 11 12 13 14 15 
+PP1:~CONSOLE-> 16 02 18 19 1a 1b 1c 1d  
+PP1:~CONSOLE-> 00 03 00 00 00 00 00 00  ffff ffff ffff ff81 ff81 00 2f ffc1 
+PP1:~CONSOLE-> ff92 00 01 01 00 00 00 00  ff90 03 00 01 02 03 04 05 
+PP1:~CONSOLE-> 06 07 08 09 0a 0b 0c 0d  0e 0f 10 11 12 13 14 15 
+PP1:~CONSOLE-> 16 02 18 19 1a 1b 1c 1d  
+
+root@juson:~# PP1:~CONSOLE-> 00 03 00 00 00 00 00 00  ffff ffff ffff ff81 ff81 00 2f ffc1 
+PP1:~CONSOLE-> ff92 00 01 01 00 00 00 00  ff90 03 00 01 02 03 04 05 
+PP1:~CONSOLE-> 06 07 08 09 0a 0b 0c 0d  0e 0f 10 11 12 13 14 15 
+PP1:~CONSOLE-> 16 02 18 19 1a 1b 1c 1d  
+
+root@juson:~# PP1:~CONSOLE-> 00 03 00 00 00 00 00 00  ffff ffff ffff ff81 ff81 00 2f ffc1 
+PP1:~CONSOLE-> ff92 00 01 01 00 00 00 00  ff90 03 00 01 02 03 04 05 
+PP1:~CONSOLE-> 06 07 08 09 0a 0b 0c 0d  0e 0f 10 11 12 13 14 15 
+PP1:~CONSOLE-> 16 02 18 19 1a 1b 1c 1d  
+
+root@juson:~# PP1:~CONSOLE-> 00 03 00 00 00 00 00 00  ffff ffff ffff ff81 ff81 00 2f ffc1 
+PP1:~CONSOLE-> ff92 00 01 01 00 00 00 00  ff90 03 00 01 02 03 04 05 
+PP1:~CONSOLE-> 06 07 08 09 0a 0b 0c 0d  0e 0f 10 11 12 13 14 15 
+PP1:~CONSOLE-> 16 02 18 19 1a 1b 1c 1d  
+
+root@juson:~# PP1:~CONSOLE-> 00 03 00 00 00 00 00 00  ffff ffff ffff ff81 ff81 00 2f ffc1 
+PP1:~CONSOLE-> ff92 00 01 01 00 00 00 00  ff90 03 00 01 02 03 04 05 
+PP1:~CONSOLE-> 06 07 08 09 0a 0b 0c 0d  0e 0f 10 11 12 13 14 15 
+PP1:~CONSOLE-> 16 02 18 19 1a 1b 1c 1d  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PP1:~CONSOLE-> ffff ffff ffff ffff ffff ffff 04 7d  7b 5f 2f ffca ff81 00 2f ffc1 
+PP1:~CONSOLE-> 08 00 45 10 01 48 00 00  00 00 ff80 11 39 ff96 00 00 
+PP1:~CONSOLE-> 00 00 ffff ffff ffff ffff 00 44  00 43 01 34 3f ff9a 01 01 
+PP1:~CONSOLE-> 06 00 ff8a ffea ffab 3a 00 19  
