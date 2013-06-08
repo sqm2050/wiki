@@ -3,23 +3,23 @@
 <p>
 </p><h3>不同形式url的统一、最简解义</h3>
 <ul>
-<li>host后面的`%20`应该简化
-</li>
+<li><p> host后面的<code>%20</code>应该简化
+</p></li>
 <li>
-大小写统一
-</li>
+<p>大小写统一
+</p></li>
 
 </ul>
 <h3>发现一个tcp报文中可能会有多个http get的报文:</h3>
 <ul>
-<li>解析时候要全部解析
-</li>
+<li><p>解析时候要全部解析
+</p></li>
 <li>
-dpp结构里面要加上组织成链表添加url
-</li>
+<p>dpp结构里面要加上组织成链表添加url
+</p></li>
 <li>
-匹配时候要多次进行查找
-</li>
+<p>匹配时候要多次进行查找
+</p></li>
 <pre><p>    struct url_str {
     	struct url_str	*next;
     	char 			*str;
