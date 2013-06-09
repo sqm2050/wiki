@@ -125,7 +125,7 @@ void process_quote(char *buf, int fd_in, int fd_out)
 {
 	int lv, i, j = 0;
 	for (lv = 0; buf[lv] == '\t'; lv++);lv++;
-	write(fd_out, "<blockquote>\n", strlen("<blockquote>\n"));
+	write(fd_out, "<ul><blockquote>\n", strlen("<ul><blockquote>\n"));
 	for (i = lv + 1; i < strlen(buf); i++) {
 		if (buf[i] == '`') {
 			j++;
@@ -137,7 +137,7 @@ void process_quote(char *buf, int fd_in, int fd_out)
 		} else
 			write(fd_out, &buf[i], 1);
 	}
-	write(fd_out, "</blockquote>\n", strlen("</blockquote>\n"));
+	write(fd_out, "</blockquote></ul>\n", strlen("</blockquote></ul>\n"));
 }
 
 void process_normal(char *buf, int fd_in, int fd_out)
