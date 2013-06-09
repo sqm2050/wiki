@@ -136,4 +136,3 @@ How is a memory address interpreted?That is,what object is accessed as a functio
 Why would someone design a machine with alignment restrictions?Misalignment causes hardware complications,since the memory is typically aligned on a word or double-word boundary.A misaligned memory access will,therefore,take multiple aligned memory references.Thus,even in machines that allow misaligned access,programs with aligned accesses run faster.
 
 ### Addressing Modes
->>>>>>> 44514977f8aeebb0c3870c08f901d46913ca7dca
