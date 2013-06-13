@@ -6,3 +6,5 @@ Work
 *.core
 core.*
 *.o
+temp
+temp1

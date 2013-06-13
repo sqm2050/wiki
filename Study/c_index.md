@@ -19,3 +19,4 @@
 * [[fast_memcpy]]
 * [[fast_cmp]]
 * [[fun_arry]]
+* [[pragma]]
