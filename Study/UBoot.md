@@ -1,4 +1,4 @@
-tftp:
+tftp
 服务:
 	sudo apt-get install tftpd-hpa tftp-hpa
 restart:
@@ -33,11 +33,12 @@ service tftp
 
 
 	
-	
 u－boot>setenv ipaddr 192.168.1.100 ＃设定目标板ip 
 u－boot>setenv serverip 192.168.1.106 ＃主机ip 
 u－boot>setenv ethaddr 00:00:00:00:ff:01 ＃设定目标板mac地址，可以其它 
 u－boot>saveenv ＃保存环境变量
+
+setenv gatewayip 192.168.1.1	#设置网关ip
 
 mtd write vmlinux52 /dev/mtd1
 

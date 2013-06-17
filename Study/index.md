@@ -30,20 +30,16 @@
 ## vim 
 * [[自动补全-对齐]]
 ## Project 
-* [[table]]
-* [[注释---生成源码文档]]
-* [[Makefile]]
-* [[git]]
-* [[svn]]
-* [[修养]]
-* [[tips]]
-* [[code complete]]
+* [[project]]
 ### C Lang	
 * [[c_index]]
  
 ### go
 * [[go]]
 * [[studylang]]
+
+### asm
+* [[mips]]
 
 ### web
 * [[label]]
@@ -75,6 +71,7 @@
 
 ### MIPS
 * [[mips notes]]
+* [[mips gpr & instruction]]
 * [[computer organization and design]]
 * [[MMU PA]]
 * [[See MIPS Run Linux(2nd edition]]

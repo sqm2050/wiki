@@ -135,4 +135,99 @@ How is a memory address interpreted?That is,what object is accessed as a functio
 
 Why would someone design a machine with alignment restrictions?Misalignment causes hardware complications,since the memory is typically aligned on a word or double-word boundary.A misaligned memory access will,therefore,take multiple aligned memory references.Thus,even in machines that allow misaligned access,programs with aligned accesses run faster.
 
-### Addressing Modes
+### 2.3.1 存储器操作数
+MIPS指令中的算术运算操作只作用于寄存器，因此MIPS必须有在存储器和寄存器之间传送数据的指令，这些指令叫做数据传送指令。
+
+把数据从存储器复制到寄存器的数据传送指令，通常叫做取指令（load）。
+> 取指令的格式：操作符名称后面紧跟存放数据的寄存器，然后是用来访问存储器的常数和一个寄存器。
+> 指令的常数部分和第二个寄存器中内容相加即得存储器地址。实际的MIPS取指令的名字为lw，表示取字（load word）。
+
+常数作为操作数进行运算时，会避免使用`lw`指令，而是使用立即数指令如：立即数加
+```
+	addi $s3, $s3, 4	#$s3 =#s3 + 4
+```
+
+#### 对照一个c程序
+c代码：
+```
+void swap(int *a, int *b)
+{
+	int c;
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+```
+mips汇编：
+```
+Disassembly of section .text:
+00000000 <swap>:
+   0:	67bdffe0 	daddiu	sp,sp,-32	# sp -= 32;
+   4:	ffbe0018 	sd	s8,24(sp)		# 24(sp) = fp;
+   8:	03a0f02d 	move	s8,sp		# s8 = sp;
+
+   c:	ffc40008 	sd	a0,8(s8)	# 8(s8) = a;
+  10:	ffc50010 	sd	a1,16(s8)	# 16(s8) = b;
+
+  14:	dfc20008 	ld	v0,8(s8)	# v0 = a;
+  18:	8c420000 	lw	v0,0(v0)	# v0 = *a;
+  1c:	afc20000 	sw	v0,0(s8)	# 0(s8) = *a;
+
+  20:	dfc20010 	ld	v0,16(s8)	# v0 = b;
+  24:	8c430000 	lw	v1,0(v0)	# v1 = *b;
+  28:	dfc20008 	ld	v0,8(s8)	# v0 = a;
+  2c:	ac430000 	sw	v1,0(v0)	# *a = *b;
+
+  30:	dfc30010 	ld	v1,16(s8)	# v1 = b;
+  34:	8fc20000 	lw	v0,0(s8)	# v0 = *a;
+  38:	ac620000 	sw	v0,0(v1)	# *b = *a;
+  3c:	03c0e82d 	move	sp,s8	# sp = s8;
+  40:	dfbe0018 	ld	s8,24(sp)	# s8 = 24(sp);
+  44:	67bd0020 	daddiu	sp,sp,32# sp += 32;
+  48:	03e00008 	jr	ra			# 返回
+  4c:	00000000 	nop
+ ```
+##### 进入函数：
+* 栈指针偏移
+* 保存帧指针到栈
+* 复制栈指针到帧指针寄存器
+ 
+然后使用帧指针寄存器，代替栈指针进行存取操作，函数进行期间帧指针是不变的，栈指针一直不会使用
+
+##### 函数退出：
+* 把帧指针再复制回栈指针
+* 在栈中load帧指针到帧指针寄存器
+* 把栈指针偏移回去
+
+疑问是：为什么多余的使用帧指针寄存器，进行栈的存取操作，而不是直接使用栈指针，反正帧指针也不会改变。(可以应付大于16立即数的处理？)
+<br>
+由于MIPS支持负值常数，所以就没必要在MIPS中支持减立即数的指令了。
+
+### R型指令：
+> 6 * 2 + 5 * 4 = 32
+```
+op	rs	rt	rd	shamt	funct
+6	5	5	5	5		6
+```
+MIPS指令有R型(寄存器)，I型(立即数).I型指令解决使用R型指令取值指令立即数小的限制。
+> 如：取字指令一般需要两个寄存器一个常数，这样立即数就限制为2^5(32)大小。
+
+### I型指令
+> 6 + 5 * 2 + 16 = 32
+为了保证指令长度都一样，但不同的指令采用不同的指令格式。
+> 优秀的设计需要适当的折中。
+```
+op	rs	rt	constant or address
+6	5	5	16
+```
+16位字段address使得取字指令可以取任何基址偏移+-2^15(32768)字节，+-2^13(8192)个字.
+> 在这种格式下使用超过32个寄存器也是困难的，因为rs,rt都要加一位,导致一个字的指令是不够的。
+
+虽然多种指令格式使硬件变得更为复杂，但是保持指令格式基本一致可以降低复杂程度。
+> 如：R型和I型指令的前3个字段长度相等，并且名称一样。
+
+指令格式由第一个字段的值来区分：每种格式的第一个字段（op）都被分配了一套不同的值。
+
+当前的计算构造基于两个关键性的原则：
+* 指令以数据形式表示
+* 和数据一样，程序存储在存储器中，并且可以读写
