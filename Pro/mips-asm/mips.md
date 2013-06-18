@@ -1,5 +1,5 @@
 ## bit-scan
-![结果图](wiki/Pro/mips-asm/bit-scan.png)
+![结果图](https://raw.github.com/sqm2050/wiki/master/Pro/mips-asm/bit-scan.png)
 ```
 main:
 	la	$a0,	str_1
