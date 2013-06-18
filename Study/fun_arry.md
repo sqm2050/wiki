@@ -20,7 +20,6 @@ int fun_2(int i, int j)
 
 int fun_3(int i, int j)
 {
-
 	printf("fun_3\n");
 	printf("para  %d\n", i);
 	return i + j;
@@ -35,7 +34,6 @@ struct _acl_fun fun_arr[] = {
 	{"fun2", fun_2},
 	{"fun2", fun_2}
 };
-
 
 main()
 {
