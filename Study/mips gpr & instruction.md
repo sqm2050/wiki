@@ -71,3 +71,10 @@ MIPS有32个通用寄存器（$0-31):
 查看控制寄存器的唯一方法是把复制到通用寄存器里，指令mfc0(move from system control)可以将EPC中的地址复制到某个寄存器中。
 
 通过跳转语句(jr)，程序可以返回到造成异常的那条指令处继续执行。MIPS程序员必须保留两个寄存器k0和k1，供操作系统使用。
+
+### 网上找到的31条指令是不全的
+> 摘抄see mips run
+<table>
+	<tr> <th>汇编/机器码</th><th>功能描述</th></tr>
+	<tr> <td>abs	d, s<br>sra $at, s, 31<br></td><td>d = s < 0? -s : s</td></tr>
+</table>

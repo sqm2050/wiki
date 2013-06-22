@@ -1566,3 +1566,39 @@ PP1:~CONSOLE-> 06 00 ff8a ffea ffab 3a 00 19
 
 
 ROR PEMX_INT_SUM(0)[SE]: System Error, RC Mode Only.])
+
+		export OCTEON_REMOTE_PROTOCOL=linux
+		/mnt/oct-remote-csr PEM0_INT_ENB 0x0000000000003bf0
+		
+juson(config-cpu0)# 
+PP1:~CONSOLE-> out grp 63
+PP1:~CONSOLE-> out id 0
+PP1:~CONSOLE-> vlan id fbf
+PP1:~CONSOLE-> new_vlan_id fbf
+
+juson(config-cpu0)# add ruleset int aclmask 0 sip=10.10.168.178/24-10.10.169.244/24,action=forward,slotgroup=0,outgroup=2
+add aclmask successful
+
+juson(config-cpu0)# sync ruleset int aclmask 
+sync aclmask successful
+
+
+juson(config-cpu0)# show ruleset int aclmask 0 
+
+ ruleset: [int] aclmask configuration
+	 aclmask[0]: pri=0,aging=0,sip=10.10.168.178/24-10.10.169.244/24,dip=0.0.0.0/0,sport=0-65535,dport=0-65535,protocol=any,action=forward,fmt_add=disable,reverse=disable,slotgroup=0,outgroup=2
+	 Flag_Enable: 1	 Flag_Sync: 1
+
+juson(config-cpu0)#
+PP1:~CONSOLE-> out grp 2
+PP1:~CONSOLE-> out id 0
+PP1:~CONSOLE-> vlan id fbf
+PP1:~CONSOLE-> new_vlan_id fbf
+PP1:~CONSOLE-> 2 new vlan fbf
+
+juson(config-cpu0)# PP1:~CONSOLE-> out grp 2
+PP1:~CONSOLE-> bal 4168240 num 1 id 0
+PP1:~CONSOLE-> vlan id fbf
+PP1:~CONSOLE-> new_vlan_id fbf
+PP1:~CONSOLE-> 2 new vlan fbf
+

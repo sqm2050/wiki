@@ -65,6 +65,7 @@
 * [[flash-ic]]
 * [[minicom]]
 * [[wiki-wpa]]
+* [[xrandr]]
 ### X86
 * [[X86 Architecture]]
 * [[段页内存管理]]
