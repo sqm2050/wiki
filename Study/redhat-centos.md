@@ -1,7 +1,6 @@
-替换红帽源为cent源：
+## 替换红帽源为cent源：
 
-就是redhat必须注册才能使用它的源，解决方法就是使用centos的源，当然也得把红帽的
-认证插件，和yum工具.
+就是redhat必须注册才能使用它的源，解决方法就是使用centos的源，当然也得把红帽的 认证插件，和yum工具.
 
 Redhat Linux无法使用yum快速安装软件解决方案
 
@@ -53,7 +52,17 @@ rpm -e --nodeps yum-rhn-plugin-0.5.4-13.el5
  
 [root@banping centos]# wget http://mirrors.163.com/centos/5/os/x86_64/CentOS/yum-metadata-parser-1.1.2-3.el5.centos.x86_64.rpm
  
+无依赖，强制：
+--nodeps,--force
 安装新下载的包：
+
+yum错误：Cannot retrieve repository metadata (repomd.xml) for repository 原来是我的yum源地址该更新了！
+		解决方法如下：
+# cd /etc/
+#ls
+		找到yum.repos.d这个目录，里面有个文件zl.repo（你的机器里也许不是这个名字，名称应该是自定义的）,vi 编译一下里面的地址baseurl=http://centos.ustc.edu.cn/centos/5/os/i386/
+		然后#yum clean all
+		之后：yum -y install net-snmp安装就可以了！)
  
 [root@banping centos]# rpm -ivh yum-*
  
@@ -73,3 +82,13 @@ centOS　　rpm下载地址http://mirrors.163.com/centos/
 安裝rpmforge-release
 	wget http://dag.wieers.com/rpm/packages/rpmforge-release/rpmforge-release-0.3.6-1.el5.rf.i386.rpm
 	rpm -Uvh rpmforge-release
+	
+
+	RHA5上用yum安装程序时候，出现下面的异常问题：
+	Is this ok [y/N]: y
+	Downloading Packages:
+	warning: rpmts_HdrFromFdno: Header V3 DSA signature: NOKEY, key ID e8562897
+	    
+	RHA5
+	解决办法：
+	rpm --import http://centos.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-5

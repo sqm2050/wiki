@@ -7,7 +7,6 @@ sqm:
 		or	git commit -a -m "---"
 	git remote add origin https://github.com/sqm2050/-juson.git
 
-
 [alias]
 	co = checkout
 	ci = commit
@@ -84,3 +83,23 @@ git push:
 	git checkout -b master origin/master
 	或者
 	git checkout -t origin/master
+```
+### 创建按本地分支
+```
+	git branch 分支名
+```
+
+### 本地分支复制到远程
+```
+	git push origin 分支名
+```
+
+### 提交分支数据到远程服务器
+```
+	git push origin 分支名:分支名
+```
+
+### 删除远程分支
+```
+	git push origin :分支名
+```

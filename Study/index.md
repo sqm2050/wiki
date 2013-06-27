@@ -31,6 +31,10 @@
 * [[自动补全-对齐]]
 ## Project 
 * [[project]]
+
+## 硬件
+* [[串口]]
+
 ### C Lang	
 * [[c_index]]
  
@@ -43,6 +47,7 @@
 
 ### web
 * [[label]]
+* [[ngnix]]
 ### Algorithm
 * [[boyer moore]]
 ### multi Pro

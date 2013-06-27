@@ -1601,4 +1601,186 @@ PP1:~CONSOLE-> bal 4168240 num 1 id 0
 PP1:~CONSOLE-> vlan id fbf
 PP1:~CONSOLE-> new_vlan_id fbf
 PP1:~CONSOLE-> 2 new vlan fbf
+```
+root@juson:/mnt# [62344.432851] Restarting system.
+Warning: clock exceeds maximum value, truncating.
+Warning: clock exceeds maximum value, truncating.
+Warning: clock exceeds maximum value, truncating.
+Warning: clock exceeds maximum value, truncating.
+Warning: clock exceeds maximum value, truncating.
+System initialize......
+
+U-Boot 2011.03-00073-g7619630-dirty (Development build, svnversion: u-boot:exported, exec:exported) (Build time: Apr 02 2013 - 09:28:43)
+
+Skipping PCIe port 0 BIST, reset not done. (port not configured)
+Skipping PCIe port 1 BIST, reset not done. (port not configured)
+BIST check passed.
+Warning: Clock descriptor tuple not found in eeprom, using defaults
+DFM interface initialized 1024 MB
+DM6645B board revision major:1, minor:0, serial #: JSH6224130510P03N048
+OCTEON CN6645-AAP pass 1.2, Core clock: 1100 MHz, IO clock: 800 MHz, DDR clock: 667 MHz (1334 Mhz data rate)
+Base DRAM address used by u-boot: 0x10f800000, size: 0x800000
+DRAM: 4 GiB
+Clearing DRAM...... done
+Flash: 32 MiB
+Starting PCIE
+PCIe: Port 0 link active, 4 lanes, speed gen2
+PCIe: port=0, first_bus=0, last_bus=0,
+        mem_base=0xe0000000, mem_size=0x10000000, io_base=0x1000, io_size=0xff000
+PCIe: Port 1 is XAUI, skipping.
+Net:   ERROR : phy handle not found in device tree ipd_port=0
+octmgmt0, octeth0
+Hit any key to stop autoboot:  0 
+Bootloader: Done loading app on coremask: 0x3fe
+argv[2]: coremask=0x1
+argv[3]: mem=500
+## No elf image at address 0x1dd00000
+   Uncompressing LZMA ...  
+Allocating memory for ELF segment: addr: 0xffffffff80100000 (adjusted to: 0x100000), size 0x11011f0
+Allocated memory for ELF segment: addr: 0xffffffff80100000, size 0x11011f0
+Processing PHDR 0
+## Loading Linux kernel with entry point: 0xffffffff80105c70 ...
+Bootloader: Done loading app on coremask: 0x1
+Starting cores 0x3ff
+PP1:~CONSOL[E  ->   0U.si0n0g00 0d0ev] icLei nturx evee
+resPi1o:n ~C2.O6N.SO3L2E.2-7>D 
+e PaPm1V:1~.0C-O0NS00OL1E6-->g 39##44#8#3##0# #(r#o#l##fl##a#u#@#L#iu#X#u##ey##i#s#-#M#ac##Bo#o#k##-#P#ro#.#l##oc##a#l#)# #(g#c#c## v#
+ rPsPi1on:~ 4C.O3NS.O3L (EC-a> viWAuRmN INNetGw:o Srkofst wVaerrse iocno:nf i2g_2u_r0ed b fuoirl do 1l1d3er)  r)e v#i3s0 ioSMnP  thTaun5
+:4P8P 1:CS~CTO N2S0O13LE
+92[        0 . 0  00  0C0o0m]p CilVMeSdE fGo rsi zIeD=: 0x10 0c0adch9e2 00li, nCehsi p(1 i28s  b0xy0t0es0)d
+  [0 2
+##P P01.0:0~0CO00NS0O]L EC-av> iu#m# ##N#e#tw#o#r##ks## #S#D#K#-2#.#2#
+  [# # ##  #0#.##0#0#00#0#0##] ##b#o#o#t#co#n#s##ol##e# #[#e#ar
+E-y0P1]: ~eCnOabNSleOdL
+  >[  
+p- 0.00P0P0100:]~ COCPNSUO LrEe-vi> sJiousno ni sF: lo00w0 dOS9 2J02A S(-FCa 1v.i2u-m2 O4c2t (eoDenv eIlIo)
+o [2 e7  8b 10f. 0b00ui00l0d] 2 0C1he3c-k06in-2g5 )f
+viP Pt1h:e ~mCuONltSOiLpEl-y>/s ShiDfKt V ebrugs.i.on. : nCoa.
+  u[ m  N e t0w.0or00k0s0 O0c]t Cehoen ckSDiKn gv eforrs iothn e2 .d2a.dd0-iup 4b, ubgu..i.l dn o46.6
+
+bl  P 1 :~0.CO0N0S0O0L00E]- > DeIntietr msinreedg :p gheytsi csahal reRdA Mn amampe: 
+  o[ ck  ,  0si.z0e00:0 00x0]80 ,  mneamomreyd::  s0e0r0v0i00ce00_0r0eg5,2 80p0t0r: @ 0 x01020200e0a08000
+ 0P8P81:00~0C O(NuSsOaLEb-l>e  Bafootetr  oni nCitP)U
+[
+     0.000000]  memory: 0000000004c00000 @ 0000000003400000 (usable)
+[    0.000000]  memory: 0000000005400000 @ 000000000a800000 (usable)
+[    0.000000]  memory: 0000000015000000 @ 0000000020000000 (usable)
+[    0.000000] Wasting 44912 bytes for tracking 802 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] Using passed Device Tree.
+[    0.000000] Placing 0MB software IO TLB between a80000000340c000 - a80000000344c000
+[    0.000000] software IO TLB at phys 0x340c000 - 0x344c000
+[    0.000000] Zone PFN ranges:
+[    0.000000]   DMA32    0x00000322 -> 0x0003c000
+[    0P.P0100:~00C0O]NS O L EN-or> mawla it i n0xg0 0sy03ncc 0s0i0g -na> l0.x..0 0.0.3.c0
+00
+[    0.000000] Movable zone start PFN for each node
+[    0.000000] early_node_map[4] active PFN ranges
+[    0.000000]     0: 0x00000322 -> 0x0000046c
+[    0.000000]     0: 0x00000d00 -> 0x00002000
+[    0.000000]     0: 0x00002a00 -> 0x00003f00
+[    0.000000]     0: 0x00008000 -> 0x0000d400
+[    0.000000] Cavium Hotplug: Available coremask 0x0
+[    0.000000] PERCPU: Embedded 3 pages/cpu @a800000003770000 s9856 r8192 d31104 u65536
+[    0.000000] pcpu-alloc: s9856 r8192 d31104 u65536 alloc=4*16384
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 31891
+[    0.000000] Kernel command line:  bootoctlinux 0x1dd00000 coremask=0x1 mtdparts=octeon_nor0:1m(BOOT),7m(LINUX),21m(CONFIG),3m(MD) co0
+[    0.000000] PID hash table entries: 2048 (order: 0, 16384 bytes)
+[    0.000000] Dentry cache hash table entries: 65536 (order: 5, 524288 bytes)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 4, 262144 bytes)
+[    0.000000] Primary instruction cache 37kB, virtually tagged, 37 way, 8 sets, linesize 128 bytes.
+[    0.000000] Primary data cache 32kB, 32-way, 8 sets, linesize 128 bytes.
+[    0.000000] Memory: 502992k/513184k available (4789k kernel code, 9648k reserved, 7013k data, 5280k init, 0k highmem)
+[    0.000000] Hierarchical RCU implementation.
+[    0.000000] NR_IRQS:453
+[   18.537419] Calibrating delay loop (skipped) preset value.. 2200.00 BogoMIPS (lpj=11000000)
+[   18.545665] Mount-cache hash table entries: 1024
+[   18.550393] Checking for the daddi bug... no.
+[   18.554698] Brought up 1 CPUs
+[   18.558762] NET: Registered protocol family 16
+[   18.563582] PCIe: Initializing port 0
+[   18.623721] PCIe: Port 0 link active, 4 lanes, speed gen2
+[   18.733080] PCIe: Initializing port 1
+[   18.736567] PCIe: Port 1 is XAUI, skipping.
+[   18.742628] bio: create slab <bio-0> at 0
+[   18.837446] pci 0000:00:00.0: PME# supported from D0 D3hot D3cold
+[   18.858370] pci 0000:00:00.0: PME# disabled
+[   19.042523] pci 0000:01:01.0: PME# supported from D0 D3hot D3cold
+[   19.063445] pci 0000:01:01.0: PME# disabled
+[   19.157550] pci 0000:01:02.0: PME# supported from D0 D3hot D3cold
+[   19.178471] pci 0000:01:02.0: PME# disabled
+[   19.272576] pci 0000:01:03.0: PME# supported from D0 D3hot D3cold
+[   19.293498] pci 0000:01:03.0: PME# disabled
+[   19.387609] pci 0000:01:0a.0: PME# supported from D0 D3hot D3cold
+[   19.408531] pci 0000:01:0a.0: PME# disabled
+[   19.502639] pci 0000:01:0b.0: PME# supported from D0 D3hot D3cold
+[   19.523561] pci 0000:01:0b.0: PME# disabled
+[   19.617665] pci 0000:01:0c.0: PME# supported from D0 D3hot D3cold
+[   19.638587] pci 0000:01:0c.0: PME# disabled
+[   19.732691] pci 0000:01:0d.0: PME# supported from D0 D3hot D3cold
+[   19.753612] pci 0000:01:0d.0: PME# disabled
+[   19.847716] pci 0000:01:0e.0: PME# supported from D0 D3hot D3cold
+PP1:~CONSOLE-> waiting sync signal... ...
+[   19.868638] pci 0000:01:0e.0: PME# disabled
+[   19.962742] pci 0000:01:0f.0: PME# supported from D0 D3hot D3cold
+[   19.983664] pci 0000:01:0f.0: PME# disabled
+[   20.723057] pci 0000:03:00.0: PME# supported from D3hot
+[   20.743111] pci 0000:03:00.0: PME# disabled
+PP1:~CONSOLE-> waiting sync signal... ...
+[   22.401315] pci 0000:01:01.0: PCI bridge, secondary bus 0000:02
+[   22.407060] pci 0000:01:01.0:   IO window: disabled
+[   22.456935] pci 0000:01:01.0:   MEM window: disabled
+[   22.491727] pci 0000:01:01.0:   PREFETCH window: disabled
+[   22.646995] pci 0000:01:02.0: PCI bridge, secondary bus 0000:03
+[   22.652740] pci 0000:01:02.0:   IO window: 0x1000-0x1fff
+[   22.703044] pci 0000:01:02.0:   MEM window: 0xe7000000-0xe70fffff
+[   22.738966] pci 0000:01:02.0:   PREFETCH window: 0x000000e6000000-0x000000e60fffff
+PP1:~CONSOLE-> waiting sync signal... ...
+[   22.806371] pci 0000:01:03.0: PCI bridge, secondary bus 0000:04
+[   22.812113] pci 0000:01:03.0:   IO window: disabled
+[   22.861985] pci 0000:01:03.0:   MEM window: disabled
+[   22.896777] pci 0000:01:03.0:   PREFETCH window: disabled
+[   23.022034] pci 0000:01:0a.0: PCI bridge, secondary bus 0000:05
+[   23.027777] pci 0000:01:0a.0:   IO window: disabled
+[   23.077649] pci 0000:01:0a.0:   MEM window: 0xe7100000-0xe71fffff
+[   23.113571] pci 0000:01:0a.0:   PREFETCH window: 0x000000e6100000-0x000000e61fffff
+[   23.180977] pci 0000:01:0b.0: PCI bridge, secondary bus 0000:06
+[   23.186719] pci 0000:01:0b.0:   IO window: disabled
+[   23.236591] pci 0000:01:0b.0:   MEM window: disabled
+[   23.271384] pci 0000:01:0b.0:   PREFETCH window: disabled
+[   23.336617] pci 0000:01:0c.0: PCI bridge, secondary bus 0000:07
+[   23.342359] pci 0000:01:0c.0:   IO window: disabled
+[   23.392230] pci 0000:01:0c.0:   MEM window: disabled
+[   23.427023] pci 0000:01:0c.0:   PREFETCH window: disabled
+[   23.552276] pci 0000:01:0d.0: PCI bridge, secondary bus 0000:08
+[   23.558019] pci 0000:01:0d.0:   IO window: disabled
+[   23.607890] pci 0000:01:0d.0:   MEM window: disabled
+[   23.642684] pci 0000:01:0d.0:   PREFETCH window: 0x000000e0000000-0x000000e5ffffff
+[   23.710089] pci 0000:01:0e.0: PCI bridge, secondary bus 0000:09
+[   23.715831] pci 0000:01:0e.0:   IO window: disabled
+[   23.765703] pci 0000:01:0e.0:   MEM window: disabled
+[   23.800495] pci 0000:01:0e.0:   PREFETCH window: disabled
+[   23.865729] pci 0000:01:0f.0: PCI bridge, secondary bus 0000:0a
+[   23.871471] pci 0000:01:0f.0:   IO window: disabled
+[   23.921342] pci 0000:01:0f.0:   MEM window: disabled
+[   23.956135] pci 0000:01:0f.0:   PREFETCH window: disabled
+[   24.021368] pci 0000:00:00.0: PCI bridge, secondary bus 0000:01
+[   24.027113] pci 0000:00:00.0:   IO window: 0x1000-0x1fff
+[   24.077417] pci 0000:00:00.0:   MEM window: 0xe7000000-0xe71fffff
+[   24.113339] pci 0000:00:00.0:   PREFETCH window: 0x000000e0000000-0x000000e6ffffff
+[   24.195752] PCI: Enabling device 0000:00:00.0 (0000 -> 0003)
+PP1:~CONSOLE-> waiting sync signal... ...
+[   24.696388] PCI: Enabling device 0000:01:02.0 (0000 -> 0003)
+[   25.197020] PCI: Enabling device 0000:01:0a.0 (0000 -> 0002)
+PP1:~CONSOLE-> waiting sync signal... ...
+[   25.937725] PCI: Enabling device 0000:01:0d.0 (0000 -> 0002)
+[   26.905714] Switching to clocksource OCTEON_CVMCOUNT
+[   26.911589] NET: Registered protocol family 2
+[   26.915936] IP route cache hash table entries: 4096 (order: 1, 32768 bytes)
+[   26.922845] TCP established hash table entries: 16384 (order: 4, 262144 bytes)
+[   26.930103] TCP bind hash table entries: 16384 (order: 4, 262144 bytes)
+[   26.936752] TCP: Hash tables configured (established 16384 bind 16384)
+[   26.943108] TCP reno registered
+```
 
