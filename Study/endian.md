@@ -30,16 +30,16 @@ main()
 		struct {
 			uint16_t a:1,
 				b:3,
-				d:6,
-				e:6;
+				c:6,
+				d:6;
 		};
 		uint16_t data;
 	}__attribute__((aligned(8))) little;
 
 	little.a = 1;		/* 1 	*/
 	little.b = 1;		/* 001	*/
-	little.d = 0x2b;	/* 101011 */
-	little.e = 0x38;	/* 111000 */
+	little.c = 0x2b;	/* 101011 */
+	little.d = 0x38;	/* 111000 */
 
 	printf("%#x\n", little.data);
 	prt_bin((char *)&little, 2);
@@ -49,3 +49,15 @@ result:
 
 > 0xe2b3
 > 10110011 11100010 
+位图：|ccccbbba|ddddddcc|
+BIG：|ddddddcc|ccccbbba|
+
+```
+struct {
+		uint16_t d:6,
+				c:6,
+				b:3,
+				a:1;
+};
+```
+}

@@ -1783,4 +1783,3 @@ PP1:~CONSOLE-> waiting sync signal... ...
 [   26.936752] TCP: Hash tables configured (established 16384 bind 16384)
 [   26.943108] TCP reno registered
 ```
-

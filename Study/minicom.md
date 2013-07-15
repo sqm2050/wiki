@@ -2,4 +2,3 @@
 	minicom -s
 	Serial port setup->F Hardware Flow Control : YES 
 	按F，把YES改成NO
-

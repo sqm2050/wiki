@@ -24,7 +24,7 @@
 * [[aphorism]]
 * [[陈怀临]] 
 * [[王聪]]
-# Computer 
+# [[Computer]] 
 ## Architecture
 * [[TLB]]
 ## vim 
