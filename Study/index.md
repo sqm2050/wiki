@@ -26,7 +26,6 @@
 * [[王聪]]
 
 # [[Computer]] 
-
 ## Architecture
 * [[TLB]]
 * [[CPU Cache]]
