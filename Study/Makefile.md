@@ -483,3 +483,11 @@ $(wildcard *.o /src/*.o)#就是把通匹配符匹配的展开
 ## 变量传递的方法
 * include一个文件
 * export变量名
+
+
+## 清除连接文件
+> 后来使用objs/%.o:source-dir/%.c，避免使用连接
+clear:
+	$(Q)find . -type l -exec rm -rf {} \;
+	
+## 变量作为依赖或目标，间接作为依赖或目标

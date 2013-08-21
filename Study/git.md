@@ -96,10 +96,33 @@ git push:
 
 ### 提交分支数据到远程服务器
 ```
-	git push origin 分支名:分支名
+	git push origin 本地分支名:分支名
 ```
 
-### 删除远程分支
+### 删除远程分支 - tag
 ```
 	git push origin :分支名
+		or
+	git push origin --delete <branchName>
+	
+	git push origin -d <tagName>
+		or
+	git push origin --delete tag <tagName>
 ```
+
+### 获取远程tag
+```
+	git fetch origin tag <tagName>
+```
+
+## 本地复制
+复制一个分支:
+```
+	git clone -b 分支名 本地仓库目录 复制的目的目录
+```
+
+### 删除被gitignore忽略的文件
+```
+git ignore -xdf
+```
+x 选项忽略.gitignore文件的规则，而是根据-e来忽略。

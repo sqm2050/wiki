@@ -92,4 +92,3 @@ tasks:
 ---
 English:
 	power of less
-	the stat of the Union address

@@ -24,11 +24,16 @@
 * [[aphorism]]
 * [[陈怀临]] 
 * [[王聪]]
+
 # [[Computer]] 
+
 ## Architecture
 * [[TLB]]
+* [[CPU Cache]]
+
 ## vim 
 * [[自动补全-对齐]]
+
 ## Project 
 * [[project]]
 
@@ -44,17 +49,22 @@
 
 ### asm
 * [[mips]]
+* [[buildroot]]				交叉编译工具
 
 ### web
 * [[label]]
 * [[ngnix]]
+*
 ### Algorithm
 * [[boyer moore]]
+*
 ### multi Pro
 * [[the art of mutiprocessor programming]]
+ 
 ### Network 
 * [[协议]]
 * [[CRC]]
+
 ### linux
 * [[ubuntu]]
 * [[time]]
@@ -71,6 +81,7 @@
 * [[minicom]]
 * [[wiki-wpa]]
 * [[xrandr]]
+
 ### X86
 * [[X86 Architecture]]
 * [[段页内存管理]]
@@ -83,6 +94,7 @@
 * [[See MIPS Run Linux(2nd edition]]
 * [[MIPS64 Architecture]]
 * [[Mips assembly]]
+
 ### Octeon 
 * [[框架结构]]
 * [[frame_test]]

@@ -49,6 +49,7 @@ result:
 
 > 0xe2b3
 > 10110011 11100010 
+第一个成员从第一个字节倒序填充，超过一个字节继续填充下一个。
 位图：|ccccbbba|ddddddcc|
 BIG：|ddddddcc|ccccbbba|
 

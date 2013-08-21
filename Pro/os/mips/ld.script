@@ -1,0 +1,18 @@
+ENTRY(__start)
+SECTIONS
+{
+
+  . = 0xbfc00200;
+  .text :
+  {
+    *(.text)
+    *(.rodata)
+    *(.rodata1)
+    *(.stub)
+    *(.gnu.warning)
+  } =0
+  .data :
+  {
+    *(.data)
+  }
+}

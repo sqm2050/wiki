@@ -281,3 +281,13 @@ waitpid支持作业控制(利用WUNTRACED和WCONTINUED选项)。
 int waitid(idtype_t idtype, id_tid, siginfo_t *infop, int options);
 与waitpid 相似，waitid允许一个进程指定要等待的子进程。但它使用单独的参数表示要
 等待的子进程的类型，而不是将此与进程ID或进程组ID组合成一个参数。
+
+## 第十章 信号
+
+### signal函数
+Unix系统的信号机制最简单的接口是signal函数。
+
+从UNIX系统V派生的实现支持signal函数，但该函数提供旧的$不可靠信号语义$。提供此函数主要是为了向后兼容那些需要此旧语义的应用程序，新应用程序不应使用这些不可靠信号。
+
+Linux 2.4.22的signal语义依从BSD或者系统V，这取决于C函数库的版本，以及编译应用程序的方法。
+
