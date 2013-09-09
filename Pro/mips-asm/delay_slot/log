@@ -1,0 +1,41 @@
+
+branch.o:     file format elf32-tradbigmips
+
+
+Disassembly of section .text:
+
+00000000 <delay_test>:
+   0:	67bdffe0 	daddiu	sp,sp,-32
+   4:	ffbe0018 	sd	s8,24(sp)
+   8:	03a0f02d 	move	s8,sp
+   c:	0080102d 	move	v0,a0
+  10:	00a0182d 	move	v1,a1
+  14:	00c0202d 	move	a0,a2
+  18:	00e0282d 	move	a1,a3
+  1c:	00021000 	sll	v0,v0,0x0
+  20:	afc20000 	sw	v0,0(s8)
+  24:	00031000 	sll	v0,v1,0x0
+  28:	afc20004 	sw	v0,4(s8)
+  2c:	00041000 	sll	v0,a0,0x0
+  30:	afc20008 	sw	v0,8(s8)
+  34:	00051000 	sll	v0,a1,0x0
+  38:	afc2000c 	sw	v0,12(s8)
+  3c:	24021111 	li	v0,4369
+  40:	afc20000 	sw	v0,0(s8)
+  44:	24022222 	li	v0,8738
+  48:	afc20004 	sw	v0,4(s8)
+  4c:	8fc30000 	lw	v1,0(s8)
+  50:	8fc20004 	lw	v0,4(s8)
+  54:	00621021 	addu	v0,v1,v0
+  58:	afc2000c 	sw	v0,12(s8)
+  5c:	8fc30000 	lw	v1,0(s8)
+  60:	24021111 	li	v0,4369
+  64:	14620003 	bne	v1,v0,74 <delay_test+0x74>
+  68:	00000000 	nop
+  6c:	34029999 	li	v0,0x9999
+  70:	afc20008 	sw	v0,8(s8)
+  74:	03c0e82d 	move	sp,s8
+  78:	dfbe0018 	ld	s8,24(sp)
+  7c:	67bd0020 	daddiu	sp,sp,32
+  80:	03e00008 	jr	ra
+  84:	00000000 	nop
