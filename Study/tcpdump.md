@@ -1,5 +1,6 @@
 1. tcpdump -en -s 0 -XX -i eth0
 2. tcpdump -i eth0 -nexxvv -s0
+3. tcpdump  -i eth2 -neXXvv -s0 ether[12]=0x91
 2008-12-05 19:18:39|  分类： Unix/Linux |字号 订阅
 tcpdump采用命令行方式,它的命令格式为:
 tcpdump [-adeflnNOpqStvx] [-c 数量] [-F 文件名] [-i 网络接口] [-r 文件名] [-s snaplen] [-T 类型] [-w 文件名] [表达式]
