@@ -1,0 +1,429 @@
+commit 6968dea7a468742f29af67a84e8d933edb188646
+Author: Rolflau <Rolf.Lau@gmail.com>
+Date:   Wed May 29 18:47:35 2013 +0800
+
+    Add mbox module and use it for hfa sync/clear
+
+diff --git a/cli/netgate b/cli/netgate
+index 6f1b433..1c49a6e 160000
+--- a/cli/netgate
++++ b/cli/netgate
+@@ -1 +1 @@
+-Subproject commit 6f1b433a1bc92184ad7781d0f65c3be4f50e19b5
++Subproject commit 1c49a6e726c948b0bf163ab797bddb01325c8b85
+diff --git a/docs/Flow_md_counters_list.xls b/docs/Flow_md_counters_list.xls
+index 44b6bad..05ce92a 100644
+Binary files a/docs/Flow_md_counters_list.xls and b/docs/Flow_md_counters_list.xls differ
+diff --git a/libexec/acl/hfa/zxmx_acl_hfa.c b/libexec/acl/hfa/zxmx_acl_hfa.c
+index 6d250c8..f731d6f 100644
+--- a/libexec/acl/hfa/zxmx_acl_hfa.c
++++ b/libexec/acl/hfa/zxmx_acl_hfa.c
+@@ -299,8 +299,10 @@ static inline int zxmx_acl_hfa_graph_process()
+ 	return 0;
+ }
+ 
+-int zxmx_acl_hfa_graph_check()
++int zxmx_acl_hfa_graph_check(char *modl_name, int modl_id, mbox_msg_dat *dat)
+ {
++	ZXMX_MODULE_DEBUG("HFA","process graph check, %s-%d\n",
++			  modl_name, modl_id);
+ 	cvmx_sysinfo_t *sysinfo = cvmx_sysinfo_get();
+ 	if (cvmx_coremask_first_core(sysinfo->core_mask)){
+ 		if(cvmx_likely(pacl_hfa->graph_tag.action & 0x9))
+@@ -353,5 +355,13 @@ int zxmx_init_acl_hfa(const int grp_num)
+ 			, sizeof(acl_hfa_rule_all)
+ 			+sizeof(acl_hfa_table_t)*grp_num
+ 			, BOOTMEM_ACL_HFA_NAME, pacl_hfa);
++	pacl_hfa->int_hdl = mbox_open("HFA",
++				      0,
++				      (mbox_int_func_t)zxmx_acl_hfa_graph_check);
++	if(!pacl_hfa->int_hdl){
++		cvmx_dprintf("Failed to open mbox in HFA module.\n");
++		return -1;
++	}
++	cvmx_dprintf("Successed to open mbox in HFA module.\n");
+ 	return 0;
+ }
+diff --git a/libexec/acl/hfa/zxmx_acl_hfa.h b/libexec/acl/hfa/zxmx_acl_hfa.h
+index 7951831..b008866 100644
+--- a/libexec/acl/hfa/zxmx_acl_hfa.h
++++ b/libexec/acl/hfa/zxmx_acl_hfa.h
+@@ -130,6 +130,7 @@ typedef struct _acl_hfa_rule_all{
+ 	uint64_t grp_num:4,
+ 		 __rsv:60;
+ 	uint64_t hfa_dev;
++	mbox_handler int_hdl;
+ 	graph_proc_tag 	graph_tag;
+ 	acl_hfa_table_t tbl[0];
+ }acl_hfa_rule_all;
+@@ -158,14 +159,14 @@ typedef struct _hfa_pld_pad{
+ 	};
+ }hfa_pld_pad;
+ 
+-#ifdef CONFIG_ACL_HFA
+-#define ZXMX_ACL_HFA_GRAPH_CHECK() zxmx_acl_hfa_graph_check()
+-#else
+-#define ZXMX_ACL_HFA_GRAPH_CHECK() 
+-#endif
++//#ifdef CONFIG_ACL_HFA
++//#define ZXMX_ACL_HFA_GRAPH_CHECK() zxmx_acl_hfa_graph_check()
++//#else
++//#define ZXMX_ACL_HFA_GRAPH_CHECK() 
++//#endif
+ extern acl_hfa_rule_all *pacl_hfa CVMX_SHARED;
+ int zxmx_init_acl_hfa(const int grp_num);
+-int zxmx_acl_hfa_graph_check();
++int zxmx_acl_hfa_graph_check(char *modl_name, int modl_id, mbox_msg_dat *dat);
+ int zxmx_acl_hfa_process(cvmx_wqe_t *wqe,int acl_grp_id,acl_hfa_rule_t *rinfo);
+ int zxmx_acl_hfa_search(pkb_t *dpp,uint32_t data_len,uint32_t sid);
+ 
+diff --git a/libexec/common/hwbase/zxmx_mbox.c b/libexec/common/hwbase/zxmx_mbox.c
+new file mode 100644
+index 0000000..40a5084
+--- /dev/null
++++ b/libexec/common/hwbase/zxmx_mbox.c
+@@ -0,0 +1,156 @@
++/*
++ * =============================================================================
++ *
++ *       Filename:  zxmx_mbox.c
++ *
++ *    Description:  
++ *
++ *        Version:  1.0
++ *        Created:  05/29/13 10:18
++ *       Revision:  none
++ *       Compiler:  gcc
++ *
++ *         Author:  Xueyi Liu (Rolf), rolf.lau@gmail.com
++ *   Organization:  JusonTech
++ *
++ * =============================================================================
++ */
++#include "zxmx_comm_inc.h"
++#include "cvmx-interrupt.h"
++
++CVMX_SHARED struct _mbox_msg *pgmm;
++
++/* mbox_open and interrupt callback func. must be in SE-S mode */
++#ifndef __linux__
++mbox_handler mbox_open(char *modl_name, int modl_id, mbox_int_func_t cb){
++	if(cvmx_unlikely(!pgmm)){
++		pr_err("Mailbox is not initialized before.\n");
++		return 0;
++	}
++	ASSERT(cb);
++	int i = 0;
++	while(pgmm->mint[i++].f != NULL){
++		if(cvmx_unlikely(i >= MBOX_SP_MAX_INT_ID)){
++			pr_err("Mailbox is reatch the MAX available.\n");
++			return 0;
++		}
++	}
++	pgmm->mint[i].f = cb;
++	pgmm->mint[i].modl_id = modl_id;
++	if(cvmx_unlikely(strlen(modl_name) > (MBOX_MODL_NAME_MAXLEN-1))){
++		memcpy(pgmm->mint[i].name, modl_name,
++		       MBOX_MODL_NAME_MAXLEN - 1);
++		pgmm->mint[i].name[MBOX_MODL_NAME_MAXLEN-1] = '\0';
++	}else
++		strcpy(pgmm->mint[i].name, modl_name);
++	return (mbox_handler)cvmx_ptr_to_phys((void *)&pgmm->mint[i]);
++}
++
++void mbox_close(mbox_handler hd){
++	int i;
++	for(i = 0; i < MBOX_SP_MAX_INT_ID; i++){
++		if(hd == cvmx_ptr_to_phys((void *)&pgmm->mint[i])){
++			memset(&pgmm->mint[i], 0, sizeof(struct _mbox_int));
++			return;
++		}
++	}
++	pr_err("Not find the mbox handle 0x%llx.\n",(long long unsigned) hd);
++}
++#endif
++/*
++ *  return 1 as busy, -1 as fail, 0 as success
++ */
++int mbox_send_msg(mbox_handler hd, int8_t dest_core, mbox_msg_dat *md){
++#ifdef __linux__
++	if(cvmx_unlikely(!pgmm)){
++		pgmm = cvmx_phys_to_ptr(cvmx_bootmem_find_named_block(\
++			BOOTMEM_MBOX_MSG)->base_addr);
++		if(cvmx_unlikely(!pgmm)){
++			pr_err("Failed to get mbox bootmem.\n");
++			return -1;
++		}
++	}
++#else
++	ASSERT(pgmm);
++#endif
++	if(pgmm->procsing[dest_core]){
++		pr_err("Mbox interrupt is busy, please wait.\n");
++		return 1;
++	}
++	int i;
++	for(i = 0; i < MBOX_SP_MAX_INT_ID; i++){
++		if(hd == cvmx_ptr_to_phys((void *)&pgmm->mint[i])){
++			break;
++		}
++	}
++	if(cvmx_unlikely(i >= (MBOX_SP_MAX_INT_ID))){
++		pr_err("Not find the mbox handler that register before.\n");
++		return -1;
++	}
++	cvmx_fau_atomic_add64(CNTER_MBOX_MSG_SEND, 1);
++	struct _mbox_int *pmint = (struct _mbox_int *)cvmx_phys_to_ptr(hd);
++	uint64_t src_core = cvmx_get_core_num();
++	if(md)
++		pgmm->mmd[dest_core][src_core] = *md;
++	pgmm->id[dest_core][src_core] = i;
++	CVMX_SYNCW;
++	cvmx_write_csr(CVMX_CIU_MBOX_SETX(dest_core), 1ull << src_core);
++	return 0;
++}
++
++#ifndef __linux__
++static inline void __mbox_interrupt(int irq_number, uint64_t registers[32], void *user_arg)
++{
++	uint64_t core = cvmx_get_core_num();
++	pgmm->procsing[core] = 1;
++	uint64_t mbox = cvmx_read_csr(CVMX_CIU_MBOX_CLRX(core));
++	uint16_t i;
++	mbox_msg_dat *d;
++	for (i = 0; i < CONFIG_CORE_NUM; i++){
++		if (mbox & (1ull << i)){
++			d = &pgmm->mmd[core][i];
++			break;
++		}
++	}
++	if(cvmx_unlikely(i >= CONFIG_CORE_NUM)){
++		pr_err("Wrong mbox interrupt from core %u.\n", i);
++		return;
++	}
++	cvmx_fau_atomic_add64(CNTER_MBOX_MSG_INT_PROCS, 1);
++	int id = pgmm->id[core][i];
++	struct _mbox_int *pmint = &pgmm->mint[id];
++	if(pmint->f)
++		pmint->f(pmint->name, pmint->modl_id, d);
++
++	cvmx_write_csr(CVMX_CIU_MBOX_CLRX(core), mbox);
++	cvmx_read_csr(CVMX_CIU_MBOX_CLRX(core));
++	pgmm->procsing[core] = 0;
++}
++int zxmx_init_mbox(void){
++	pgmm = get_shared_named_block(sizeof(struct _mbox_msg),
++				      BOOTMEM_MBOX_MSG);
++	if(!pgmm){
++		cvmx_dprintf("Failed to allocate bootmem for mailbox.\n");
++		return -1;
++	}
++	cvmx_dprintf("Init mailbox success, size: 0x%lx, name: %s, ptr: %p\n"
++		     , sizeof(struct _mbox_msg), BOOTMEM_MBOX_MSG, pgmm);
++
++	//register the interrupt handler
++        cvmx_interrupt_register(CVMX_IRQ_MBOX0, __mbox_interrupt, NULL);
++        cvmx_interrupt_register(CVMX_IRQ_MBOX0 + 1, __mbox_interrupt, NULL);
++        if (OCTEON_IS_MODEL(OCTEON_CN68XX)) {
++            cvmx_interrupt_register(CVMX_IRQ_MBOX0 + 2, __mbox_interrupt, NULL);
++            cvmx_interrupt_register(CVMX_IRQ_MBOX0 + 3, __mbox_interrupt, NULL);
++        }
++
++	//enable mailbox interrupt
++	cvmx_interrupt_unmask_irq(CVMX_IRQ_MBOX0);
++	cvmx_interrupt_unmask_irq(CVMX_IRQ_MBOX0 + 1);
++	if (OCTEON_IS_MODEL(OCTEON_CN68XX)) {
++		cvmx_interrupt_unmask_irq(CVMX_IRQ_MBOX0 + 2);
++		cvmx_interrupt_unmask_irq(CVMX_IRQ_MBOX0 + 3);
++	}
++	return 0;
++}
++#endif
+diff --git a/libexec/common/hwbase/zxmx_mbox.h b/libexec/common/hwbase/zxmx_mbox.h
+new file mode 100644
+index 0000000..5f606cf
+--- /dev/null
++++ b/libexec/common/hwbase/zxmx_mbox.h
+@@ -0,0 +1,55 @@
++/*
++ * =============================================================================
++ *
++ *       Filename:  zxmx_mbox.h
++ *
++ *    Description:  
++ *
++ *        Version:  1.0
++ *        Created:  05/29/13 10:32
++ *       Revision:  none
++ *       Compiler:  gcc
++ *
++ *         Author:  Xueyi Liu (Rolf), rolf.lau@gmail.com
++ *   Organization:  JusonTech
++ *
++ * =============================================================================
++ */
++#ifndef __ZXMX_MBOX_INC__
++#define __ZXMX_MBOX_INC__
++
++#include "autoconf.h"
++#define BOOTMEM_MBOX_MSG "mailbox_msg"
++#define MBOX_SP_MAX_INT_ID 16
++
++typedef struct _mbox_msg_dat{
++	uint64_t dat;
++}mbox_msg_dat;
++
++typedef uint64_t mbox_handler;
++typedef void (*mbox_int_func_t)(char *modl_name, int modl_id, mbox_msg_dat *ud);
++
++typedef struct _mbox_int{
++#define MBOX_MODL_NAME_MAXLEN 32
++	char name[MBOX_MODL_NAME_MAXLEN];
++	int modl_id;
++	mbox_int_func_t f;
++}mbox_int;
++
++typedef struct _mbox_msg{
++	struct _mbox_msg_dat mmd[CONFIG_CORE_NUM][CONFIG_CORE_NUM];//dest-source
++	int id[CONFIG_CORE_NUM][CONFIG_CORE_NUM];
++	struct _mbox_int mint[MBOX_SP_MAX_INT_ID];
++	uint8_t procsing[CONFIG_CORE_NUM];
++}mbox_msg;
++
++#ifndef __linux__
++mbox_handler mbox_open(char *modl_name, int modl_id, mbox_int_func_t cb);
++void mbox_close(mbox_handler hd);
++int zxmx_init_mbox(void);
++#endif
++int mbox_send_msg(mbox_handler hd, int8_t dest_core, mbox_msg_dat *md);
++extern CVMX_SHARED struct _mbox_msg *pgmm;
++
++#endif	/* __ZXMX_MBOX_INC__ */
++
+diff --git a/libexec/common/hwbase/zxmx_tim.c b/libexec/common/hwbase/zxmx_tim.c
+index c44fe6f..616e5e1 100644
+--- a/libexec/common/hwbase/zxmx_tim.c
++++ b/libexec/common/hwbase/zxmx_tim.c
+@@ -4,10 +4,6 @@
+  * All rights reserved.
+  *************************************************************/
+ #include "zxmx_comm_inc.h"
+-#include "zxmx_tim.h"
+-#include "zxmx_fpa.h"
+-#include "zxmx_debug.h"
+-#include "zxmx_mem.h"
+ 
+ CVMX_SHARED cvmx_tim_t *pgtim=NULL;
+ 
+diff --git a/libexec/common/include/zxmx_fau.h b/libexec/common/include/zxmx_fau.h
+index 197bdd3..2c0c444 100644
+--- a/libexec/common/include/zxmx_fau.h
++++ b/libexec/common/include/zxmx_fau.h
+@@ -152,6 +152,11 @@ typedef enum{
+ 
+ 		//Device manager
+ 		CNTER_MANAGER_PKT_NUM 		= ZXMX_FAU_CNTER_ADDR(85),
++
++		//mbox
++		CNTER_MBOX_MSG_SEND 		= ZXMX_FAU_CNTER_ADDR(86),
++		CNTER_MBOX_MSG_INT_PROCS 	= ZXMX_FAU_CNTER_ADDR(87),
++
+ 	}zxmx_fau_cnter_name;
+ 
+ #define ZXMX_FAU_XMIT(i) ((i<<2) + ALIGN(ZXMX_FAU_CNTER_END, 4))
+diff --git a/libexec/zxmx_comm_inc.h b/libexec/zxmx_comm_inc.h
+index 58c2411..645c3f3 100644
+--- a/libexec/zxmx_comm_inc.h
++++ b/libexec/zxmx_comm_inc.h
+@@ -42,4 +42,5 @@
+ #include "zxmx_sreg.h"
+ #include "zxmx_sysinfo.h"
+ #include "zxmx_ctl.h"
++#include "zxmx_mbox.h"
+ #endif /* __ZXMX_COMM_INC_H__*/
+diff --git a/mduapi/src/Makefile b/mduapi/src/Makefile
+index b163371..a53dafd 100644
+--- a/mduapi/src/Makefile
++++ b/mduapi/src/Makefile
+@@ -39,6 +39,7 @@ ifneq (,$(findstring JSH6000, $(HW_TYPE)))
+ MDUAPI_LINUX = $(ZXEXECUTIVE_DIR)/common/hwbase/zxmx_fpa.c \
+ 		$(ZXEXECUTIVE_DIR)/common/hwbase/zxmx_tim.c \
+ 		$(ZXEXECUTIVE_DIR)/common/hwbase/zxmx_mem.c \
++		$(ZXEXECUTIVE_DIR)/common/hwbase/zxmx_mbox.c \
+ 		$(ZXEXECUTIVE_DIR)/mact/zxmx_mact.c \
+ 		$(ZXEXECUTIVE_DIR)/fmt/zxmx_fmt.c \
+ 		$(ZXEXECUTIVE_DIR)/acl/rfc/zxmx_acl.c \
+@@ -88,6 +89,8 @@ $(OBJS_DIR)/zxmx_tim.o: $(ZXEXECUTIVE_DIR)/common/hwbase/zxmx_tim.c
+ 	$(COMPILE)
+ $(OBJS_DIR)/zxmx_mem.o: $(ZXEXECUTIVE_DIR)/common/hwbase/zxmx_mem.c
+ 	$(COMPILE)
++$(OBJS_DIR)/zxmx_mbox.o: $(ZXEXECUTIVE_DIR)/common/hwbase/zxmx_mbox.c
++	$(COMPILE)
+ $(OBJS_DIR)/zxmx_fmt.o: $(ZXEXECUTIVE_DIR)/fmt/zxmx_fmt.c
+ 	$(COMPILE)
+ $(OBJS_DIR)/zxmx_mact.o: $(ZXEXECUTIVE_DIR)/mact/zxmx_mact.c
+diff --git a/mduapi/src/acl/hfa/mduapi_hfa.c b/mduapi/src/acl/hfa/mduapi_hfa.c
+index 027352d..bf48383 100644
+--- a/mduapi/src/acl/hfa/mduapi_hfa.c
++++ b/mduapi/src/acl/hfa/mduapi_hfa.c
+@@ -76,7 +76,7 @@ static void sig_alarm(int signo)
+ 	pacl_hfa->graph_tag.action = ACT_IDLE;
+ 	slog_error("Wait for se process action time out");
+ }
+-
++#define MBOX_MSG_TO_CORE_ID  1  //one of the SE core
+ static int process_switch(int action,int grp_id)
+ {
+ 	pacl_hfa->graph_tag.action = action;
+@@ -85,6 +85,12 @@ static int process_switch(int action,int grp_id)
+ 	/* catch  signal  */
+ 	signal(SIGALRM,sig_alarm);
+ 	alarm(TIME_OUT);
++	//send mbox msg
++	if(mbox_send_msg(pacl_hfa->int_hdl,
++			 MBOX_MSG_TO_CORE_ID,
++			 NULL) < 0){
++
++	}
+ 
+ 	/* roll polling */
+ 	while((pacl_hfa->graph_tag.action != ACT_IDLE) && (pacl_hfa->graph_tag.action != ACT_FAILED) && (proc_time_out != 1))
+diff --git a/sdk/OCTEON-SDK b/sdk/OCTEON-SDK
+index 3261290..f347152 160000
+--- a/sdk/OCTEON-SDK
++++ b/sdk/OCTEON-SDK
+@@ -1 +1 @@
+-Subproject commit 32612906b722e820c86eb59a5e485fc587a8d43e
++Subproject commit f3471525287b90c0c0fb9acb1c9ef8ae41f2912a
+diff --git a/sse/zxmd_init.c b/sse/zxmd_init.c
+index 26480ab..5148953 100644
+--- a/sse/zxmd_init.c
++++ b/sse/zxmd_init.c
+@@ -294,8 +294,11 @@ int zxmd_main_init_in_first_core(void)
+ 	}
+ 	printf("Init hardware success...\n");
+ 
+-//	zxmd_init_ver();
+-//	printf("Set zxmd version success...\n");
++	if(zxmx_init_mbox() < 0){
++		cvmx_dprintf("Init mbox fail.\n");
++		return -1;
++	}
++	printf("Init mbox success...\n");
+ 
+ #ifdef CONFIG_HW_TIM
+ 	/* Init timer */
+diff --git a/sse/zxmd_main.c b/sse/zxmd_main.c
+index 5148a48..14c3a25 100644
+--- a/sse/zxmd_main.c
++++ b/sse/zxmd_main.c
+@@ -114,9 +114,6 @@ static void zxmd_main_loop(void)
+ 	cvmx_wqe_t *work;
+ 	cvmx_pow_work_request_async(ZXMX_SCR_SCRATCH_16, CVMX_POW_WAIT);
+ 	while (1){
+-#ifdef CONFIG_ACL_HFA
+-		ZXMX_ACL_HFA_GRAPH_CHECK();
+-#endif
+ #ifdef CONFIG_URL_BLOCK
+ 		zxmx_url_conf_by_bootmem();
+ #endif
